@@ -1,0 +1,25 @@
+form:
+  username_confirmation: 'Repeat username'
+  email_confirmation: 'Repeat email'
+  current_username: 'Current username'
+  current_email: 'Current email'
+  new_email: 'New Email'
+  new_username: 'New username'
+
+invitation:
+    email:
+        subject: 'Welcome %username%!'
+        message: |
+            Hello %username%,
+
+            You are being added as a City User of CityGovJobs.com by %invitedBy%, %registeredJobTitle% who is the Administrator of CityGovJobs for your City.
+
+            Before you login, you must register. Please use this link to register:
+
+            %confirmationUrl%
+
+            This link can only be used once to validate your account.
+
+            Sincerely,
+
+            CityGovJobs

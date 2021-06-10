@@ -1,0 +1,26 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Application Deadline', 'canEdit': canEdit, 'urgency': 'Required', checkmark: checkmark} %}
+<hr/>
+<div class="row editable">
+    <div class="col-md-12">
+        <p id="application-deadline-continuous" class="{{ jobAnnouncement.hasNoEndDate ? "" : "d-none" }}">
+            {{ jobAnnouncement.endDateDescription }}
+        </p>
+        <p id="application-deadline-date" class="{{ jobAnnouncement.hasNoEndDate ? "d-none" : "" }}">{{ jobAnnouncement.applicationDeadline ? jobAnnouncement.applicationDeadline|date('m/d/Y h:i A T', city.phpTimezone) : "No Application Deadline"}}</p>
+    </div>
+</div>
+{% if form is defined %}
+    <div class="row">
+        <div class="col-12 col-md-6">
+            {% include 'city/job/announcement/_application_deadline_form.html.twig' with {'form': form} %}
+        </div>
+    </div>
+{% endif %}

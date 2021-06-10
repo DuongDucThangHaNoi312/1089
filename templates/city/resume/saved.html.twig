@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Job Resume{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h2>Saved Resumes</h2>
+            {% set m = knp_menu_get( 'cityUserResumeMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+            {{ knp_menu_render(m) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center">
+        <div class="col-10 m-4 p-4 bg-white">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    Showing {{ pagination.paginationData.firstItemNumber }} - {{ pagination.paginationData.lastItemNumber}} of {{ pagination.paginationData.totalCount }}
+                </div>
+            </div>
+            <div class="row bg-white py-3">
+                <div class="col-lg-3 col-sm-12 bg-white mb-3">
+                    <div class=" col-12 bg-light py-3">
+                        {{ form(filterForm) }}
+                        <a class="btn btn-light" href="{{ path('city_resume_search', {'reset': 1}) }}">Reset</a>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-sm-12" style="overflow:scroll;">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <tr>
+                                    {# sorting of properties based on query components #}
+                                    <th{% if pagination.isSorted('savedResume.resume.firstname') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(pagination, 'Name', 'savedResume.resume.firstname') }}
+                                    </th>
+                                    <th{% if pagination.isSorted('savedResume.resume.state') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(pagination, 'Residence', 'savedResume.resume.state') }}
+                                    </th>
+                                    <th class="text-center">
+                                        Job Categories
+                                    </th>
+                                    <th{% if pagination.isSorted('savedResume.resume.yearsWorkedInCityGovernment') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(pagination, 'Yrs. Ex.', 'savedResume.resume.yearsWorkedInCityGovernment') }}
+                                    </th>
+                                    <th{% if pagination.isSorted('savedResume.resume.highestEducationLevel') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(pagination, 'Education', 'savedResume.resume.highestEducationLevel') }}
+                                    </th>
+                                    <th>Actions</th>
+                                </tr>
+                                {% for savedResume in pagination %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('job_seeker_view_resume', {'id': savedResume.resume.id}) }}">
+                                                {{ savedResume.resume.fullname }}
+                                            </a>
+                                        </td>
+                                        <td>{{ savedResume.resume.city.name }}, {{ savedResume.resume.state|abbreviate }}</td>
+                                        <td class="text-center">
+                                            {% set categories = savedResume.resume.interestedJobCategories %}
+                                            {% if categories | length > 0 %}
+                                                {% set firstCategory = categories|first %}
+                                                <span>{{ firstCategory }}</span>
+                                                {% set moreCategories = '' %}
+                                                {% for category in categories %}
+                                                    {% if category != firstCategory %}
+                                                        {% set moreCategories = moreCategories ~ category %}
+                                                        {% if not loop.last %}
+                                                            {% set moreCategories = moreCategories ~  ', ' %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if categories | length > 1 %}
+                                                    <span class="text-muted" data-toggle="tooltip" data-placement="bottom" title="{{ moreCategories }}">and more</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            {{ savedResume.resume.yearsWorkedInCityGovernment }}
+                                        </td>
+                                        <td class="text-center">
+                                            {{ savedResume.resume.highestEducationLevel }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('city_remove_saved_resume', {'resumeId': savedResume.resume.id, 'savedResumeId': savedResume.id})}}"><i class="fa fa-trash"></i> Remove</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            {{ knp_pagination_render(pagination) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

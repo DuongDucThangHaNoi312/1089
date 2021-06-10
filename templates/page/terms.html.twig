@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Terms of Use{% endblock %}
+{% block meta_description %}Review the Terms of Use Agreement. Welcome to our website and services of CityGovtJobs.com LLC{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+
+    <div class="row bg-white p-5">
+        <div class="col-12">
+            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'terms-of-use' }) }}
+        </div>
+    </div>
+
+{% endblock %}

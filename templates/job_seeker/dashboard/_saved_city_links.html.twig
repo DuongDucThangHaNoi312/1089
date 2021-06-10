@@ -1,0 +1,73 @@
+<div class="row bg-white rounded mb-3 p-4 mx-md-4">
+    <div class="col-md-12">
+        <div clas="row">
+            <h2 class="d-flex justify-content-between align-items-center mb-3">
+                <span>Saved City Profiles and Links (<a href="{{ path('city_search', {'saved':true }) }}">{{ savedCityCount }}</a>)</span>
+            </h2>
+            <p>Use below links to check for new job announcements on City websites or to look for
+                other info.</p>
+            <hr/>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% if savedCityCount|length <= 0 %}
+                    <p class="text-muted">No Saved City Links or Profiles</p>
+                {% else %}
+                    {% for key,value in savedCities %}
+                        <div class="table-responsive mb-3">
+                            <p class="h4"><span class="text-black font-weight-bold">{{ key }}</span></p>
+                            <table class="table table-hover topless">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>City</th>
+                                    <th class="text-center">City Links</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for savedCity in value %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path("view_city_profile", {'slug': savedCity.city.slug}) }}" class="btn-link">{{ savedCity.city }}</a>
+                                        </td>
+                                        <td class="text-right">
+                                            {% set urls = savedCity.city.orderedUrls %}
+                                            {% if urls|length > 0 %}
+                                                <div class="btn-group">
+                                                    {% set firstUrl = urls|first %}
+                                                    <a class="btn btn-secondary city-link-type" data-url-id="{{ firstUrl.id }}" target="_blank" href="{{ firstUrl.value }}" role="button">
+                                                        {{ firstUrl.type.name }}
+                                                    </a>
+                                                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" id="cityLinks-{{ savedCity.city.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cityLinks-{{ savedCity.city.id }}">
+                                                        {% for url in urls %}
+                                                            <a class="dropdown-item city-link-type" data-url-id="{{ url.id }}" target="_blank" href="{{ url.value }}">{{ url.type.name }}</a>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">
+                                            <a class="btn btn-link text-muted align-self-baseline" href="{{ path("remove_saved_city", {'id': savedCity.id}) }}"><i class="text-danger fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endfor %}
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3 mb-md-0 text-center text-md-left">
+                        <a class="btn btn-outline-primary" href="{{ path('city_search') }}"> <i class="fa fa-search"></i> Search Links</a>
+                    </div>
+                    <div class="col-12 col-md-6 text-center text-md-right">
+                        <a class="btn btn-outline-primary" href="{{ path('city_search', {'saved':true }) }}"> <i class="fa fa-search"></i> View All Saved City Links</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

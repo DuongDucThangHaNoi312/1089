@@ -1,0 +1,73 @@
+<div class="row bg-white rounded mb-4 p-4 mx-0">
+    <div class="col-md-12">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <h2 class="mb-3">
+                        <span>Saved Resumes <a href="{{ path('city_resume_saved') }}">({{ totalSavedResumes ? totalSavedResumes : 0 }})</a></span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-3 table-responsive">
+                    {% if savedResumes|length <= 0 %}
+                        <p class="text-muted">You have not saved any resumes. </p>
+                    {% else %}
+                        <table class="table table-hover topless">
+                            <thead class="thead-light">
+                                <th>Name</th>
+                                <th class="text-center">Jobs of Interest</th>
+                                <th>Education</th>
+                                <th>Yrs Exp</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                            {% for savedResume in savedResumes %}
+                                <tr>
+                                    <td>
+                                        <p><span>{{ savedResume.resume.fullname }}</span></p>
+                                    </td>
+                                    <td class="text-center">
+                                        {% set titles = savedResume.resume.interestedJobTitleNames %}
+                                        {% if titles | length > 0 %}
+                                            {% set firstTitle = titles|first %}
+                                            <span>{{ firstTitle }}</span>
+                                            {% set moreTitles = '' %}
+                                            {% for Title in titles %}
+                                                {% if Title != firstTitle %}
+                                                    {% set moreTitles = moreTitles ~ Title %}
+                                                    {% if not loop.last %}
+                                                        {% set moreTitles = moreTitles ~  ', ' %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if titles | length > 1 %}
+                                                <span class="text-muted" data-toggle="tooltip" data-placement="bottom" title="{{ moreTitles }}">and more</span>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                    <td class="">
+                                        {{ savedResume.resume.highestEducationLevel }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ savedResume.resume.getYearsWorkedInProfession }}
+                                    </td>
+                                    <td class="">
+                                        <a class="btn btn-link text-muted align-self-baseline" href="{{ path("remove_saved_resume", {'id': savedResume.id}) }}"><i class="fa fa-times"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <a class="btn btn-outline-primary" href="{{ path('city_resume_search') }}"><i class="fa fa-search"></i> Search Resumes</a>
+                    <a class="btn btn-outline-primary" href="{{ path('city_resume_saved') }}"><i class="fa fa-eye"></i>  View all Saved Resumes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

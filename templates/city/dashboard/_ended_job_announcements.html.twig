@@ -1,0 +1,46 @@
+<div class="row bg-white rounded mb-4 p-4 mx-0">
+    <div class="col-md-12">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <h2 class="mb-3">
+                    <span>Ended Job Alerts{{ city.allowsJobAnnouncements ? "/Announcements" : ''}} <a href="{{ path('city_job_announcements', {'slug': city.slug, 'status': 'active'}) }}">({{ totalJobAnnouncements }})</a></span>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                <div class="mb-3">
+                    {% if jobAnnouncements|length <= 0 %}
+                        <p class="text-muted">No Job Alerts{{ city.allowsJobAnnouncements ? "/Announcements" : ''}} have ended. </p>
+                    {% else %}
+                        <table class="table table-hover topless">
+                            <thead class="thead-light">
+                            <th>Job Title</th>
+                            <th class="text-right">Views</th>
+                            <th>Ended</th>
+                            </thead>
+                            <tbody>
+                            {% for jobAnnouncement in jobAnnouncements %}
+                                <tr>
+                                    <td>
+                                        <p>{{ jobAnnouncement['job_title_name'] }}</p>
+                                    </td>
+                                    <td class="text-right">
+                                        <p>{{ jobAnnouncement['job_announcement_views'] }}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{ jobAnnouncement['endsOn'] ? jobAnnouncement['endsOn']|date('m/d/Y h:i A T', city.phpTimezone) : '' }}</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+                <div class="d-flex justify-content-end align-items-center">
+                    <a href="{{ path('city_job_announcements', {'slug': city.slug, 'status': 'ended'}) }}" class="btn btn-outline-primary"><i class="fa fa-eye"></i> View Ended Jobs</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

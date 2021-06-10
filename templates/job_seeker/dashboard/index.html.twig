@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Dashboard{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-12 col-md-10 mx-md-6 px-md-5 pt-4 bg-white">
+            <h1>{{ user.fullname }}'s Dashboard</h1>
+        </div>
+    </div>
+
+    <div class="row justify-content-center getting-started-section">
+        {# Block Resume #}
+        {{ render(controller(
+            'App\\Controller\\JobSeeker\\ResumeController::resume'
+        )) }}
+
+        {# Block Job Alert Setting #}
+        {{ render(controller(
+            'App\\Controller\\JobSeeker\\JobAlertSettingController::jobAlertSettings'
+        )) }}
+
+        <div class="getting-started-footer">
+
+            <a class="btn btn-primary btn-resume" data-toggle="collapse" href="#getting-started" role="button" aria-expanded="false" aria-controls="getting-started">Resume
+                <span class="btn-icon"><i  {% if (user.resume != null and user.resume.isComplete) %}style="display:inline;"{% endif %}class="fa fa-angle-down"></i><i {% if (user.resume == null or not user.resume.isComplete) %}style="display:inline;"{% endif %} class="fa fa-angle-up"></i></span>
+            </a>
+            <a class="btn btn-primary btn-alert-setting" data-toggle="collapse" href="#job-alert-setting" role="button" aria-expanded="false" aria-controls="job-alert-setting">Alerts Setting
+                <span class="btn-icon"><i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></span>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary my-5 justify-content-center">
+        <div class="col-12 col-md-10">
+            <div class="row">
+                <div class="col-12 col-md-6 p-0">
+
+                    {{ render(controller(
+                        'App\\Controller\\JobSeeker\\DashboardController::jobAlertAnnouncements'
+                    )) }}
+                    {{ render(controller(
+                        'App\\Controller\\JobSeeker\\DashboardController::savedCityLinks'
+                    )) }}
+                    {{ render(controller(
+                        'App\\Controller\\JobSeeker\\DashboardController::savedJobAnnouncements'
+                    )) }}
+                </div>
+                <div class="col-12 col-md-6 p-0">
+                    {{ render(controller(
+                        'App\\Controller\\JobSeeker\\DashboardController::jobsOfInterest'
+                    )) }}
+                    {{ render(controller(
+                        'App\\Controller\\JobSeeker\\DashboardController::jobAnnouncements'
+                    )) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

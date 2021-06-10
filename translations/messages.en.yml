@@ -1,0 +1,86 @@
+form:
+    invalid: Error occurs. Please see below for more details.
+    name:
+        blank: Please enter your name.
+        invalid: Your name is not valid.
+    email:
+        blank: Please enter an email.
+        invalid: The email is not valid.
+        mismatch: 'The entered email don''t match.'
+    phone:
+        blank: Please enter a phone number.
+        invalid: The phone number is not valid.
+        mismatch: 'The entered phone number don''t match.'
+    subject:
+        blank: Please enter a subject.
+        invalid: The subject is not valid.
+    message:
+        blank: Please enter a message.
+        invalid: The message is not valid.
+    captcha:
+        blank: Please enter a captcha.
+        mismatch: 'The entered captcha don''t match.'
+city_registration:
+    find_city:
+        title: Find City
+        lead: CMS will be build to define this content.
+        flash:
+            error: Please select a city before continuing with registration.
+    step_one:
+        title: Register Your City
+        lead: Could use some explanation + instructions here.
+        verify:
+            title: Confirm Your Email
+            lead: |
+                Thank you for starting the registration process.
+                An email has been sent to your Inbox.
+        flash:
+            confirm:
+                success: Congrats, your account is now activated.
+    step_three:
+        default:
+            submit:
+                label: Validate
+            skip:
+                label: I don't have a passcode
+            title: Enter Your Passcode
+            lead: Entering a valid Passcode will allow you to start using CityGovJobs immediately. If you have a Passcode from CityGovJobs, enter it here and click validate:
+        invalid:
+            submit:
+                label: Re-try
+            skip:
+                label: Next
+            title: Passcode not Valid
+            lead: Sorry, the passcode you entered does not match the one on record. You may try to re-enter the passcode or proceed to the next step.
+        validated:
+            title: Passcode Validated
+            lead: Thank you, your passcode has been validated. Click below to complete your registration and start using CityGovJobs.
+    verify_city:
+        title: Verify City Info
+        lead: Please input the basic information about the city.
+job_seeker:
+    profile_edit:
+        saved_succeed: Profile saved successfully.
+    job_search:
+        remove_from_saved_list: ' has been removed from saved list.'
+        saved_item_not_found: Saved item not found.
+        remove_from_interest_list: ' has been removed from interest list.'
+        submitted_item_not_found: Submitted item not found.
+    job_alert:
+        job_alert_setting: Job Alerts has been set successfully.
+error_email_unexpected: Please tell the admin that the system experienced an error trying to send email saying "%message%"
+error_send_email_contact: Message can not send. Please correct the errors and try again.
+success_send_email_contact: Message has been sent.
+error_url_unavailable: This Job Announcement is no longer available.
+email:
+    subject:
+        job_alert_for_submitted_interest: CityGovJobs Active Job Alerts based on Submitted Interest
+        job_alert_for_saved_search_criteria: CityGovJobs Active Job Alerts based on Saved Search
+        city_user_monthly_report: CityGovJobs Monthly Summary
+
+ajax:
+    job_announcement:
+        change_assigned_to: Job announcement %jobTitle% has been assigned to %user%.
+job_title:
+    create:
+        duplicated: The following Job Title %jobTitleName% already exists in this city. Please make sure that the combination of ”Job Title Name, Department and Job Type” is unique.

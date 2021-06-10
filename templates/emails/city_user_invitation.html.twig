@@ -1,0 +1,61 @@
+{% extends 'email_base.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% block subject %}
+    {%- autoescape false -%}
+        {{ 'invitation.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+    {%- endautoescape -%}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+        {{ 'invitation.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl, '%invitedBy%': invitedBy, '%registeredJobTitle%': registeredJobTitle}) }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block email_simple_title %}
+    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#174275;">
+        <p style="text-align: center;font-size:33px;font-weight:700;letter-spacing:-3px;">CityGovJobs Invitation</p>
+    </div>
+{% endblock %}
+
+{% block email_content %}
+    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tr>
+            <td vertical-align="top" style="font-size:15px;padding:20px 0;padding-right:20px;padding-left:20px;word-break:break-word;">
+                <!--[if mso | IE]>
+                <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:800px;" width="800"
+                >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+
+                <div style="Margin:0px auto;max-width:800px;padding-bottom:20px">
+
+                    <p>You are being added as a City User of CityGovJobs.com by {{ invitedBy }} who is the Administrator of your City's Account with CityGovJobs.</p>
+
+                    <p>Before you login, you must click on the link below and complete your registration in order to use this service.</p>
+
+                    <p>{{ confirmationUrl }}</p>
+
+                    <p>This link can only be used once to validate your use of this service.</p>
+
+                    <p>
+                        <br/><br/>
+                        Sincerely,
+                        <br/>
+                        CityGovJobs
+                    </p>
+                </div>
+
+                <!--[if mso | IE]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+
+    </table>
+{% endblock %}

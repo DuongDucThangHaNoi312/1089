@@ -1,0 +1,21 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="row">
+    <div class="col-md-12 pt-5 text-center">
+        <h1>Change Password</h1>
+        <p>Update your password and login.</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+        {{ form_widget(form) }}
+        <div class="form-group">
+            <input type="submit" class="btn btn-lg btn-outline-primary mt5 btn-block" value="{{ 'resetting.reset.submit'|trans }}" />
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+
+

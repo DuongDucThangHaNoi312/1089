@@ -1,0 +1,232 @@
+{% extends 'base.html.twig' %}
+
+{% set jobTitle = jobAnnouncement.jobTitle %}
+
+{% block title %}{{ jobTitle }} Job at {{ city }}, {{ city.firstCounty }}, {{ city.stateFromCounty }}{% endblock %}
+{% block meta_description %}Learn about the {{ jobTitle }} job opening at {{ city }}, {{ city.firstCounty }}, {{ city.stateFromCounty }}. Department: {{ jobTitle.department }}; Type: {{ jobTitle.type }}; Level: {{ jobTitle.level.name }}{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include '_sharethis.html.twig'%}
+
+    {% if jobAnnouncement.isAlert == false %}
+        {% set jaDescription = 'The ' ~ city.prefix ~ ' ' ~ city.mediumName ~ ', is accepting applications for ' ~ jobTitle.name ~ ' position. Visit CityGovJobs.com to view the Job Announcement and other application information.' %}
+        {% if jobAnnouncement.description %} {
+            {% set jaDescription = jobAnnouncement.description %}
+        {% endif %}
+
+        <script type="application/ld+json">
+            {
+                "@context" : "https://schema.org/",
+                "@type" : "JobPosting",
+                "title" : "{{ jobTitle.name }}",
+                "description" : "{{ jaDescription }}",
+                "datePosted" : "{{ jobAnnouncement.startsOn ? jobAnnouncement.startsOn|date("m/d/Y h:i A T", city.phpTimezone) }}",
+                "validThrough" : "{{ jobAnnouncement.endsOn ? jobAnnouncement.endsOn|date("m/d/Y h:i A T", city.phpTimezone) : "+ 1 year"|date("m/d/Y h:i A T", city.phpTimezone) }}",
+                "employmentType" : "{{ jobTitle.type }}",
+                "hiringOrganization" : {
+                    "@type" : "Organization",
+                    {% if city.sealImage is not null %}
+                    "logo" : "{{ app.request.getUriForPath(vich_uploader_asset(city, 'sealImageFile')|default("https://via.placeholder.com/200x200")) }}",
+                    {% endif %}
+                    "name" : "{{ city.prefix }} {{ city.mediumName }}"
+                },
+                "jobLocation": {
+                    "@type": "Place",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": "{{ city.address }}",
+                        "addressLocality": "{{ city.prefix }} {{ city.mediumName }}",
+                        "addressRegion": "{{ city.getState() }}",
+                        "postalCode": "{{ city.zipCode }}",
+                        "addressCountry": "US"
+                    }
+                }
+                {% if jobAnnouncement.wageSalaryHigh or jobAnnouncement.wageSalaryLow %},
+                "baseSalary": {
+                    "@type": "MonetaryAmount",
+                    "currency": "USD",
+                    "value": {
+                        "@type": "QuantitativeValue",
+                        {% if jobAnnouncement.wageSalaryHigh %}
+                        "maxValue": {{ jobAnnouncement.wageSalaryHigh }},
+                        {% endif %}
+                        {% if jobAnnouncement.wageSalaryLow %}
+                        "minValue": {{ jobAnnouncement.wageSalaryLow }},
+                        {% endif %}
+                        "unitText": "{{ jobAnnouncement.wageSalaryUnit }}"
+                    }
+                }
+                {% endif %}
+            }
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block body_top %}
+    {% if isCityUser %}
+        <div class="row bg-white justify-content-center">
+            <div class="col-10 mx-5 py-3 bg-white">
+                <h1>View Job Alert{{ city.allowsJobAnnouncements == true ? '/Announcement' : ''}}</h1>
+                {% set m = knp_menu_get( 'cityUserJobMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+                {{ knp_menu_render(m) }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block body_main %}
+    {% set canEdit  = true %}
+    <div class="container job-announcement-container bg-white rounded my-4 pb-5 py-4">
+        <div class="row pt-3">
+            <div class="col-sm-10 offset-sm-1">
+                <div class="row align-items-stretch">
+                    <div class="col-md-12 text-right">
+                        {% if  isCityUser %}
+                            <a href="{{ path("city_edit_job_announcement", { "slug": city.slug ,"id": jobAnnouncement.id}) }}"><i class="fa fa-edit"></i> Edit</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if isCityUser %}
+        <div class="row pt-3">
+            <div class="bg-light mb-4 rounded col-md-10 offset-md-1 city-job-announcement-top">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-md-flex mt-2 p-lg-3 px-lg-3 p-2 px-2 justify-content-between">
+                            <div class="align-self-center col-md-4 px-0" id="city-job-announcement-status">
+                                <div class="align-self-center">
+                                    <span class="{{ class|default("h5") }} uppercase d-flex mb-0"> Status:&nbsp;<span>{{ jobAnnouncement.status }}</span> </span>
+                                </div>
+                            </div>
+                            <div class="align-self-center px-3" id="city-job-announcement-active-dates">
+                                <div class="row editable ">
+                                    {% include 'city/profile/_section_editable_title.html.twig' with {'name': 'From', 'class': 'h6 text-right', 'canEdit': false} %} {{ jobAnnouncement.startsOn ? jobAnnouncement.startsOn|date("m/d/Y h:i A T", city.phpTimezone) : "XX/XX/XXXX" }}&nbsp;
+                                    <span id="end-date-stored">
+                                        {% if jobAnnouncement.hasNoEndDate %}
+                                            <span class="h6 text-right">
+                                            {{ jobAnnouncement.endDateDescription }}
+                                            </span>
+                                        {% else %}
+                                            <span class="h6 text-right uppercase">to</span>
+                                            {{ jobAnnouncement.endsOn ?  jobAnnouncement.endsOn |date("m/d/Y h:i A T", city.phpTimezone) : null }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if city.sealImage is not null %}
+        <div class="row pt-3 ja-job-information-row seal-div-mobile text-center">
+            <div class="col-md-10 offset-md-1">
+                <img class="seal preview" src="{{ vich_uploader_asset(city, 'sealImageFile')|default("https://via.placeholder.com/200x200") }}" alt="{{ city.name }} Seal" />
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row pt-3">
+            <div class="mb-4 col-md-10 offset-md-1 city-job-announcement-top job-announcement-title">
+                <div class="city-title-top">
+                    <h1>{{ jobTitle }}</h1>
+                    <p class="h4 text-muted">
+                        {% if app.user %}
+                            <a class="text-muted" href="{{ url('view_city_profile', {'slug': city.slug}) }}">{{ city.prefix }} {{ city }}</a>
+                        {% else %}
+                            <a class="text-muted" href="{{ url('job_seeker_registration_step_one', {'source': 'view_city_profile'}) }}">{{ city.prefix }} {{ city }}</a>
+                        {% endif %}
+                        , {{ city.stateFromCounty }}</p>
+                </div>
+                <div class="view-similar-jobs">
+                    <a href="{{path('job_seeker_jobtitle_search', {'search_filter': searchFilter})}}" class="btn btn-danger btn-rounded-much">View Similar Jobs</a>
+                </div>
+            </div>
+            <div class="mb-4 col-md-10 offset-md-1">
+                <hr class="danger"/>
+            </div>
+        </div>
+        <div class="row pt-3 ja-job-information-row">
+            <div class="col-md-3 offset-1 ja-job-information">
+                {% if city.sealImage is not null %}
+                <div class="col-12 seal-div-desktop">
+                    <img class="seal preview" src="{{ vich_uploader_asset(city, 'sealImageFile')|default("https://via.placeholder.com/200x200") }}" alt="{{ city.name }} Seal" />
+                </div>
+                {% endif %}
+                {% include 'city/job/announcement/_job_information.html.twig'%}
+            </div>
+            <div class="col-md-7 ja-job-details">
+                <div class="pb-4" id="city-job-announcement-wage-salary">
+                    {{ render(controller(
+                        'App\\Controller\\City\\JobAnnouncementController::wageSalary',
+                        { 'city': city, 'jobAnnouncement': jobAnnouncement}
+                    )) }}
+                </div>
+                <div class="pb-4" id="city-job-announcement-application-deadline">
+                    {{ render(controller(
+                        'App\\Controller\\City\\JobAnnouncementController::applicationDeadline',
+                        { 'city': city, 'jobAnnouncement': jobAnnouncement }
+                    )) }}
+                </div>
+                <div class="pb-4" id="city-job-announcement-closed-promotional">
+                    {{ render(controller(
+                        'App\\Controller\\City\\JobAnnouncementController::closedPromotional',
+                        { 'city': city, 'jobAnnouncement': jobAnnouncement }
+                    )) }}
+                </div>
+
+                <div class="pb-4">
+                    {{ render(controller(
+                        'App\\Controller\\City\\JobAnnouncementController::alert',
+                        { 'city': city, 'jobAnnouncement': jobAnnouncement }
+                    )) }}
+                </div>
+                <div class="pb-4" id="city-job-announcement-location">
+                    {{ render(controller(
+                        'App\\Controller\\City\\JobAnnouncementController::location',
+                        { 'city': city, 'jobAnnouncement': jobAnnouncement }
+                    )) }}
+                </div>
+
+                {% set dest_url = path('city_full_view_job_announcement', {'slug': city.slug , 'id': jobAnnouncement.id }) %}
+                <div class="pb-4 cta-register">
+                    {% if isRegister %}
+                        <button class="btn btn-danger btn-rounded-much job-announcement-view-counter"
+                                data-job-announcement-id="{{ jobAnnouncement.id }}"
+                                {% if is_granted('ROLE_CITYUSER') %} disabled {% endif %}
+                                href="{{ path('job_seeker_registration_step_one', {'source': 'view_job_alert_apply_link', 'dest_url': dest_url}) }}">
+                            Apply Link
+                        </button>
+                    {% else %}
+                        <button class="btn btn-danger btn-rounded-much job-announcement-view-counter"
+                                data-job-announcement-id="{{ jobAnnouncement.id }}"
+                                {% if is_granted('ROLE_CITYUSER') %} disabled {% endif %}
+                                href="{{ jobAnnouncement.applicationUrl }}">
+                            Apply Link
+                        </button>
+                    {% endif %}
+                </div>
+
+                {% if not app.user %}
+                <div class="pb-4 cta-register">
+                    <a class="btn btn-rounded-much btn-primary" href="{{ path('job_seeker_registration_step_one', {'source': 'view_job_alert', 'dest_url': dest_url}) }}">Register To Receive Job Alerts</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-10 offset-1 ja-city-links">
+                <hr class="danger"/>
+                {% include 'city/job/announcement/_city_links.html.twig'%}
+            </div>
+        </div>
+    </div>
+{% endblock %}

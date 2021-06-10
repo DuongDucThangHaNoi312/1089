@@ -1,0 +1,57 @@
+.form-saved-search-default {
+  &:not(.show) {
+    + .getting-started-footer .btn-saved-search .btn-icon .fa-angle-up {
+      display: none !important;
+    }
+  }
+
+  &.show {
+    + .getting-started-footer .btn-saved-search .btn-icon .fa-angle-down {
+      display: none !important;
+    }
+  }
+
+  #search_filter_jobCategories {
+    max-height: 335px;
+    overflow: hidden;
+
+    &.show {
+      overflow: visible;
+      max-height: initial;
+    }
+  }
+
+  .btn-more-job-categories {
+    color: #fff !important;
+  }
+
+  div#save_search {
+    max-width: 350px;
+    margin: auto;
+
+    div {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.job-search-filter-section {
+  .link-edit-saved-search {
+    width: 46px;
+    color: #174275 !important;
+  }
+}
+
+legend.job-categories {
+  &.tip {
+    &:after {
+      color: $blue;
+      font-weight: bold;
+      content: ' TIP: Check only 1 or 2 at a time';
+    }
+  }
+}
+
+.job-type-name {
+  font-size: 18px;
+}

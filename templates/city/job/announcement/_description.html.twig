@@ -1,0 +1,24 @@
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Details', 'canEdit': false, 'urgency': 'Required', checkmark: false} %}
+<hr/>
+{% if jobAnnouncement.isAlert %}
+    <div class="row">
+        <div class="col-md-12">
+            <p class="h5 font-weight-bold">“View Now” button above will direct you to Job Announcement and other information on Third Party URL at or linked to:</p>
+            {% if jobAnnouncement.applicationUrl %}
+                <span class="text-info d-block text-center">{{ jobAnnouncement.applicationUrl }}</span>
+                {% if is_granted('ROLE_PENDING_JOBSEEKER') %}
+                    <span class="label d-block text-center mt-2">See <a class="text-muted" target="_blank" href="{{ path('terms_of_use') }}">Terms of Use</a> and <a class="text-muted" target="_blank" href="{{ path('privacy_policy') }}">Privacy Policy</a></span>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+    {% if jobAnnouncement.description != null%}
+        <div class="row">
+            <div class="col-md-12">
+                {{ jobAnnouncement.description|raw }}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+

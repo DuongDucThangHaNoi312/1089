@@ -1,0 +1,20 @@
+<div class="col-md-12 ajax-form">
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {#{{ form_row(form.address) }}#}
+    {#{{ form_row(form.zipCode) }}#}
+    {{ form_row(form.counties) }}
+    <div>
+        <label>Census Populations</label>
+        {% form_theme form 'city/profile/census_population_theme.html.twig' %}
+        {{ form_widget(form.censusPopulations) }}
+    </div>
+    {{ form_row(form.squareMiles) }}
+    {{ form_row(form.countFTE) }}
+    {{ form_row(form.yearFounded) }}
+    {{ form_row(form.yearChartered) }}
+    {{ form_row(form.yearIncorporated) }}
+    <button type="button" class="btn btn-light cancel-btn">Cancel</button>
+    <button type="submit" class="btn btn-primary save-btn">Save</button>
+    {{ form_end(form, {'render_rest': true}) }}
+</div>

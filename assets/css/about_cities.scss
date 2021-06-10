@@ -1,0 +1,191 @@
+.about-cities {
+  h1 {
+    font-size: 29px;
+
+    @media (max-width: 767px) {
+      font-size: 25px;
+    }
+  }
+
+  h3 {
+    font-size: 22px;
+
+    @media (max-width: 767px) {
+      font-size: 18px;
+    }
+  }
+
+  .nav-tabs {
+    border-bottom: 0;
+    .nav-link.active,
+    .nav-item.show .nav-link {
+      color: $white;
+      background-color: #004372;
+      border-color: transparent;
+      border-radius: 0.25rem;
+
+      &:hover,
+      &:focus {
+        border-color: transparent;
+        text-decoration: none;
+      }
+    }
+
+    .nav-link {
+      text-decoration: none;
+    }
+
+    a {
+      @media (max-width: 767px) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  // Starting-out-tab
+  .starting-out-wrapper,
+  .about-city-wrapper {
+    padding-top: 45px;
+
+    @media (max-width: 767px) {
+      padding-top: 25px;
+    }
+
+    h3 {
+      margin-bottom: 30px;
+
+      @media (max-width: 767px) {
+        margin-bottom: 20px;
+      }
+    }
+
+    .starting-out-box {
+      padding-bottom: 20px;
+
+      .box-description {
+        p {
+          font-size: 15px;
+        }
+      }
+
+      .box-image {
+        img {
+          border: 1px solid #efefef;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+          width: 100%;
+          height: auto;
+        }
+
+        .image-content {
+          padding: 10px 20px;
+          border: 1px solid #efefef;
+          border-top: none;
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+
+          span {
+            color: $blue;
+            font-size: 16px;
+            font-weight: 700;
+
+            @media (max-width: 767px) {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+  // End Starting-out-tab
+
+  // About-cities-tab
+  .city-content {
+    #about-cities {
+      img {
+        max-width: 160px;
+        max-height: 100px;
+      }
+    }
+
+    .about-city-wrapper {
+      .content-description {
+        p {
+          font-size: 15px;
+        }
+      }
+
+      .list-boxes {
+        .box-item {
+          text-align: center;
+          margin-bottom: 25px;
+
+          a {
+            min-height: 180px;
+            overflow: hidden;
+
+            &:hover {
+              cursor: pointer;
+              text-decoration: none;
+            }
+          }
+
+          .item-title {
+            padding: 10px 3px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 150px;
+
+            @media (max-width: 575px) {
+              padding: 10px 0;
+            }
+
+            span {
+              color: $blue;
+              font-weight: 700;
+              font-size: 16px;
+
+              @media (max-width: 575px) {
+                padding: 0px 5px;
+                max-width: 150px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  // End About-cities-tab
+}
+
+.flex-50 {
+  flex: 50%;
+}
+
+.blue-link {
+  color: $blue;
+  text-decoration: underline !important;
+}
+
+.button-blue-radius {
+  background-color: #174275;
+  color: #FFFFFF;
+  border-radius: 30px;
+  padding: 5px 15px;
+  border: none;
+}
+
+.city-about-footer {
+  background-color: #f4f4f4;
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+  padding: 20px 0;
+  text-align: center;
+  margin-bottom: 40px;
+
+  h5 {
+    color: $blue;
+  }
+}

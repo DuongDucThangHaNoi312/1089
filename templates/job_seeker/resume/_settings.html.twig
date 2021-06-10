@@ -1,0 +1,44 @@
+{% set canEdit = false %}
+{%  if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Settings', 'canEdit': canEdit, 'urgency': 'Required'} %}
+<hr/>
+<div class="row">
+    <div class="col-md-12">
+        <p>You may also make your resume available to cities who may want to search for your resume. You may block up to 5 cities from viewing your resume.</p>
+    </div>
+</div>
+<div class="editable row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <label>Resume available to cities through searches</label>
+                <p class="badge badge-{% if resume.isAvailableForSearch == true  %}success{% else %}danger{% endif %}">
+                    {% if resume.isAvailableForSearch == true  %}yes{% else %}no{% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Blocked Cities</label>
+                {% if resume.citiesToBlock|length  != 0 %}
+                    {% for cityToBlock in resume.citiesToBlock %}
+                        <p> {{ cityToBlock.mediumName }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>No Blocked Cities<p>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% if form is defined %}
+    {% include 'job_seeker/resume/_settings_form.html.twig' with {'form': form} %}
+{% endif %}

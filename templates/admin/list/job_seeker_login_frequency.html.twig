@@ -1,0 +1,16 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+{% block field %}
+    {% set now            = "now"|date("m/d/Y") %}
+    {% set registeredDays = date(now).diff(date(object.createdAt|date('Y-m-d'))) %}
+    {% if object.loginFrequency %}
+        {% if registeredDays.days >= 7 %}
+            {{ object.loginFrequency|round(2, 'floor') }}/Week Logged In (last {{ registeredDays.days >= 39 ? 39 : registeredDays.days }} days)
+        {% elseif registeredDays.days %}
+            {{ object.loginFrequency|round(2, 'floor') }}/Week Logged In (last {{ registeredDays.days }} {{ registeredDays.days == 1 ?' day' : 'days' }})
+        {% else %}
+            {{ object.loginFrequency }}/Week Logged In(registered today)
+        {% endif %}
+    {% else %}
+        No Logged In (in 39 days)
+    {% endif %}
+{% endblock %}

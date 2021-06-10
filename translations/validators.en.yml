@@ -1,0 +1,7 @@
+fos_user:
+  username:
+    mismatch:
+      'The entered usernames don''t match'
+  email:
+    mismatch:
+      'The entered emails don''t match'

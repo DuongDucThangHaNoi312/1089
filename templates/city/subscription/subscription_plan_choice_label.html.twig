@@ -1,0 +1,31 @@
+{% set current = false %}
+{% set cancelled = false %}
+{% if city.subscription and city.subscription.subscriptionPlan.id == plan.id %}
+    {% if city.subscription.PaymentProcessorSubscriptionId != '' or city.subscription.subscriptionPlan.priceByFTE(city.countFTE) == 0.0 %}
+        {% set current = true %}
+    {% endif %}
+    {% if city.subscription.isCancelled %}
+        {% set cancelled = true %}
+    {% endif %}
+{% endif %}
+<div class="row subscription-plan city-plan {{ current == true ? ' current ' : '' }} {{ cancelled == true ? 'cancelled' : '' }} mb-3 ml-2">
+    <div class="col-md-8">
+        <h3 class="plan-title" value="{{ plan.name }}">{{ plan.name }}
+            {% if current and cancelled == false  %}
+                <span class="text-muted">(current plan)</span>
+            {% endif %}
+        </h3>
+        {% if not plan.isCityCompliant(city) %}
+            <p class="text-danger"><b>{{ (city.wouldBePercentageJobTitlesVisible(0)*100)|round(2)}}%</b> of your jobs are visible. In order to qualify for this plan you must unhide more jobs to meet <b>{{ plan.jobTitleMaintenancePercentage|round }}%</b> of visible jobs. </p>
+        {% endif %}
+        {% if plan.nextPriceEffectiveDateByFTE(city.countFTE) != null %}
+        <p class="label font-italic">{{ plan.renewalFrequency }} price is {{ plan.nextPriceByFTE(city.countFTE) > plan.priceByFTE ? 'increasing' : 'decreasing' }} to ${{ plan.nextPriceByFTE(city.countFTE)}} on {{ plan.nextPriceEffectiveDateByFTE(city.countFTE)|date('M d, Y', city.phpTimezone) }} </p>
+        {% endif %}
+        {{ plan.description }}
+        <a href="{{ path('city_subcription_options') }}" target="_blank">See plan details</a>
+    </div>
+    <div class="col-md-4 text-right">
+        <h3 class="font-weight-bold">$<span class="plan-price">{{ plan.priceByFTE(city.countFTE) }}</span></h3>
+        <p>per <span class="plan-frequency">{{ plan.renewalFrequency.determineInterval }}</span></p>
+    </div>
+</div>

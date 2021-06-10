@@ -1,0 +1,11 @@
+    <div class="d-flex flex-row">
+        <div class="">{% include 'city/profile/_section_title.html.twig' with {'name': name, 'description': description|default(null)} %}</div>
+        {% if canEdit is defined and canEdit %}
+            <div class="px-3">{{ include('_inline_edit_button.html.twig') }}</div>
+        {% endif %}
+    </div>
+{% if description is defined %}
+    <div class="col-md-12">
+        <label>{{ description }}</label>
+    </div>
+{% endif %}

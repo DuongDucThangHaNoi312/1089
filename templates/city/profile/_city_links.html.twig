@@ -1,0 +1,24 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+<div class="col-12 p-1">
+    {% if form is defined %}
+        {% include 'city/profile/_section_editable_title.html.twig'
+            with {'name': 'City Links', 'description': 'Add Relevant links to your city site here.', 'canEdit': canEdit} %}
+    {% else %}
+        {% include 'city/profile/_section_editable_title.html.twig'
+            with {'name': 'City Links'} %}
+    {% endif %}
+</div>
+{% set urlId = (form is defined) ? form_name~'_url' : 'url' %}
+<div class="col-12 editable" id="{{ urlId }}">
+    {% for url in city.urls %}
+        <div class="">
+            <a class="city-link-type" data-url-id="{{ url.id }}" href="{{ url.value }}" target="_blank">{{ url.type }}</a>
+        </div>
+    {% endfor %}
+</div>
+{% if form is defined %}
+    {% include 'city/profile/_city_links_form.html.twig' with {'form': form} %}
+{% endif %}

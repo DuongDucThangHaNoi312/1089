@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, shrink-to-fit=no">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+    {% endblock %}
+</head>
+{% block body %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12">
+                <h1>Job Title Recommender</h1>
+                {{ form(form) }}
+                {% if level %}
+                    <h3>Level: {{ level }}</h3>
+                {% endif %}
+                {% if category %}
+                    <h3>Categories: {{ category }}</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+</body>
+</html>

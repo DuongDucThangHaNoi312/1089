@@ -1,0 +1,112 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    always_authenticate_before_granting: true
+
+    access_decision_manager:
+        strategy: unanimous
+
+    role_hierarchy:
+        ROLE_PENDING_JOBSEEKER:
+            - ROLE_USER
+        ROLE_JOBSEEKER:
+            - ROLE_USER
+        ROLE_PENDING_CITYUSER:
+            - ROLE_USER
+        ROLE_CITYUSER:
+            - ROLE_USER
+        ROLE_PENDING_CITYADMIN:
+            - ROLE_USER
+        ROLE_CITYADMIN:
+            - ROLE_USER
+        ROLE_LIMITED_ADMIN:
+            - ROLE_USER
+            - ROLE_SONATA_ADMIN
+            - ROLE_APP_ADMIN_JOB_ANNOUNCEMENT_ALL
+            - ROLE_APP_ADMIN_JOB_TITLE_ALL
+            - ROLE_APP_ADMIN_JOB_TITLE_NAME_ALL
+            - ROLE_APP_ADMIN_CITY_ALL
+            - ROLE_APP_ADMIN_URL_ALL
+            - ROLE_APP_ADMIN_DEPARTMENT_LIST
+            - ROLE_APP_ADMIN_DEPARTMENT_VIEW
+        ROLE_ADMIN:
+            - ROLE_LIMITED_ADMIN
+        ROLE_SUPER_ADMIN:
+            - ROLE_ADMIN
+            - ROLE_ALLOWED_TO_SWITCH
+        #SONATA:
+        #    - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT  # if you are using acl then this line must be commented
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        in_memory: { memory: ~ }
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        admin:
+            pattern:            /admin(.*)
+            context:            user
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /admin/login
+                use_forward:    false
+                check_path:     /admin/login_check
+                failure_path:   null
+            logout:
+                path:           /admin/logout
+                target:         /admin/login
+            anonymous:          true
+            switch_user:        true
+            provider:           fos_userbundle
+        main:
+            pattern:             .*
+            context:             user
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /login
+                use_forward:    false
+                check_path:     /login_check
+                failure_path:   null
+                success_handler: App\Security\AccessDeniedHandler
+            logout:             true
+            anonymous:          true
+            access_denied_handler: App\Security\AccessDeniedHandler
+            switch_user:        true
+            provider:           fos_userbundle
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 31536000 # 1 week in seconds
+                path: /
+                domain: ~
+                name: REMEMBERME
+                remember_me_parameter: _remember_me
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # Admin login page needs to be accessed without credential
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        # Secured part of the site
+        # This config requires being logged for the whole site and having the admin role for the admin part.
+        # Change these rules to adapt them to your needs
+        - { path: ^/admin/, role: [ROLE_SONATA_ADMIN] }
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+#acl:
+#    connection: default

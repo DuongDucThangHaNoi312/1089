@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Manage Divisions{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h1>Manage Divisions</h1>
+            {% set m = knp_menu_get( 'cityUserJobMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+            {{ knp_menu_render(m) }}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center">
+        <div class="col-10 m-4 p-4 bg-white">
+            <div class="row bg-light">
+                <div class="col-9">
+                    {% set m = knp_menu_get( 'cityUserJobTitleMenu' ).setChildrenAttribute('class', 'nav') %}
+                    {{ knp_menu_render(m) }}
+                </div>
+                <div class="col-3 d-flex align-items-center justify-content-end">
+                    {% if editMode %}
+                        <a class=""
+                           href="{{ path('city_divisions', {'slug': city.slug, 'expandDivisionForm': true}) }}">Create
+                            New Division</a>
+                    {% else %}
+                        <a class="" data-toggle="collapse" href="#divisionCreateForm" role="button"
+                           aria-expanded="false" aria-controls="divisionCreateForm">Create New Division</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row my-3 collapse {% if expandDivisionForm %}show{% endif %}" id="divisionCreateForm">
+                <div class="col-12">
+                    <h2>{% if editMode %}Edit Division{% else %}Create a Division{% endif %}</h2>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'city-divisions-definition' }) }}
+                        </div>
+                    </div>
+                    {{ form_start(divisionForm) }}
+                    <div class="row">
+                        <div class="col-6">
+                            {{ form_row(divisionForm.name) }}
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(divisionForm.department) }}
+                        </div>
+                        <div class="col-12">
+                            <div class="d-inline-flex align-items-baseline">
+                                <div class="flex-fill pr-2">{{ form_row(divisionForm.Save) }}</div>
+                                <div class="flex-fill"><a class="btn btn-light" href="{{ path('city_divisions', {'slug': city.slug}) }}?{{ queryString|replace({'expandDivisionForm=1': ''}) }}">Close</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(divisionForm) }}
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-12">
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'city-manage-divisions' }) }}
+                </div>
+                <div class="col-12">
+                    {{ form_start(filterForm) }}
+                    <div class="row my-3 justify-content-end">
+                        <div class="col-12 ml-auto text-right">
+                            <div class="d-inline-flex justify-content-end top-filter align-items-baseline">
+                                <div class="flex-fill pr-2">{{ form_label(filterForm.showPerPage) }}</div>
+                                <div class="flex-fill pr-4">{{ form_widget(filterForm.showPerPage) }}</div>
+                                <div class="flex-fill pr-2">{{ form_widget(filterForm.Go) }}</div>
+                                <div class="flex-fill"><a class="btn btn-light" href="{{ path('city_divisions', {'slug': city.slug}) }}">Reset</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(filterForm) }}
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <tr>
+                                {# sorting of properties based on query components #}
+                                <th{% if pagination.isSorted('d.name') %} class="sorted"{% endif %}>
+                                    {{ knp_pagination_sortable(pagination, 'Division', 'd.name') }}
+                                </th>
+                                <th{% if pagination.isSorted('departmentName') %} class="sorted"{% endif %}>
+                                    {{ knp_pagination_sortable(pagination, 'Department ', 'departmentName') }}
+                                </th>
+                                <th>
+                                    Actions
+                                </th>
+                            </tr>
+                            {% for division in pagination %}
+                                <tr>
+                                    <td>{{ division.name }}</td>
+                                    <td>
+                                        {{ division.departmentName }}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-link btn-sm" href="{{ path('city_divisions', {'slug': city.slug, 'divisionId': division.id}) }}?{{ queryString }}"><i class="fa fa-edit"></i> Edit</a>
+                                        {% if division.jobTitleCount <= 0 %}
+                                            <a class="btn btn-link btn-sm" href="{{ path('city_division_delete', {'slug': city.slug, 'divisionId': division.id}) }}?{{ queryString }}"><i class="fa fa-trash"></i> Delete</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div>
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

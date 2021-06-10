@@ -1,0 +1,37 @@
+{% set descriptionId = (form is defined) ? form_name~'_description' : 'description' %}
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Details', 'canEdit': canEdit, 'urgency': 'Required', checkmark: checkmark} %}
+<hr/>
+<div class="editable row">
+    <div class="col-md-12">
+        <div class="pb-1">
+            <label>Application Link</label>
+            {% if jobAnnouncement.applicationUrl == null or jobAnnouncement.applicationUrl == '' %}
+                <p>No Application Link</p>
+            {% else %}
+                <p><a class="btn btn-primary" href="{{ jobAnnouncement.applicationUrl }}" target="_blank">Test Now</a></p>
+            {% endif %}
+        </div>
+        <div class="pb-1">
+            <label>Description</label>
+            {% if jobAnnouncement.description == null %}
+                <p>No Description</p>
+            {% else %}
+                {{ jobAnnouncement.description|raw }}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% if form is defined %}
+
+    {% include 'city/job/announcement/_announcement_form.html.twig' with {'form': form} %}
+{% endif %}

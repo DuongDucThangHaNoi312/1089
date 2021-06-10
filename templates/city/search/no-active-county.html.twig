@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Profiles & Links{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h1>City Links Search</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center no-active-county">
+        <div class="col-10 m-4 p-4 bg-white">
+            <div class="row bg-white">
+                <div class="container">
+                    <h2>Your Free Basic Subscription only allows you to search for City Profiles & Links within your county of residence.</h2>
+                    <p>Since your county of residence is not currently served by CityGovJobs, you'll need to upgrade in order to search for City Profiles & Links outside your county of residence.</p>
+                    <p>Currently, the following counties are actively served by CityGovJobs</p>
+                    <p>California: <span class="blue-text">Alameda, Marin, San Mateo, Santa Clara</span></p>
+                    <p><a class="btn btn-primary" href="{{ path('job_seeker_subscription', {'update':'subscription'}) }}">Upgrade Your Subscription</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

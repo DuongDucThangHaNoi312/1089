@@ -1,0 +1,8 @@
+<div class="ajax-form {{ ckeditor is defined and ckeditor ? 'ckeditor' : '' }}">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_rest(form) }}
+    <button type="button" class="btn btn-light cancel-btn">Cancel</button>
+    <button type="submit" class="btn btn-primary save-btn">Save</button>
+    {{ form_end(form) }}
+</div>

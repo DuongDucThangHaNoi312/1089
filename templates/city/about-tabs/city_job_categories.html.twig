@@ -1,0 +1,24 @@
+{% extends 'city/about-tabs/city_base.html.twig' %}
+
+{% block title %}{% for item in categories %}{% if activeCategory is not null and activeCategory.id == item.id %}Job Category - {{ item.name }}{% endif %}{% endfor %}{% endblock %}
+
+{% block body_main_content %}
+    <div class="row">
+        <div class="tab-content city-content w-100 container mt-4 bg-white mb-5 d-flex pb-4">
+            <div class="job-categories-side-bar pt-4">
+                <ul class="nav nav-tabs job-categories-sideBar" role="tablist">
+                    {% for item in categories %}
+                        <li class="nav-item job-categories-sideBar-item">
+                            <a href="{{ path('job_categories', {'id': item.id, 'name': item.name}) }}" class="nav-link {% if activeCategory is not null and activeCategory.id == item.id %} active {% endif %}">{{ item.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="job-categories-content pt-5 pl-4">
+                {% block body_main_job_content_detail %}
+                    {% include 'city/about-tabs/block_job_categories_content.html.twig' %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

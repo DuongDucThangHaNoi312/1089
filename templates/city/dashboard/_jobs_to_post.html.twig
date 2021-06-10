@@ -1,0 +1,48 @@
+<div class="row bg-white rounded mb-4 p-4 mx-0">
+    <div class="col-md-12">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <h2 class="mb-3">
+                    <span>Jobs to Post <a href="{{ path('city_job_announcements', {'slug': city.slug, 'status': 'to-do'}) }}">({{ totalJobAnnouncements }})</a></span>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="table-responsive mb-3">
+                    {% if jobAnnouncements|length <= 0 %}
+                        <p class="text-muted">You don't have any Jobs to Post. Mark a Vacancy to Start a Post.</p>
+                    {% else %}
+                        <table class="table table-hover topless">
+                            <thead class="thead-light">
+                            <th>Job Title</th>
+                            <th>Status</th>
+                            <th>Active On</th>
+                            </thead>
+                            <tbody>
+                            {% for jobAnnouncement in jobAnnouncements %}
+                                <tr>
+                                    <td>
+                                        <p>{{ jobAnnouncement['job_title_name'] }}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{ jobAnnouncement['status'] }}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{ jobAnnouncement['startsOn'] ? jobAnnouncement['startsOn']|date('m/d/Y h:i A T', city.phpTimezone) : '' }}</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+                <div class="row m-2 justify-content-between align-items-center">
+                    <a href="{{ path('city_job_titles', {'slug': city.slug}) }}" class="btn btn-outline-primary col-lg-4 col-md-10 mb-2">Mark a Vacancy</a>
+                    <a href="{{ path('city_job_announcements', {'slug': city.slug, 'status': 'archived'}) }}" class="btn btn-outline-primary col-lg-4 col-md-10 mb-2"><i class="fa fa-archive"></i> Use Archived Job</a>
+                    <a href="{{ path('city_job_announcements', {'slug': city.slug, 'status': 'to-do'}) }}" class="btn btn-outline-primary col-lg-4 col-md-10 mb-2"><i class="fa fa-eye"></i> View Jobs To Post</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

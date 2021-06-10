@@ -1,0 +1,7 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+{% block field %}
+    {% set state = value %}
+    {% if state %}
+        <a href="{{ path('admin_app_city_state_edit', {'id': state.id}) }}">{{ state.name }}</a>
+    {% endif %}
+{% endblock %}

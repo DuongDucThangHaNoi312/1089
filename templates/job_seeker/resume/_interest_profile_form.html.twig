@@ -1,0 +1,27 @@
+<div class="row ajax-form">
+    <div class="col-md-12">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-4">
+                <label> General Position of Interest </label>
+                {{ form_row(form.interestedJobType) }}
+                {{ form_row(form.interestedJobLevels) }}
+                {{ form_row(form.interestedJobCategories) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.interestedJobTitleNames) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.interestedCounties) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(form._token) }}
+                <button type="button" class="btn btn-light cancel-btn">Cancel</button>
+                <button type="submit" class="btn btn-primary save-btn">Save</button>
+            </div>
+        </div>
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+</div>

@@ -1,0 +1,29 @@
+{% set current = false %}
+{% set cancelled = false %}
+{% if user.subscription and user.subscription.subscriptionPlan.id == plan.id %}
+    {% if user.subscription.rawStripeSubscription != '' or user.subscription.subscriptionPlan.priceToFloat == 0.0 %}
+        {% set current = true %}
+    {% endif %}
+    {% if user.subscription.isCancelled %}
+        {% set cancelled = true %}
+    {% endif %}
+{% endif %}
+
+<div class="row subscription-plan job-seeker-plan {{ current == true ? ' current ' : '' }} {{ cancelled == true ? 'cancelled' : '' }} mb-3 ml-2">
+    <div class="col-md-8">
+        <h3 class="plan-title" value="{{ plan.name }}">{{ plan.name }}
+            {% if current and cancelled == false %}
+            <span class="text-muted">(current plan)</span>
+            {% endif %}
+        </h3>
+        {% if plan.nextPrice != null %}
+            <p class="label font-italic">{{ plan.renewalFrequency }} price is {{ plan.nextPrice > plan.price ? 'increasing' : 'decreasing' }} to ${{ plan.nextPrice}} on {{ plan.nextPriceEffectiveDate|date('M d, Y', user.city.phpTimezone) }} </p>
+        {% endif %}
+        {{ plan.description }}
+        <a href="{{ path('job_seeker_subcription_options') }}" target="_blank">See plan details</a>
+    </div>
+    <div class="col-md-4 text-right">
+        <h3 class="font-weight-bold">$<span class="plan-price">{{ plan.price }}</span></h3>
+        <p>per {{ plan.renewalFrequency.determineInterval }}</p>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+{% extends 'email_base.html.twig' %}
+
+{% block email_simple_title %}
+    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#174275;">
+        <p style="text-align: center;font-size:33px;font-weight:700;letter-spacing:-3px;">CityGovJobs Monthly Summary</p>
+        <p style='color:#000;text-align:center;font-weight: 800'>{{ 'now' | date('M d, Y') }}</p>
+    </div>
+{% endblock %}
+
+{% block email_content %}
+    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tr>
+            <td vertical-align="top" style="font-size:15px;padding:20px 0;padding-right:20px;padding-left:20px;word-break:break-word;">
+                <!--[if mso | IE]>
+                <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:800px;" width="800"
+                >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+
+                <p>
+                    The total of Job Seekers Who Submitted Interest to Job Titles: &nbsp;
+                    <span style="font-weight:bold">{{ countOfInterestedJobSeekers }}</span>
+                </p>
+
+                <p>
+                    The total of Job Seekers Who Received Job Announcement Notifications: &nbsp;
+                    <span style="font-weight:bold">{{ countOfJobSeekerReceivedNotifications }}</span>
+                </p>
+
+                <p>
+                    The total of Clicks on Job Announcement Pages: &nbsp;
+                    <span style="font-weight:bold">{{ countOfJobAnnouncementClicks }}</span>
+                </p>
+
+                <p>
+                    <br/><br/>
+                    Sincerely,
+                    <br/>
+                    CityGovJobs Team
+                </p>
+
+                <!--[if mso | IE]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+
+    </table>
+{% endblock email_content %}

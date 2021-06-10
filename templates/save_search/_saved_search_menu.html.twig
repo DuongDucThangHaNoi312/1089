@@ -1,0 +1,34 @@
+{% if buttonLabel is not defined or buttonLabel == '' %}
+    {% set buttonLabel = "Go To Saved Search" %}
+{% endif %}
+
+{% if savedSearches|length %}
+    <ul class="nav nav-pills">
+        <li class="nav-item dropdown mb-3 w-100">
+            <a class="btn btn-primary dropdown-toggle w-100" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ buttonLabel }}</a>
+            <div class="dropdown-menu w-100">
+                {% for search in savedSearches %}
+
+                    {% set active = '' %}
+                    {% if currentSavedSearch is defined and currentSavedSearch is not null and currentSavedSearch.id == search.id %}
+                        {% set active = 'text-danger' %}
+                    {% endif %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        {% if citySearch is defined and citySearch %}
+                            {% set searchQuery = search.searchQuery|replace({'saved_search': 'search_filter%5B_token%5D'}) %}
+                        {% else %}
+                            {% set searchQuery = search.searchQuery %}
+                        {% endif %}
+                        {% if search.isDefault %}
+                            <a class="nav-link w-100 link-hover {{ active }}" href="{{ searchQuery }}">{{ search.name }}</a>
+                            <a class="nav-link link-edit-saved-search link-hover"><i class="fa fa-edit"></i></a>
+                        {% else %}
+                            <a class="nav-link w-100 link-hover {{ active }}" href="{{ searchQuery }}">{{ search.name }}</a>
+                            <a class="nav-link link-hover" href="{{ path('delete-saved-search', {'id': search.id}) }}"><i class="fa fa-trash"></i></a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </li>
+    </ul>
+{% endif %}

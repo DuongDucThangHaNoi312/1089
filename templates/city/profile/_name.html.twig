@@ -1,0 +1,16 @@
+<div class="editable row">
+    <div class="section-title col-md-8">
+        <div class="d-flex flex-row">
+        {% if form is defined %}
+            <div><h1 id="{{ form_name }}_name" class="p-1">{{ city.prefix }} {{ city.name }}</h1></div>
+            <div class="h4 px-3">{{ include('_inline_edit_button.html.twig') }}</div>
+        {% else %}
+            <div><h1>{{ city.prefix }} {{ city.name }}</h1></div>
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+{% if form is defined %}
+    {% include 'city/profile/_name_form.html.twig' with {'form': form} %}
+{% endif %}

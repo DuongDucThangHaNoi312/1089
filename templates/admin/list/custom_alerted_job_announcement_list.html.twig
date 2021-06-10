@@ -1,0 +1,19 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+{% block field %}
+    {% set filter = app.request.get('filter') %}
+    {% set filterData = '' %}
+    {% set createdFrom = '' %}
+    {% set createdTo = '' %}
+    {% if filter is not null and filter['createdFrom'] is defined and filter['createdTo'] is defined %}
+        {% set createdFrom = filter['createdFrom']['value'] %}
+        {% set createdTo = filter['createdTo']['value'] %}
+    {% endif %}
+    <a href="{{ path('admin_app_alertedjobannouncement_list', {
+        'filter[jobAnnouncement__jobTitle][value]': object.jobAnnouncement.jobTitle.id,
+        'filter[jobAnnouncement__jobTitle__city][value]': object.jobAnnouncement.jobTitle.city.id,
+        'filter[createdFrom][value]': createdFrom,
+        'filter[jobAnnouncement__status][value]': object.jobAnnouncement.status.id,
+        'filter[createdTo][value]': createdTo }) }}">
+        {{ object.jobAnnouncement|countOfAlertedByJobTitle(object.jobAnnouncement) }}
+    </a>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% set checkmark = false %}
+{% if complete is defined %}
+    {% set checkmark = complete %}
+{% endif %}
+{% if required is not defined %}
+    {% set required = true %}
+{% endif %}
+<div class="d-flex flex-row">
+    {% if checkmark is defined%}
+        <span class="align-baseline">{% include '_checkmark.html.twig' with {checkmark: checkmark }%}</span>
+    {% endif %}
+    <h5 class="align-middle text-black mx-1 mt-1">{{ section }}</h5>
+    {% if required == true %}
+        <span class="align-middle label text-danger font-weight-bold uppercase">*</span>
+    {% endif %}
+</div>

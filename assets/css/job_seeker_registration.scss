@@ -1,0 +1,80 @@
+// form Profile Edit
+.block-form-profile-edit {
+  form {
+    h2 {
+      text-align: center;
+    }
+
+    .select2-container--bootstrap4 {
+      width: auto !important;
+    }
+  }
+}
+/*step 1*/
+.job-seeker-registration-ul-container {
+  ul {
+    list-style: none;
+    li {
+      color: $blue;
+      svg {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+/*step 3*/
+#job_seeker_registration_step_three {
+  #collapseJobTitle {
+    .card {
+      &:hover {
+        box-shadow: none !important;
+      }
+    }
+  }
+}
+
+@media(max-width: 500px) {
+  .job-seeker-registration-ul-container {
+    ul {
+      padding-left: 5px;
+    }
+  }
+
+  #city_registration_find_city .container , #city_registration_step_one .container ,
+  #city_registration_step_one_verify .container, #city_registration_step_two .container,
+  #city_registration_step_three_verification .container, #city_registration_step_three .container, #city_registration_awaiting_verification .container,
+  #city_registration_city_pending .container {
+    .bg-white {
+      padding: 0 1rem!important;
+
+      .px-5.py-5 {
+        padding: 1rem 0 0 0!important;
+      }
+    }
+  }
+
+}
+
+.view-job-apply-link {
+  display: flex;
+  flex-direction: column-reverse;
+
+  .btn-login {
+    text-decoration: underline;
+
+    &:hover {
+      color: $red;
+    }
+  }
+}
+
+.job-registration-step-one {
+  &.btn-login {
+    text-decoration: underline;
+
+    &:hover {
+      color: $red;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+<div class="row bg-white rounded mb-4 p-4 mx-0">
+    <div class="col-md-12">
+        <div class="row mb-2">
+            <div class="col-lg-7 col-md-12">
+                <h2 class="mb-3">
+                    <span>Jobs of Interest <a href="{{ path('city_job_titles', {'slug': city.slug}) }}">({{ totalJobsOfInterest }})</a></span>
+                </h2>
+                <p>Budgeted job titles of interest to Job Seekers...</p>
+            </div>
+            <div class="col-lg-5 col-md-12">
+                <div class="d-flex justify-content-between align-content-center bg-secondary p-2">
+                    <span class="font-weight-bold">Submitted Interest</span>
+                    <a href="{{ path('city_job_interest', {'slug': city.slug}) }}">({{ totalInterest  }})</a>
+                </div>
+                <div class="d-flex justify-content-between align-content-center bg-secondary p-2">
+                    <span class="font-weight-bold">Years City Experience</span>
+                    ({{ totalYearsOfCityExperience ? totalYearsOfCityExperience : 0 }})
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                <div class="mb-3">
+                    {% if jobTitles|length <= 0 %}
+                    <p class="text-muted">No Jobs of Interest.</p>
+                    {% else %}
+                        <table class="table table-hover topless">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Department</th>
+                                <th class="text-right">Interest</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for jobTitle in jobTitles %}
+                                <tr>
+                                    <td>
+                                        <p>{{ jobTitle['job_title_name'] }}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{ jobTitle['department_name'] }}</p>
+                                    </td>
+                                    <td class="text-right">
+                                        <p>{{ jobTitle['interest'] }}</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+                <div class="text-right">
+                    <a class="btn btn-outline-primary" href="{{ path('city_job_interest', {'slug': city.slug}) }}"><i class="fa fa-eye"></i> View more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

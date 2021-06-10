@@ -1,0 +1,108 @@
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        {% for field_name, nested_field in form.children|first.children %}
+            {% if field_name == '_delete' %}
+                <th>{{ 'action_delete'|trans({}, 'SonataAdminBundle') }}</th>
+            {% else %}
+                <th
+                        {% if nested_field.vars['required'] %}
+                            class="required"
+                        {% endif %}
+                        {% if (nested_field.vars['attr']['hidden'] is defined) and (nested_field.vars['attr']['hidden']) %}
+                            style="display:none;"
+                        {% endif %}
+                >
+                    {{ nested_field.vars.label|trans({}, nested_field.vars['sonata_admin'].admin.translationDomain
+                    |default(nested_field.vars.translation_domain)
+                    ) }}
+                </th>
+            {% endif %}
+        {% endfor %}
+        {% if (editRoute is defined) and (deleteRoute is defined)%}
+            <th>
+                Actions
+            </th>
+        {% endif %}
+    </tr>
+    </thead>
+    <tbody class="sonata-ba-tbody">
+    {% for nested_group_field_name, nested_group_field in form.children %}
+        <tr>
+            {% for field_name, nested_field in nested_group_field.children %}
+                <td class="
+                        sonata-ba-td-{{ id }}-{{ field_name  }}
+                        control-group
+                        {% if nested_field.vars.errors|length > 0 %} error sonata-ba-field-error{% endif %}
+                        "
+                        {% if (nested_field.vars['attr']['hidden'] is defined) and (nested_field.vars['attr']['hidden']) %}
+                            style="display:none;"
+                        {% endif %}
+                >
+                    {% if sonata_admin.field_description.associationadmin.formfielddescriptions[field_name] is defined %}
+                        {{ form_widget(nested_field) }}
+
+                        {% set dummy = nested_group_field.setrendered %}
+                    {% else %}
+                        {% if field_name == '_delete' %}
+                            {{ form_widget(nested_field, { label: false }) }}
+                        {% else %}
+                            {{ form_widget(nested_field) }}
+                        {% endif %}
+                    {% endif %}
+                    {% if nested_field.vars.errors|length > 0 %}
+                        <div class="help-inline sonata-ba-field-error-messages">
+                            {{ form_errors(nested_field) }}
+                        </div>
+                    {% endif %}
+                </td>
+            {% endfor %}
+            {% if (editRoute is defined) and (nested_group_field.vars.value.id is not null) and (form.parent.vars.value is not null) and (deleteRoute is defined)%}
+                {% set parent_id = routeIds.parent_id %}
+
+                {% if isNestedChild %}
+                    {% set child_id = routeIds.child_id %}
+                    {% set child_child_id = nested_group_field.vars.value.id %}
+
+                    {% set editUrl =  url(editRoute, {'id' : parent_id, 'childId' : child_id, 'childChildId' : child_child_id})  %}
+                    {% set deleteUrl =  url(deleteRoute, {'id' : parent_id, 'childId' : child_id, 'childChildId' : child_child_id})  %}
+                {% else %}
+                    {% set child_id = nested_group_field.vars.value.id %}
+
+                    {% set editUrl =  url(editRoute, {'id' : parent_id, 'childId' : child_id})  %}
+                    {% set deleteUrl =  url(deleteRoute, {'id' : parent_id, 'childId' : child_id})  %}
+                {% endif %}
+
+                <td class="actions col-md-3">
+                    <span class="edit">
+                        <a data-url="{{ editUrl }}"
+                           class="edit-script btn btn-sm btn-warning sonata-ba-action">
+                        <i class="fa fa-pencil"></i>
+                            {% if childEditText is defined %} {{ childEditText }}{% else %}Edit {% endif %}
+                        </a>
+                        <script>
+                            $('.edit-script').on('click', function(){
+                                window.location.href = $(this).data('url');
+                            })
+                        </script>
+                    </span>
+
+                    <span class="delete">
+                        <a data-url="{{ deleteUrl }}"
+                           class="delete-script btn btn-sm btn-danger sonata-ba-action"
+                        >
+                                <i class="fa fa-minus-circle"></i> Delete
+                            </a>
+                            <script>
+                                $('.delete-script').on('click', function(){
+                                    window.location.href = $(this).data('url');
+                                })
+                            </script>
+                    </span>
+                </td>
+            {% endif %}
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

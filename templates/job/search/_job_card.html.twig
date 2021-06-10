@@ -1,0 +1,156 @@
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+        <div class="d-md-flex flex-md-row">
+            <div class="mr-md-auto">
+                <div class="badges mb-2">
+                    {% if job.isClosedPromotional %}
+                        <h3><span class="badge badge-light text-primary mb-1">Closed Promotional</span></h3>
+                    {% endif %}
+                </div>
+                <h2 class="h3 font-weight-bold text-dark mb-2 card-title">
+                    {{ job.jobTitleName }}
+                </h2>
+                {% if is_granted('ROLE_USER') %}
+                <div class="h5 mb-2 card-subtitle"><a href="{{ path('view_city_profile', {'slug': job.citySlug}) }}">{{ job.cityName }}</a></div>
+                {% else %}
+                    <div class="h5 mb-2 card-subtitle">
+                        {% set dest_url = path('view_city_profile', {'slug': job.citySlug}) %}
+                        <a href="{{ path('job_seeker_registration_step_one', {'source': 'view_city_profile', 'dest_url': dest_url}) }}">{{ job.cityName }}</a>
+{#                        <button class="btn btn-link pl-0" type="button" data-toggle="popover" data-html="true"#}
+{#                                title='<a href="{{ path('job_seeker_registration_step_one') }}">Please Register to View Link</a>'#}
+{#                                data-content="Registered Job Seekers can access all links and receive many other benefits.">{{ job.cityName }}</button>#}
+                    </div>
+                {% endif %}
+            </div>
+            {% if type == 'announcement'%}
+            <div class="ml-auto text-right">
+                {%  if job.wageSalaryRange %}
+                    {{ job.wageSalaryRange }}/{{ job.wageSalaryUnitName }}
+                {% else %}
+                    Comp Unknown
+                {% endif %}
+                <br>
+                Deadline: {{ job.applicationDeadline|date('m/d/y h:i A T', job.cityTimezone|phpTimezone) }}
+            </div>
+            {#CIT-949: job with city.cgjPostsJobs is set got 4 stars#}
+            {% elseif job.cityCgjPostsJobs == true %}
+                <div class="ml-md-auto text-md-right py-2 text-nowrap">
+                    {% for i in 1..4 %}
+                        <i class="fa fa-star text-primary"></i>
+                    {% endfor %}
+                </div>
+            {# I don't know if we should also set timezone to the cities timezone here #}
+            {% elseif job.subscriptionExpiresAt|date('U') > 'now'|date('U') and job.stars %}
+                <div class="ml-auto text-right">
+                    {% for i in 1..job.stars %}
+                    <i class="fa fa-star text-primary"></i>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-12 p-1 bg-secondary">
+            <div class="p-1">Department: <strong>{{ job.departmentName }}{% if job.divisionName %} - {{ job.divisionName }}{% endif %}</strong></div>
+            <div class="d-md-flex flex-md-row">
+                <div class="p-1 pr-3">Type: <strong>{{ job.typeName }}</strong></div>
+                <div class="p-1 pr-3">Level: <strong>{{ job.levelName }}</strong></div>
+                <div class="p-1">Category: <strong>{{ job.categoryName }}</strong></div>
+            </div>
+        </div>
+        <div class="card-text d-md-flex flex-md-row pt-1">
+            {% if urlData[job.cityId]['descriptionType'] is defined %}
+                {% if jobSeeker is defined  %}
+                    <a class="btn btn-link pl-0 pt-3 city-link-type" data-url-id="{{ urlData[job.cityId]['descriptionType']['id'] }}" target="_blank" href="{{ urlData[job.cityId]['descriptionType']['value'] }}">{{ urlData[job.cityId]['descriptionType']['typeName'] }}</a>
+                {% else %}
+                    {% set dest_url = urlData[job.cityId]['descriptionType']['value'] %}
+                    <a class="btn btn-link pl-0" href="{{ path('job_seeker_registration_step_one', {'source': 'view_city_link', 'dest_url': dest_url}) }}">{{ urlData[job.cityId]['descriptionType']['typeName'] }}</a>
+{#                    <button class="btn btn-link pl-0" type="button" data-toggle="popover" data-html="true"#}
+{#                            title='<a href="{{ path('job_seeker_registration_step_one') }}">Please Register to View Link</a>'#}
+{#                            data-content="Registered Job Seekers can access all links and receive many other benefits.">{{ urlData[job.cityId]['descriptionType']['typeName'] }}</button>#}
+                {% endif %}
+            {% endif %}
+            {% if urlData[job.cityId]['agreementType'] is defined %}
+                {% if jobSeeker is defined  %}
+                    <a class="btn btn-link pl-0 pt-3 city-link-type" data-url-id="{{ urlData[job.cityId]['agreementType']['id'] }}" target="_blank" href="{{ urlData[job.cityId]['agreementType']['value'] }}">{{ urlData[job.cityId]['agreementType']['typeName'] }}</a>
+                {% else %}
+                    {% set dest_url = urlData[job.cityId]['agreementType']['value'] %}
+                    <a class="btn btn-link pl-0" href="{{ path('job_seeker_registration_step_one', {'source': 'view_city_link', 'dest_url': dest_url}) }}">{{ urlData[job.cityId]['agreementType']['typeName'] }}</a>
+{#                    <button class="btn btn-link pl-0" type="button" data-toggle="popover" data-html="true"#}
+{#                            title='<a href="{{ path('job_seeker_registration_step_one') }}">Please Register to View Link</a>'#}
+{#                            data-content="Registered Job Seekers can access all links and receive many other benefits.">{{ urlData[job.cityId]['agreementType']['typeName'] }}</button>#}
+                {% endif %}
+            {% endif %}
+            {% if urlData[job.cityId]['salaryType'] is defined %}
+                {% if jobSeeker is defined  %}
+                    <a class="btn btn-link pl-0 pt-3 city-link-type" data-url-id="{{ urlData[job.cityId]['salaryType']['id'] }}" target="_blank" href="{{ urlData[job.cityId]['salaryType']['value'] }}">{{ urlData[job.cityId]['salaryType']['typeName'] }}</a>
+                {% else %}
+                    {% set dest_url = urlData[job.cityId]['salaryType']['value'] %}
+                    <a class="btn btn-link pl-0" href="{{ path('job_seeker_registration_step_one', {'source': 'view_city_link', 'dest_url': dest_url}) }}">{{ urlData[job.cityId]['salaryType']['typeName'] }}</a>
+{#                    <button class="btn btn-link pl-0" type="button" data-toggle="popover" data-html="true"#}
+{#                            title='<a href="{{ path('job_seeker_registration_step_one') }}">Please Register to View Link</a>'#}
+{#                            data-content="Registered Job Seekers can access all links and receive many other benefits.">{{ urlData[job.cityId]['salaryType']['typeName'] }}</button>#}
+                {% endif %}
+            {% endif %}
+            <div class="ml-auto pt-3 mb-2 d-md-flex align-items-md-start align-content-md-start job-card-actions">
+                {% if jobSeeker is defined %}
+                    {% if job.jobTitleId in savedJobTitleIDs %}
+                        <div>
+                            <div class="dropdown show">
+                                <button class="btn btn-secondary dropdown-toggle mr-2" type="button" id="dropdownMenuButton-savedJobTitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Saved
+                                </button>
+                                <div class="dropdown-menu cgj-dropdown-submenu" aria-labelledby="dropdownMenuLink">
+                                     <a class="ml-2" href="{{ path('jobtitle_remove_from_saved_list', {'id': job.jobTitleId, 'type': type}) }}">Remove from Saved List</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        {% if jobSeeker is defined and job.isClosedPromotional and jobSeeker.worksForCity and jobSeeker.worksForCity.id == job.cityId %}
+                            <a class="btn btn-outline-primary pr-3 mr-2" href="{{ path('save_jobtitle', {'id': job.jobTitleId, 'type': type}) }}">Save</a>
+                        {% elseif job.levelId not in allowedLevels %}
+                            <button class="btn btn-outline-primary mr-2" type="button" data-toggle="popover" title="Your Subscription Is Limited"
+                                    data-content='Your subscription does not allow you to save Job Titles with level "{{ job.levelName }} unless they are Closed Promotional and you currently work for the city." <a href="{{ path('job_seeker_subscription', {'update':'subscription'}) }}">You can change your subscription plan here.</a>'
+                                    data-html="true">Save</button>
+                        {% else %}
+                                <a class="btn btn-outline-primary pr-3 mr-2" href="{{ path('save_jobtitle', {'id': job.jobTitleId, 'type': type}) }}">Save</a>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% set dest_url = path('save_jobtitle', {'id': job.jobTitleId, 'type': type}) %}
+                    <a class="btn btn-outline-primary pr-3 mr-2" href="{{ path('job_seeker_registration_step_one', {'source': 'save_job_title', 'dest_url': dest_url}) }}">Save</a>
+{#                    <button class="btn btn-outline-primary pr-3" type="button" data-toggle="popover" data-html="true" title='<a href="{{ path('job_seeker_registration_step_one') }}">Please Register to Save</a>'#}
+{#                            data-content="Registered Job Seekers receive a dashboard and can save Jobs of Interest.">Save</button>#}
+                {% endif %}
+                {% if jobSeeker is defined  %}
+                    {% if job.jobTitleId in submittedInterestJobTitleIDs %}
+                        <div>
+                            <div class="dropdown show">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton-submittedInterestJobTitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Submitted
+                                </button>
+                                <div class="dropdown-menu cgj-dropdown-submenu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                    <a class="ml-2" href="{{ path('jobtitle_remove_from_interest', {'id': job.jobTitleId, 'type': type}) }}">Remove from Interest List</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        {% if job.isClosedPromotional and jobSeeker.worksForCity.id == job.cityId %}
+                            <a class="btn btn-outline-primary" href="{{ path('submit_interest', {'id': job.jobTitleId, 'type': type}) }}">Submit Interest</a>
+                        {% elseif job.levelId not in allowedLevels %}
+                            <button class="btn btn-outline-primary" type="button" data-toggle="popover" title="Your Subscription Is Limited"
+                                    data-content='Your subscriptions does not allow you to submit interest in Job Titles with level "{{ job.levelName }} unless they are Closed Promotional and you currently work for the city." <a href="{{ path('job_seeker_subscription', {'update': 'subscription'}) }}">You can change your subscription plan here.</a>'
+                                    data-html="true">Submit Interest</button>
+                        {% else %}
+                            <a class="btn btn-outline-primary" href="{{ path('submit_interest', {'id': job.jobTitleId, 'type': type}) }}">Submit Interest</a>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% set dest_url = path('submit_interest', {'id': job.jobTitleId, 'type': type}) %}
+                    <a class="btn btn-outline-primary" href="{{ path('job_seeker_registration_step_one', {'source': 'submit_interest', 'dest_url': dest_url}) }}">Submit Interest</a>
+
+{#                    <button class="btn btn-outline-primary" type="button" data-toggle="popover" data-html="true" title='<a href="{{ path('job_seeker_registration_step_one') }}">Please Register to Submit Interest</a>'#}
+{#                            data-content="Registered Job Seekers can Submit Interest in Job Titles and have their Resumes seen by Cities.">Submit Interest</button>#}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

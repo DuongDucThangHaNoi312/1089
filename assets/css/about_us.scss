@@ -1,0 +1,218 @@
+.about-us {
+  h1 {
+    font-size: 29px;
+
+    @media (max-width: 767px) {
+      font-size: 25px;
+    }
+  }
+
+  h3 {
+    font-size: 22px;
+
+    @media (max-width: 767px) {
+      font-size: 18px;
+    }
+  }
+
+  .nav-tabs {
+    border-bottom: 0;
+
+    .nav-link.active,
+    .nav-item.show .nav-link {
+      color: $white;
+      background-color: #004372;
+      border-color: transparent;
+      border-radius: 0.25rem;
+
+      &:hover,
+      &:focus {
+        border-color: transparent;
+        text-decoration: none;
+      }
+    }
+
+    .nav-link {
+      text-decoration: none;
+    }
+
+    a {
+      @media (max-width: 767px) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  // The-Team //
+  .the-team-wrapper {
+    padding: 45px 15px 0 15px;
+
+    @media (max-width: 767px) {
+      padding-top: 25px;
+    }
+
+    h3 {
+      font-weight: 600;
+      margin-bottom: 30px;
+
+      @media (max-width: 767px) {
+        margin-bottom: 20px;
+      }
+    }
+
+    .about-us-header {
+      a {
+        text-decoration: underline !important;
+      }
+    }
+
+    .block-the-member {
+      padding-bottom: 35px;
+
+      .block-member-image {
+        img {
+          object-fit: cover;
+          min-width: 255px;
+          max-width: 255px;
+          max-height: 250px;
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+        }
+      }
+
+      .block-member-introduce {
+        padding: 35px 0 15px 30px;
+        height: 100%;
+        border-top: 1px solid #dfdfdf;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+
+        h5 {
+          font-weight: 600;
+          color: #1f4275;
+        }
+
+        .block-member-content {
+          padding-right: 50px;
+
+          p {
+            margin-top: 25px;
+            font-size: 16px;
+          }
+
+          a {
+            font-weight: 600;
+            text-decoration: underline !important;
+          }
+
+          span {
+            color: #828993;
+            font-style: italic;
+
+            &:last-child {
+              display: block;
+              margin-top: 30px;
+              margin-bottom: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // End The-Team //
+
+  // The Founder-Story//
+  .the-founder-story-wrapper {
+    padding: 45px 15px 0 15px;
+
+    @media (max-width: 767px) {
+      padding-top: 25px;
+    }
+
+    h3 {
+      font-weight: 600;
+      margin-bottom: 30px;
+
+      @media (max-width: 767px) {
+        margin-bottom: 20px;
+      }
+    }
+
+    .the-founder-story {
+      .block-the-founder {
+        padding-bottom: 35px;
+
+        .block-founder-image {
+          margin-bottom: 40px;
+          img {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+          }
+
+          .block-founder-name {
+            padding-top: 15px;
+            padding-bottom: 5px;
+            border: 1px solid #dfdfdf;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            border-top-style: none;
+            text-align: center;
+
+            h5 {
+              font-weight: 600;
+            }
+          }
+        }
+
+        .block-founder-introduce {
+          padding-left: 30px;
+
+          p {
+            font-size: 16px;
+            padding-bottom: 10px;
+          }
+
+          .block-banner {
+            margin-top: 30px;
+            color: #4068b0;
+            font-weight: 700;
+            font-size: 18px;
+            padding-left: 25px;
+            margin-bottom: 35px;
+            border-left: 5px solid #d7e5ff;
+          }
+        }
+      }
+
+      .about-founder-footer {
+        background-color: #f4f4f4;
+        border-top: 1px solid #efefef;
+        border-bottom: 1px solid #efefef;
+        padding: 20px 0;
+        text-align: center;
+        margin-bottom: 40px;
+
+        h5 {
+          color: $blue;
+        }
+      }
+    }
+  }
+
+  // End The Founder-Story//
+  .about-us-header {
+    background-color: #f4f4f4;
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
+    padding: 20px 0;
+    text-align: center;
+    margin-bottom: 45px;
+
+    h5 {
+      font-size: 16px;
+      color: #476288;
+      margin-bottom: 0;
+    }
+  }
+}

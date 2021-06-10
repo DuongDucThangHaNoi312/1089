@@ -1,0 +1,111 @@
+{% extends 'email_base.html.twig' %}
+
+{% block subject %}
+    {{ subject }}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+        {% if textBlock %}
+            {{ textBlock }}
+        {% else %}
+        As a friendly reminder, your Free service to CityGovJobs {{ expiredString }}.
+
+        You may continue to access opportunities for Free while logged in, or get timely alerts of career-changing opportunities by registering for one of our enhanced subscription options.
+
+        To continue your Free subscription or ensure alerts of premium city government job opportunities of interest to you, just confirm an option that is right for you at {{ system_domain ~ path('job_seeker_subscription', {'update': 'subscription'}) }}.
+
+        {% if finalWarning %}
+            This is the last notice we will send you. On {{ "+3 days"|date("m/d/Y", subscription.jobSeekerUser.city.phpTimezone) }} any interest you submitted in
+            job titles will be removed from the system and you will no longer be eligible to receive job announcements.
+
+            {% if subscription.jobSeekerUser.submittedJobTitleInterests.count %}
+                You submitted interest in {{ subscription.jobSeekerUser.submittedJobTitleInterests.count }} job titles
+                from {{ subscription.jobSeekerUser.countUniqueCitiesSubmittedInterest }}
+                {% if subscription.jobSeekerUser.countUniqueCitiesSubmittedInterest > 1 %}
+                    cities.
+                {% else %}
+                    city.
+                {% endif %}
+            {% else %}
+                You have not submitted interest in any job titles.
+            {% endif %}
+        {% endif %}
+
+        Sincerely,
+        CityGovJobs
+        {% endif %}
+
+    {% endautoescape %}
+{% endblock %}
+
+{% block email_simple_title %}
+    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#174275;">
+        <p style="text-align: center;font-size:33px;font-weight:700;letter-spacing:-3px;">CityGovJobs Trial Subscription Status</p>
+    </div>
+{% endblock %}
+
+{% block email_content %}
+    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tr>
+            <td vertical-align="top" style="font-size:15px;padding:20px 0;padding-right:20px;padding-left:20px;word-break:break-word;">
+                <!--[if mso | IE]>
+                <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:800px;" width="800"
+                >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+
+                <div style="Margin:0px auto;max-width:800px;padding-bottom:20px">
+
+                    {% if htmlBlock %}
+                    {{ htmlBlock | raw }}
+                    {% else %}
+
+                    <p>As a friendly reminder, your Free service to CityGovJobs {{ expiredString }}.</p>
+
+                    <p>You may continue to access opportunities for Free while logged in, or get timely alerts of career-changing opportunities by registering for one of our enhanced subscription options.</p>
+
+                    <p>To continue your Free subscription or ensure alerts of premium city government job opportunities of interest to you, just confirm an option that is right for you at {{ system_domain ~ path('job_seeker_subscription', {'update': 'subscription'}) }}.</p>
+
+
+                    {% if finalWarning %}
+                        <p>
+                            This is the last notice we will send you. On {{ "+3 days"|date("m/d/Y", subscription.jobSeekerUser.city.phpTimezone) }} any interest you submitted in
+                            job titles will be removed from the system and you will no longer be eligible to receive job announcements.
+
+                            {% if subscription.jobSeekerUser.submittedJobTitleInterests.count %}
+                                You submitted interest in {{ subscription.jobSeekerUser.submittedJobTitleInterests.count }} job titles
+                                from {{ subscription.jobSeekerUser.countUniqueCitiesSubmittedInterest }}
+                                {% if subscription.jobSeekerUser.countUniqueCitiesSubmittedInterest > 1 %}
+                                    cities.
+                                {% else %}
+                                    city.
+                                {% endif %}
+                            {% else %}
+                                You have not submitted interest in any job titles.
+                            {% endif %}
+                        </p>
+                    {% endif %}
+
+
+                    <p>
+                        <br/><br/>
+                        Sincerely,
+                        <br/>
+                        CityGovJobs Team
+                    </p>
+                    {% endif %}
+                </div>
+
+                <!--[if mso | IE]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+
+    </table>
+{% endblock %}

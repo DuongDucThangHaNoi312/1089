@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Subscription Contact Admin{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/css/stripe.css') }}">
+{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 pt-3 bg-white">
+            <h1>Your City's Subscription</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center">
+        <div class="col-10 m-4 p-5 bg-white">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    {% if update %}
+                        <p class="h3 text-danger mb-4">There has been an issue with your city's subscription. Please contact your city's admin for more information.</p>
+                    {% endif %}
+                    <div class=" d-flex flex-column">
+                        <p class="h3 text-muted">{{ city.name }} Admin Information</p>
+                        <span>{{ admin.fullname }}</span>
+                        <span><a href="mailto:{{ admin.email }}">{{ admin.email }}</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

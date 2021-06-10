@@ -1,0 +1,48 @@
+<div class="row bg-white rounded mb-3 p-4 mx-md-4">
+    <div class="col-md-12">
+        <div clas="row">
+            <h2 class="d-flex justify-content-between align-items-center mb-3">
+                <span>Saved Job Alerts (<a href="{{ path('job_seeker_jobtitle_search', {'type': 'announcement', 'saved': true, '_fragment': 'job-announcement'}) }}">{{ savedJobAnnouncementCount }}</a>)</span>
+            </h2>
+            <hr/>
+        </div>
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                {% if savedJobAnnouncements|length <= 0 %}
+                    <p class="text-muted"> No saved Job Alerts </p>
+                {% else %}
+                    <table class="table table-hover table-responsive-md topless">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Job Title</th>
+                                <th>City</th>
+                                <th>Deadline</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for savedJobAnnouncement in savedJobAnnouncements %}
+                            {% set jobAnnouncement = savedJobAnnouncement.jobAnnouncement %}
+                            <tr>
+                                <td><a href="{{ path('city_view_job_announcement', {'id': jobAnnouncement.id, 'slug': jobAnnouncement.jobTitle.city.slug}) }}">{{ jobAnnouncement.jobTitle }}</a></td>
+                                <td><a href="{{ path('view_city_profile', {'slug': jobAnnouncement.jobTitle.city.slug}) }}" class="">{{ jobAnnouncement.jobTitle.city }}</a></td>
+                                <td>
+                                    {{ jobAnnouncement.hasNoEndDate?jobAnnouncement.endDateDescription: jobAnnouncement.applicationDeadline|date('m-d-Y h:i A T', jobAnnouncement.jobTitle.city.phpTimezone) }}
+                                </td>
+                                <td class="d-flex justify-content-end align-content-center">
+                                    <a class="btn btn-link text-danger align-self-baseline" href="{{ path("remove_saved_job_announcement", {'id': savedJobAnnouncement.id}) }}"><i class="text-danger fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <a class="btn btn-outline-primary" href="{{ path('job_seeker_jobtitle_search', {'type': 'announcement', 'saved': 1, '_fragment': 'job-announcement'}) }}"><i class="fa fa-search"></i> Job Alert Search</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

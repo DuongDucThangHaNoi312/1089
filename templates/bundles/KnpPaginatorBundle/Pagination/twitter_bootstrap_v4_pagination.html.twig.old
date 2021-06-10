@@ -1,0 +1,125 @@
+{#
+/**
+ * @file
+ * Twitter Bootstrap v4-beta.2 Sliding pagination control implementation.
+ *
+ * View that can be used with the pagination module
+ * from the Twitter Bootstrap CSS Toolkit
+ * https://getbootstrap.com/docs/4.0/components/pagination/
+ *
+ */
+#}
+{% if pageCount > 1 %}
+    {% set type = null %}
+    {% set source = null %}
+    {% set is_logged_in = is_granted('IS_AUTHENTICATED_FULLY')%}
+    {% set route_to_registration = not is_logged_in and (app.request.attributes.get('_route') == 'job_seeker_jobtitle_search' or app.request.attributes.get('_route') == 'city_search') %}
+    {% if app.request.attributes.get('_route') == 'job_seeker_jobtitle_search'%}
+        {% set type = query['type'] %}
+        {% if type == 'jobTitle' %}
+            {% set source = 'search_jobs_of_interest' %}
+        {% else %}
+            {% set source = 'search_job_alerts' %}
+        {% endif %}
+    {% elseif app.request.attributes.get('_route') == 'city_search' %}
+        {% set source = 'view_city_link' %}
+    {% endif %}
+    <nav>
+        {% set classAlign = (align is not defined) ? '' : align=='center' ? ' justify-content-center' : (align=='right' ? ' justify-content-end' : '') %}
+        {% set classSize = (size is not defined) ? '' : size=='large' ? ' pagination-lg' : (size=='small' ? ' pagination-sm' : '') %}
+        <ul class="pagination{{ classAlign }}{{ classSize }}">
+
+            {% if previous is defined %}
+                <li class="page-item">
+                    <a class="page-link" rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;{{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">&laquo;&nbsp;{{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</span>
+                </li>
+            {% endif %}
+
+            {% if startPage > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a>
+                </li>
+                {% if startPage == 3 %}
+                    <li class="page-item">
+                        {% if not route_to_registration %}
+                            <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
+                        {% else %}
+                            {% set dest_url = path(route, query|merge({(pageParameterName): 2})) %}
+                            <a class="page-link" href="{{ path('job_seeker_registration_step_one', {'source': source, 'dest_url':dest_url }) }}">2</a>
+                        {% endif %}
+                    </li>
+                {% elseif startPage != 2 %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&hellip;</span>
+                    </li>
+                {% endif %}
+            {% endif %}
+
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <li class="page-item">
+                        {% if not route_to_registration %}
+                            <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                        {% else %}
+                            {% set dest_url = path(route, query|merge({(pageParameterName): page})) %}
+                            <a class="page-link" href="{{ path('job_seeker_registration_step_one', {'source': source, 'dest_url':dest_url }) }}">{{ page }}</a>
+                        {% endif %}
+
+                    </li>
+                {% else %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ page }}</span>
+                    </li>
+                {% endif %}
+
+            {% endfor %}
+
+            {% if pageCount > endPage %}
+                {% if pageCount > (endPage + 1) %}
+                    {% if pageCount > (endPage + 2) %}
+                        <li class="page-item disabled">
+                            <span class="page-link">&hellip;</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            {% if not route_to_registration %}
+                                <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount -1 }}</a>
+                            {% else %}
+                                {% set dest_url = path(route, query|merge({(pageParameterName): (pageCount - 1)})) %}
+                                <a class="page-link" href="{{ path('job_seeker_registration_step_one', {'source': source, 'dest_url':dest_url }) }}">{{ pageCount -1 }}</a>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                {% endif %}
+                <li class="page-item">
+                    {% if not route_to_registration %}
+                        <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+                    {% else %}
+                        {% set dest_url = path(route, query|merge({(pageParameterName): pageCount})) %}
+                        <a class="page-link" href="{{ path('job_seeker_registration_step_one', {'source': source, 'dest_url':dest_url }) }}">{{ pageCount }}</a>
+                    {% endif %}
+
+                </li>
+            {% endif %}
+
+            {% if next is defined %}
+                <li class="page-item">
+                    {% if not route_to_registration %}
+                        <a class="page-link" rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}&nbsp;&raquo;</a>
+                    {% else %}
+                        {% set dest_url = path(route, query|merge({(pageParameterName): next})) %}
+                        <a class="page-link" href="{{ path('job_seeker_registration_step_one', {'source': source, 'dest_url':dest_url }) }}">{{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}</a>
+                    {% endif %}
+                </li>
+            {% else %}
+                <li  class="page-item disabled">
+                    <span class="page-link">{{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}&nbsp;&raquo;</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

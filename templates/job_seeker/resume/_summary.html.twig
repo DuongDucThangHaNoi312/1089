@@ -1,0 +1,26 @@
+{% set canEdit = false %}
+{%  if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+
+{% set summaryId = (form is defined) ? form_name~'_careerObjective':'careerObjective' %}
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Summary', 'canEdit': canEdit, 'urgency': 'Required', checkmark: checkmark} %}
+<hr/>
+<div class="editable row">
+    <div class="col-md-12">
+        <label>Career Objective/Summary</label>
+        {% if resume.careerObjective %}
+            <p id="{{ summaryId }}">{{ resume.careerObjective }}</p>
+        {% else %}
+            <p>Add your Career Objective</p>
+        {% endif %}
+    </div>
+</div>
+{% if form is defined %}
+    {% include 'job_seeker/resume/_summary_form.html.twig' with {'form': form} %}
+{% endif %}

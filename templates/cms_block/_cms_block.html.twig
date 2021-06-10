@@ -1,0 +1,4 @@
+{{ render(controller(
+    'App\\Controller\\CMSController::getBlock',
+    { 'slug': slug|default('') }
+)) }}

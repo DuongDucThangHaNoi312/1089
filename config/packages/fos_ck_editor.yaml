@@ -1,0 +1,18 @@
+fos_ck_editor:
+  jquery: true
+  default_config: default
+  configs:
+    default:
+      allowedContent: true
+      height: '600px'
+      toolbar:
+        - [Format, Bold, Italic, Underline, -, Cut, Copy, Paste,
+           PasteText, PasteFromWord, -, Undo, Redo, -,
+           NumberedList, BulletedList, -, Outdent, Indent, -,
+           Blockquote, -, Link, Unlink, Table]
+        - [Maximize, Source]
+    city_profile_about:
+      toolbar:
+      - [Format, Bold, Italic, Underline, -, Cut, Copy, Paste,
+         PasteText, PasteFromWord, -, Undo, Redo]
+      - [Maximize, Source]

@@ -1,0 +1,27 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Location', 'canEdit': canEdit, 'urgency': 'Optional', checkmark: checkmark} %}
+<hr/>
+<div class="row editable">
+    <div class="col-md-12">
+        {% if jobAnnouncement.street and jobAnnouncement.city and jobAnnouncement.state and jobAnnouncement.zipcode %}
+        <div class="d-flex flex-column justify-content-start mb-2">
+            <p>{{ jobAnnouncement.street }}</p>
+            <p>{{ "%s, %s %s"|format(jobAnnouncement.city.name, jobAnnouncement.state|abbreviate, jobAnnouncement.zipCode) }}</p>
+        </div>
+        {% else %}
+            <p>No location specified</p>
+        {% endif %}
+
+    </div>
+</div>
+{% if form is defined %}
+    {% include 'city/job/announcement/_location_form.html.twig' with {'form': form} %}
+{% endif %}

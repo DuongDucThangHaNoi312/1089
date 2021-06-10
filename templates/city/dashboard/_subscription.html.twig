@@ -1,0 +1,47 @@
+<div class="row bg-white rounded border-primary mb-4 p-4 mx-0">
+    <div class="col-md-12">
+        <div class="row mb-2">
+            <div class="text-center col-md-12">
+                <h2 class="mb-3">
+                    <span class="text-muted">Your Subscription</span>
+                </h2>
+                {% if subscription %}
+                    <h4>{{ subscription.subscriptionPlan.name }}</h4>
+                {% else %}
+                    <h4><span class="text-danger">You have no Active Subscription</span></h4>
+                {% endif %}
+            </div>
+        </div>
+        {% if subscription %}
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <ul class="mb-3 list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Stars on Jobs of Interest</span>
+                            <span class="badge badge-primary badge-pill">{{ subscription.city.currentStars }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Budgeted Job Titles </span>
+                            <span class="badge badge-primary badge-pill">{{ subscription.city.getCountAllJobTitles ? subscription.city.getCountAllJobTitles : 0 }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Job Titles Available to Job Seekers </span>
+                            <span class="badge badge-primary badge-pill">{{ subscription.city.getCountActiveJobTitles ? subscription.city.getCountActiveJobTitles : 0 }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>% of Job Titles Available to Job Seekers</span>
+                            <span class="badge badge-primary badge-pill">{{ subscription.city.percentageJobTitlesActive ? (subscription.city.percentageJobTitlesActive * 100)|number_format(2, '.', ',') : 0 }}%</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Minimum Required for Free Subscription</span>
+                            <span class="badge badge-primary badge-pill">{{ subscription.subscriptionPlan.jobTitleMaintenancePercentage ? subscription.subscriptionPlan.jobTitleMaintenancePercentage| trim('0','right')|trim('.','right')  :  0 }}%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        <div class="text-right">
+            <a class="btn btn-outline-primary" href="{{ path('city_subscription', {'slug': city.slug}) }}"><i class="fa fa-columns"></i> Manage Subscription</a>
+        </div>
+    </div>
+</div>

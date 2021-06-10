@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Subscription Plans{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h1>Select a Subscription Plan</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center">
+        <div class="col-10 m-4 p-5 bg-white">
+            {% for plan in subscriptionPlans %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-header">
+                    {{ loop.index }}
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ plan.name }}</h3>
+                    <p class="card-text">{{ plan.description }}</p>
+                    <a class="btn btn-primary" href="{{ path('city_subscribe', {'slug': city.slug, 'id': plan.id}) }}">Select This Plan!</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

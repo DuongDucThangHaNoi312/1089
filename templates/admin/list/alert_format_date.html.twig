@@ -1,0 +1,6 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+{% block field %}
+    <p>
+        {{ object.updatedAt|date("M d, yy") }}
+    </p>
+{% endblock %}

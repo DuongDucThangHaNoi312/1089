@@ -1,0 +1,260 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Find City Government Jobs at CityGovJobs.com{% endblock %}
+{% block meta_description %}One Website for All City Government Jobs. CityGovJobs helps job seekers and cities bridge the gaps between different City Job Boards.{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% include '_sharethis.html.twig'%}
+{% endblock %}
+
+{% block body_main %}
+
+    {% set jobseekerRegisterUrl = path('job_seeker_registration_step_one') %}
+    {% set cityRegisterUrl = path('city_registration_find_city') %}
+
+    <div class="job-home-page">
+        <section class="bg-blue block-access-more-city pt-5">
+            <div class="container">
+                <div class="row bg-blue pt-3 mb-2">
+                    <div class="col-12 text-center">
+                        <h1>Access City Govt Jobs</h1>
+                        <h3 class="font-italic"><a href="{{ path('cities_served') }}">in California Counties Served</a></h3>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="block-form-search">
+                            <h3>Premium Active & Future Jobs</h3>
+                            {{ form_start(jobSearchForm) }}
+
+                            <div id="homepage_job_search" class="mb-0 row">
+                                <div class="col-lg-4">{{ form_row(jobSearchForm.state) }}</div>
+                                <div class="col-lg-4">{{ form_row(jobSearchForm.county) }}</div>
+                                {{ form_rest(jobSearchForm) }}
+                                <div class="form-group">
+                                    {{ form_row(jobSearchForm.search, {'attr': {'class': 'task_field'}}) }}
+                                </div>
+                            </div>
+
+                            {{ form_end(jobSearchForm) }}
+                            <p class="h3 py-2 text-center font-italic">Mostly mid, senior and executive level positions</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="mt-4 bg-blue block-city-links-search">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 block-content">
+                        <div class="block-links-search-form homepage-link-search">
+                            <h3>Access City Job Boards</h3>
+
+                            {{ form_start(linkSearchForm) }}
+
+                            <div id="homepage_link_search" class="mb-0 row">
+                                <div class="col-lg-4">{{ form_row(linkSearchForm.state) }}</div>
+                                <div class="col-lg-4">{{ form_row(linkSearchForm.county) }}</div>
+                                {{ form_rest(linkSearchForm) }}
+                                {{ form_row(linkSearchForm.search) }}
+                            </div>
+                            {{ form_end(linkSearchForm) }}
+                            <p class="h3 py-2 text-center font-italic">Includes various entry level and part time positions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white block-job-alerts">
+            <div class="container">
+                <div class="row pb-4 px-3 section-solving-problem">
+                    <div class="col-12 col-lg-8 m-auto box-question">
+                        <div class="mr-auto ml-auto col-lg-6 col-12 box-content pt-3 pl-lg-3 pl-1">
+                            <h2 class="text-left pl-lg-4 pl-0">Solving a Problem</h2>
+                        </div>
+                        <div class="mr-auto ml-auto col-lg-8 col-12 text-lg-center box-content pl-0">
+                            <div class="mb-2 pl-1">We help put City Govt Jobs in one place so you can find what you're looking for.</div>
+                        </div>
+                        <div class="box-image mt-4">
+                            <img src="{{ asset('build/images/job_boards/shutterstock.jpg') }}" />
+                        </div>
+                        <div class="mr-auto ml-auto col-lg-6 col-12 box-content pt-3 pl-lg-3 pl-1">
+                            <h2 class="text-left pl-lg-4 pl-0">Services Include</h2>
+                        </div>
+                        <div class="mr-auto ml-auto col-lg-6 col-12 box-content">
+                            <ul class="list-group-item-square pl-lg-4 pl-2">
+                                <li>City Govt Jobs Search</li>
+                                <li>Rapid Interest Submit</li>
+                                <li>Job Alerts</li>
+                                <li>Quick Links Search</li>
+                            </ul>
+                        </div>
+                        <div class="mr-auto ml-auto col-12 text-lg-center box-content pl-0 text-nowrap section-served-job">
+                            <div class="mt-2 font-italic pl-1">We are ATS neutral so link you to where you may apply</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-blue block-advantages">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-4 ml-auto mr-auto mt-5">
+                        <h2 class="ml-auto mr-auto mb-3 pl-3">Get Started Today</h2>
+                        <ol class="bullet-space mt-2 ml-auto mr-auto">
+                            <li>Register for FREE</li>
+                            <li>Set up your Default Search</li>
+                            <li>Add Extra Saved Searches</li>
+                            <li>Respond to Job Alerts by Submitting Applications as required by cities</li>
+                            <li>Not getting enough Job Alerts? Use <a class="btn-city-links-search" href="{{ path('city_search') }}">City Links Search</a> to find more openings now
+                            </li>
+                            <li>Land the City Govt Job you want!</li>
+                        </ol>
+                        {% if app.user is null %}
+                            <div class="text-center pt-3 pb-5">
+                                <button class="register register-seeker btn btn-danger btn-rounded-much"
+                                        onclick="window.location.href = '{{ jobseekerRegisterUrl }}'">Try It for Free
+                                </button>
+                            </div>
+                        {% endif %}
+                        <div class="text-center pb-4">
+                            <a class="btn-subscription" href="{{ path('job_seeker_subcription_options') }}">Subscription Options</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="block-get-started bg-white">
+            <div class="container">
+                <div class="row pb-2 flex-column pl-3">
+                    <div class="ml-auto mr-auto col-12 col-lg-8">
+                        <h2 class="text-center submit-interest-text">Rapid Interest Submit Feature</h2>
+                        <div class="mb-5 job-of-interests">Simply Search for Jobs and you'll notice a "Submit Interest"
+                            tab on your Search Result page. This tab includes filtered budgeted job titles matched to
+                            your search which you may submit interest in. Once you Register you can rapidly Submit Interest in
+                            jobs with stars on them and we will monitor these jobs and alert you when they become job
+                            postings.
+                        </div>
+                        <div class="text-center mt-4 mb-3">
+                            <a href="{{ path('about_job_alerts_job_seekers') }}" class="btn btn-learn-more btn-rounded-much btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4 ml-auto mr-auto bg-white">
+                        <h2 class="text-center">Advantages</h2>
+                        <ul class="bullet-space mr-auto">
+                            <li>Helps you focus on career track jobs</li>
+                            <li>Submit Interest in jobs you feel you'd be the best at - and only where you want to
+                                work
+                            </li>
+                            <li>Quickly find jobs using Jobs Search and Submit interest at multiple cities from one web
+                                page - no resume required
+                            </li>
+                            <li>Helps reduce unwanted job alerts and can allow you to sit back and enjoy life instead of
+                                spending so much time searching
+                            </li>
+                        </ul>
+                        {% if app.user is null %}
+                            <div class="text-center mt-3 mb-5">
+                                <button class="register register-city btn btn-danger btn-rounded-much"
+                                        onclick="window.location.href = '{{ jobseekerRegisterUrl }}'">Try It for Free
+                                </button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="block-counties-served bg-white">
+            <div class="block-counties-served-title pt-4 pb-3">
+                <div class="col-md-12 text-center">
+                    <h2 class="h2">
+                        <a class="text-white text-decoration-line" href="{{ path('city_search') }}">
+                            <ins>Active California Counties Served</ins>
+                        </a>
+                    </h2>
+                </div>
+            </div>
+            <div class="container block-counties-served-content">
+                <div class="counties-served-intro">
+                    <div class="row justify-content-around">
+                        <div class="col-md-12 text-center">
+                            <h3>Job Seekers</h3>
+                            <p>Access City Government Jobs in following Counties using City Links Search and Jobs Search</p>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="row justify-content-around text-center">
+                    {% for countyPair in counties %}
+                        {% for item in countyPair %}
+                        <div class="col-md-5 county-served">
+                            <h3>
+                                <a href="{{ path('friendly_job_seeker_jobtitle_search', {stateSlug: california.slug, countySlug: item['county'] ? item['county'].slug : ''}) }}">
+                                    <ins>{{ item['short-name'] }}</ins>
+                                </a>
+                            </h3>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('city_search', {'search_filter[state]': california.id, 'search_filter[counties][]': item['county'] ? item['county'].id : ''}) }}">
+                                    {{ item['city-count'] }} Cities
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('friendly_job_seeker_jobtitle_search', {stateSlug: california.slug, countySlug: item['county'] ? item['county'].slug : ''}) ~ '#job-title' }}">
+                                    {{ item['job-count'] }} Budgeted Job Titles
+                                    </a>
+                                </li>
+                            </ul>
+                            {% set path = 'build/images/counties-served/' ~ item['img'] %}
+                            <img src="{{ asset(path) }}" alt="City hall in {{ item['county'] ? item['county'].name : '' }}, CA" class="img-fluid" />
+                        </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+
+                <div class="row justify-content-around text-center">
+                    <div class="col-md-5 county-served">
+                        <h3>
+                            <a href="{{ path('friendly_job_seeker_jobtitle_search', {stateSlug: california.slug, countySlug: yoloCounty.slug}) }}">
+                                <ins>Yolo</ins>
+                            </a>
+                        </h3>
+                        <ul>
+                            <li>
+                                <a href="{{ path('city_search', {'search_filter[state]': california.id, 'search_filter[counties][]': yoloCounty.id}) }}">
+                                4 Cities
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('friendly_job_seeker_jobtitle_search', {stateSlug: california.slug, countySlug: yoloCounty.slug}) ~ '#job-title' }}">
+                                600 Budgeted Job Titles
+                                </a>
+                            </li>
+                        </ul>
+                        <img src="{{ asset('build/images/counties-served/counties-served-08-yolo.jpg') }}" alt="City hall in {{ yoloCounty.name }}, CA" class="img-fluid" />
+                    </div>
+                    <div class="col-md-5 county-served coming-soon">
+                        <h3><em>More on the way...</em></h3>
+                    </div>
+                </div>
+
+                <div class="row justify-content-around text-center">
+                </div>
+                <div class="row justify-content-around text-center">
+                    <div class="col-md-5 county-served">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

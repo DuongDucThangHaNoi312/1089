@@ -1,0 +1,34 @@
+{% set extra_class = '' %}
+{% if position is defined %}
+{% set extra_class = position %}
+{% endif %}
+
+{% if extra_class == 'center' %}
+    <div class="btn-wrapper center">
+        <div class="d-flex flex-column">
+            <button type="button" class="btn btn-light btn-xs pull-right upload-btn {{ extra_class }}">
+                <i class="fa fa-upload"></i> Upload {{ type }}
+                <p class="mb-0">PNG, GIF or JPG</p>
+            </button>
+            {% if image == true %}
+                <button type="button" class="btn btn-light btn-xs pull-right mt-2 delete-btn {{ extra_class }}">
+                    <i class="fa fa-trash-alt"></i> Delete {{ type }}
+                </button>
+            {% endif %}
+        </div>
+    </div>
+{% else %}
+    <div class="btn-wrapper bottom right {{ image == true ? 'existing-upload':'' }}">
+        <div class="d-flex flex-row">
+            {% if image == true %}
+                <button type="button" class="btn btn-light btn-xs pull-right delete-btn mr-2 left-btn {{ extra_class }}">
+                    <i class="fa fa-trash-alt"></i> Delete {{ type }}
+                </button>
+            {% endif %}
+            <button type="button" class="btn btn-light btn-xs pull-right upload-btn right-btn {{ extra_class }}">
+                <i class="fa fa-upload"></i> Upload {{ type }}
+                <p class="mb-0">Rec. 1400x420 px</p>
+            </button>
+        </div>
+    </div>
+{% endif %}

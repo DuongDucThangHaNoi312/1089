@@ -1,0 +1,123 @@
+.city-content {
+  .job-categories-side-bar {
+    width: 35%;
+
+    ul.job-categories-sideBar {
+      display: inherit;
+      border: 1px solid #EFEFEF;
+      border-radius: 5px;
+      overflow: hidden;
+
+      li {
+        border: 1px solid #efefef;
+      }
+    }
+
+  }
+
+  .job-categories-content {
+    width: 65%;
+
+    .job-detail-sliders {
+      overflow: hidden;
+
+      .job-detail-slider {
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+
+      .slick-dots {
+        position: absolute;
+        bottom: 8px;
+        z-index: 999;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding:10px 0;
+
+        li {
+          margin-right: 10px;
+          button {
+            height: 0;
+            padding: 0;
+
+            &:before {
+              content: '';
+              display: inline-block;
+              width: 30px;
+              height: 3px;
+              background-color: #fff;
+            }
+          }
+        }
+      }
+    }
+
+    .content-description {
+      p {
+        font-size: 15px;
+      }
+
+      ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        padding-left: 15px;
+
+        li {
+          @media (min-width: 768px) {
+            width: 50%;
+          }
+
+          font-size: 15px;
+        }
+      }
+    }
+
+    .city-about-footer {
+      justify-content: space-between;
+      .footer-question {
+        align-items: center;
+      }
+
+      .footer-button {
+      }
+    }
+  }
+}
+
+.job-category-general {
+  .job-category {
+    a {
+      border-radius: 5px;
+    }
+
+    div {
+      color: #174275;
+      font-style: italic;
+    }
+  }
+
+  .job-titles {
+    a {
+      border-radius: 5px;
+      color: #fff;
+    }
+
+    div {
+      color: #174275;
+      font-style: italic;
+    }
+  }
+
+  .collapse {
+    .card-body {
+      &:hover {
+        box-shadow: none !important;
+      }
+    }
+  }
+}

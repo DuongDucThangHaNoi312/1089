@@ -1,0 +1,228 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Profiles & Links{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% include '_sharethis.html.twig'%}
+{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-12 col-md-10 mx-6 pt-4 bg-white">
+            <h1>City Links Search</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center">
+        <div class="col-12 col-md-10 m-md-4 p-4 bg-white">
+            <div class="row bg-white">
+                <div class="col-12 col-md-3 bg-white mb-3">
+                    <a class="btn btn-primary my-3 text-center d-block d-sm-none" id="citySearchControlToggle" type="button" data-toggle="collapse" href="#citySearchFilterContainer" aria-expanded="false" aria-controls="citySearchFilterContainer">Toggle Search Filters</a>
+                    <div id="citySearchFilterContainer" class="collapse dont-collapse-sm mb-3 mb-md-0">
+                        {% if is_granted('ROLE_USER') %}
+                            <div class="collapse mb-3 position-relative" id="saveSearchForm">
+                                {{ form_start(saveSearchForm) }}
+                                <div class="form-group">
+                                    {{ form_widget(saveSearchForm.name) }}
+                                </div>
+                                <div class="form-group">
+                                    {% if is_granted('ROLE_JOBSEEKER') %}
+                                        {% if user.subscription.subscriptionPlan.countSavedSearches > savedSearches|length %}
+                                            {{ form_widget(saveSearchForm.Save) }}
+                                        {% else %}
+                                            {% do saveSearchForm.Save.setRendered() %}
+                                            <button class="btn btn-primary " type="button" data-placement="bottom" data-toggle="popover" title="Your Subscription Is Limited"
+                                                    data-content='You have already saved your maximum number of searches ({{ savedSearches|length }}) based upon your subscription level. Please upgrade to a higher subscription plan to have more saved searches. <a href="{{ path('job_seeker_subscription', {'update': 'subscription'}) }}">You can change your subscription plan here.</a>'
+                                                    data-html="true">Save</button>
+                                        {% endif %}
+                                    {% else %}
+                                        {{ form_widget(saveSearchForm.Save) }}
+                                    {% endif %}
+                                    {{ form_widget(saveSearchForm.Cancel) }}
+                                </div>
+                                {{ form_rest(saveSearchForm) }}
+                                {{ form_end(saveSearchForm) }}
+                            </div>
+                            <div class="text-center mb-3">
+                                <a class="btn btn-danger btn-collapse-save-search-form" data-toggle="collapse" href="#saveSearchForm" role="button" aria-expanded="false" aria-controls="saveSearchForm">Save Current Search</a>
+                            </div>
+                        {% endif %}
+                        <div class=" col-12 bg-light py-3">
+                            {% if is_granted('ROLE_USER') %}
+                                {% set buttonLabel = '' %}
+                                {% if currentSavedSearch is not null %}
+                                    {% set buttonLabel = 'Switch Saved Search' %}
+                                {% endif %}
+                                {% include 'save_search/_saved_search_menu.html.twig' with {'savedSearches': savedSearches, 'buttonLabel': buttonLabel, 'currentSavedSearch': currentSavedSearch, 'citySearch': true} %}
+                            {% endif %}
+                            {{ form_start(filterForm) }}
+                            <button type="submit" class="btn btn-primary btn-block sticky my-1 main-city-search-btn" value="Search">Search</button>
+                            <a class="btn btn-info sticky two d-block mb-3" href="{{ path('city_search', {'reset': 1}) }}">Clear Search Filters</a>
+                            {{ form_rest(filterForm) }}
+                            {{ form_end(filterForm) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div class="row bg-white">
+                        {% if is_granted('ROLE_USER') and currentSavedSearch is not null %}
+                            <div class="row pb-3 col-md-12">
+                                <div class="col-12 col-sm-6 col-md-6 mb-3 mb-md-0">
+                                    <span class="font-weight-bold d-inline-block mr-3">Saved Search: </span><span class="p-2 text-white rounded-sm bg-danger d-inline-block">{{ currentSavedSearch.name }}</span>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 text-sm-right pt-2">
+                                    Showing {{ pagination.paginationData.firstItemNumber }} - {{ pagination.paginationData.lastItemNumber}} of {{ pagination.paginationData.totalCount|number_format  }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="col-12 pb-3">
+                                <div class="text-right p-2">
+                                    Showing {{ pagination.paginationData.firstItemNumber }} - {{ pagination.paginationData.lastItemNumber}} of {{ pagination.paginationData.totalCount|number_format  }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <tr>
+                            {# sorting of properties based on query components #}
+                            <th{% if pagination.isSorted('city.name') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(pagination, 'City', 'city.name') }}
+                            </th>
+                            <th class="text-center">
+                                City Links
+                            </th>
+                            <th>
+                                County
+                            </th>
+                            <th>
+                                State
+                            </th>
+                                <th class="text-right {% if pagination.isSorted('city.countFTE') %} sorted{% endif %}">
+                                    {{ knp_pagination_sortable(pagination, 'FTE', 'city.countFTE') }}
+                                </th>
+                                <th class="text-right {% if pagination.isSorted('population') %} sorted{% endif %}">
+                                    {{ knp_pagination_sortable(pagination, 'Population', 'population') }}
+                                </th>
+                            <th class="text-right {% if pagination.isSorted('cntJobTitles') %} sorted {% endif %} ">
+                                {{ knp_pagination_sortable(pagination, 'Jobs of Interest', 'cntJobTitles') }}
+                            </th>
+                            <th class="text-right {% if pagination.isSorted('cntJobAnnouncements') %} sorted {% endif %}">
+                                {{ knp_pagination_sortable(pagination, 'Job Alerts', 'cntJobAnnouncements') }}
+                            </th>
+                            {% if is_granted('ROLE_JOBSEEKER') or is_granted('ROLE_CITYUSER') %}
+                                <th>
+                                </th>
+                            {% endif %}
+
+                        </tr>
+                        {% for city in pagination %}
+                            {% set countySlug = cityAddedData[city.id]['countySlug'] is defined ? cityAddedData[city.id]['countySlug'][0] : null %}
+                            {% set stateSlug  = cityAddedData[city.id]['stateSlug'] is defined ? cityAddedData[city.id]['stateSlug'] : null %}
+                            <tr>
+                                <td>
+                                    {% if app.user %}
+                                        {% if is_granted('ROLE_CITYUSER') %}
+                                            {{ city.name }}
+                                        {% else %}
+                                            <a href="{{ path('view_city_profile', {'slug': city.slug}) }}">{{ city.name }}</a>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if city.expiresAt and (city.cancelledAt is null or city.cancelledAt|date("m/d/Y h:i A T", city.timezone | phpTimezone) > 'now'|date("m/d/Y h:i A T", city.timezone | phpTimezone)) %}
+                                            <a href="{{ path('view_city_profile', {'slug': city.slug}) }}" class="btn btn-link">{{ city.name }}</a>
+                                        {% else %}
+                                            <a href="{{ path('job_seeker_registration_step_one', {'source': 'view_city_profile'}) }}" class="btn btn-link" >{{ city.name }}</a>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if cityAddedData[city.id]['firstUrl'] is defined and cityAddedData[city.id]['firstUrl']|length %}
+                                        <div class="btn-group">
+                                            {% if is_granted('ROLE_USER') %}
+                                                <a class="btn btn-sm btn-secondary city-link-type" data-url-id="{{ cityAddedData[city.id]['firstUrl'].id }}" target="_blank" href="{{ cityAddedData[city.id]['firstUrl'].value }}" role="button">
+                                                    {{ cityAddedData[city.id]['firstUrl'].typeName }}
+                                                </a>
+                                            {% else %}
+                                                <a class="btn btn-sm btn-secondary" href="{{ path('job_seeker_registration_step_one', {'source': 'view_city_link'}) }}">{{ cityAddedData[city.id]['firstUrl'].typeName }}</a>
+                                            {% endif %}
+
+                                            {% if cityAddedData[city.id]['otherUrls']|length %}
+                                                <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" id="cityLinks-{{ city.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cityLinks-{{ city.id }}">
+                                                    {% for url in cityAddedData[city.id]['otherUrls'] %}
+                                                        {% if is_granted('ROLE_USER') %}
+                                                            <a class="dropdown-item btn-sm city-link-type" data-url-id="{{ url.id }}" target="_blank" href="{{ url.value }}">{{ url.typeName }}</a>
+                                                        {% else %}
+                                                            <a class="dropdown-item btn-sm" href="{{ path('job_seeker_registration_step_one', {'source': 'view_city_link'}) }}">{{ url.typeName }}</a>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ cityAddedData[city.id]['countyNames'] is defined ? cityAddedData[city.id]['countyNames']|join(', ')|replace({' County': ''}) : '' }}
+                                </td>
+                                <td>
+                                    {{ cityAddedData[city.id]['stateName'] is defined ? cityAddedData[city.id]['stateName']|abbreviate : '' }}
+                                </td>
+                                {#{% if is_granted('ROLE_JOBSEEKER') %}#}
+                                    <td class="text-right">{{ city.countFTE|number_format }}</td>
+                                    <td class="text-right">
+                                        {{ city.population|number_format }}
+                                    </td>
+                                {#{% endif %}#}
+                                <td class="text-right">
+
+                                    {% if city.slug and countySlug and stateSlug %}
+                                        <a href="{{ path('friendly_job_seeker_jobtitle_search', {'stateSlug': stateSlug, 'countySlug': countySlug, 'citySlug': city.slug, 'type': 'announcement', '_fragment': 'job-title'})}}">{{ city.cntJobTitles|number_format }}</a>
+                                    {% endif %}
+{#                                    {% if is_granted('ROLE_JOBSEEKER') %}#}
+{#                                        <a href="{{ path('job_seeker_jobtitle_search', {'city': city.id, 'type': 'jobTitle', '_fragment': 'job-title'}) }}">{{ city.cntJobTitles|number_format }}</a>#}
+{#                                    {% else %}#}
+{#                                        <a href="{{ path('job_seeker_registration_step_one', {'source': 'view_city_link'}) }}">{{ city.cntJobTitles|number_format }}</a>#}
+{#                                    {% endif %}#}
+                                </td>
+                                <td class="text-right">
+                                    {% if city.slug and countySlug and stateSlug %}
+                                        <a href="{{ path('friendly_job_seeker_jobtitle_search', {'stateSlug': stateSlug, 'countySlug': countySlug, 'citySlug': city.slug, 'type': 'announcement', '_fragment': 'job-announcement'})}}">{{ city.cntJobAnnouncements|number_format }}</a>
+                                    {% endif %}
+{#                                    {% if is_granted('ROLE_JOBSEEKER') %}#}
+{#                                        <a href="{{ path('job_seeker_jobtitle_search', {'city': city.id, 'type': 'announcement', '_fragment': 'job-announcement'})}}">{{ city.cntJobAnnouncements|number_format }}</a>#}
+{#                                    {% else %}#}
+{#                                        <a href="{{ path('job_seeker_registration_step_one', {'source': 'view_city_link'}) }}">{{ city.cntJobAnnouncements|number_format }}</a>#}
+{#                                    {% endif %}#}
+                                </td>
+                                {% if is_granted('ROLE_JOBSEEKER') or is_granted('ROLE_CITYUSER') %}
+                                    <td class="">
+                                        <p class="d-flex align-items-center justify-content-end">
+                                            {% if city.id in savedCityIDs %}
+                                                    <a class="ml-2 btn btn-sm btn-danger align-self-baseline" href="{{ path("unsave-city", {'slug': city.slug}) }}">Unsave</a>
+                                            {% else %}
+                                                <a class="btn btn-sm btn-outline-primary" href="{{ path('save-city', {'slug': city.slug}) }}">Save</a>
+                                            {% endif %}
+                                        </p>
+                                    </td>
+                                {% else %}
+                                    {#<a class="btn btn-sm btn-outline-primary" href="{{ path('job_seeker_registration_step_one', {'source': 'save_city'}) }}">Save</a>#}
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    </div>
+                    <div>
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

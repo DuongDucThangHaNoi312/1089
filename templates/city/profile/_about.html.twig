@@ -1,0 +1,52 @@
+{% set titleId = (form is defined) ? form_name~'_profileTitle' : 'profileTitle' %}
+{% set aboutId = (form is defined) ? form_name~'_profileAbout' : 'profileAbout' %}
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+{% if canEdit %}
+    {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://cdn.ckeditor.com/4.11.1/standard/ckeditor.js"></script>
+        <script>
+            function CKupdate(){
+                for ( instance in CKEDITOR.instances )
+                    CKEDITOR.instances[instance].updateElement();
+            }
+
+            $(document).ready(function() {
+                CKEDITOR.replace( 'about[profileAbout]' );
+                $('.ajax-form.ckeditor').click(function() {
+                    CKupdate();
+                });
+            });
+        </script>
+    {% endblock %}
+{% endif %}
+
+<div class="editable row">
+    <div class="section-title col-md-12">
+        <div class="d-flex flex-row">
+            <div><h2 id="{{ titleId }}">{{ city.profileTitle }}</h2></div>
+            {% if form is defined %}
+                <div class="h4 px-3">{{ include('_inline_edit_button.html.twig') }}</div>
+            {% endif %}
+        </div>
+
+
+    </div>
+</div>
+<div class="editable row">
+    <div class="col-md-12">
+        <p id="{{ aboutId }}">
+            {% if city.profileAbout %}
+                {{ city.profileAbout|raw }}
+            {% else %}
+                {{ include(template_from_string(default_about_template)) }}
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% if form is defined %}
+    {% include 'city/profile/_about_form.html.twig' with {'form': form} %}
+{% endif %}

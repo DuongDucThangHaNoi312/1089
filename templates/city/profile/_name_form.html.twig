@@ -1,0 +1,15 @@
+<div class="ajax-form">
+    {{ form_start(form) }}
+    {{ form_label(form.name) }}
+    <div class="input-group">
+        {{ form_errors(form.name) }}
+        {{ form_widget(form.name) }}
+        {{ form_help(form.name) }}
+        <div class="input-group-append">
+            <button type="button" class="btn btn-light cancel-btn">Cancel</button>
+            <button type="submit" class="btn btn-primary save-btn">Save</button>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</div>

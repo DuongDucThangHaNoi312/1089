@@ -1,0 +1,7 @@
+<div class="col-12 p-1">{% include 'city/profile/_section_title.html.twig' with {'name': 'Departments', 'description': 'Add relevant links to your city departments here'} %}</div>
+{% for department in departments %}
+    <div class="col-md-12">
+        <span style="color:#174275;">{{ department.name }}</span>
+    </div>
+{% endfor %}
+

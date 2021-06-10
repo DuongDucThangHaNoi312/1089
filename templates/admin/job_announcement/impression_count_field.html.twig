@@ -1,0 +1,8 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+    <a href="{{ path('admin_app_jobannouncement_jobannouncementimpression_list', {
+        'filter[jobAnnouncement][value]': object.id }) }}">
+        {{  admin.getJobAnnouncementImpressionCount(object)  }}
+    </a>
+{% endblock %}

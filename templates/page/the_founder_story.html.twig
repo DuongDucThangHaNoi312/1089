@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Learn about the founder and the inspiration behind CityGovJobs{% endblock %}
+{% block meta_description %}The inspiration for Citygovjobs comes from a rewarding career of working for city governments and the desire to share that experience with others. Cary Kalscheuer founded CityGovtJobs.com LLC in 2017 after being issued a patent for a website which is now Citygovjobs.com.{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+    <div class="about-us">
+        <div class="row">
+            <div class="city-navbar bg-white w-100 py-3">
+                <div class="container">
+                    <h1>About CityGovJobs.com</h1>
+                    {% set m = knp_menu_get( 'aboutUsMenu' ).setChildrenAttribute('class', 'nav nav-tabs city-navbar-list') %}
+                    {{ knp_menu_render(m) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-us">
+        <div class="row">
+            <div class="tab-content city-content w-100 container mt-4 bg-white mb-5">
+                <div class="the-founder-story-wrapper">
+                    <h3>The Founder's Story</h3>
+                    <div class="the-founder-story">
+                        <div class="about-us-header">
+                            <h5>The inspiration for Citygovjobs comes from a rewarding career of working for city
+                                governments and the desire to share that experience with others. </h5>
+                        </div>
+                        <div class="block-the-founder d-md-flex">
+                            <div class="row">
+                                <div class="block-founder-image col-md-4">
+                                <img src="{{ asset('build/images/the-founder-story.png') }}" alt="avatar" class="img-fluid">
+                                <div class="block-founder-name">
+                                    <h5>Cary Kalscheuer, Founder</h5>
+                                </div>
+                            </div>
+                                <div class="block-founder-introduce col-md-8">
+                                <p>Cary Kalscheuer founded CityGovtJobs.com LLC in 2017 after being issued a patent for
+                                    a website which is now Citygovjobs.com.</p>
+                                <p>The patent application was filed back in 2009, after two years of dabbling with
+                                    a website concept on weekends and after regular work days, "At the time,
+                                    I was 20 years into my city government career and felt it wasn't easy to monitor
+                                    job postings while working a challenging full-time position."
+                                </p>
+                                <p>"I really enjoyed working for city governments and the Director I worked for.
+                                    I just wanted to see others, including myself,
+                                    be able to more easily advance or move into positions where
+                                    we could make increasingly greater contributions to improve local communities."
+                                </p>
+                                <p>"Working for local government is unique in this way. You can actually walk down Main
+                                    Street
+                                    and see how your work efforts improve the quality of life locally.
+                                    This is one of the reasons I enjoyed living in the cities where I worked."
+                                </p>
+                                <p>Although Cary advanced through 7 separate city government
+                                    jobs over 20 years at 3 separate cities, he found that
+                                    finding jobs of interest can be time-consuming.
+                                </p>
+                                <div class="block-banner">"Well-qualified people working full-time jobs, who may be busy
+                                    raising kids or may be going to school to
+                                    improve themselves, shouldn't have to spend hours each day looking for advancement
+                                    opportunities."
+                                </div>
+                                <p>"Today, in some sense, the situation is even worse,
+                                    because job announcements are distributed so quickly electronically that
+                                    you can get bombarded with too many job announcements
+                                    from a mix of industries and different government agencies you are not interested
+                                    in."
+                                </p>
+                                <p>"These same job distribution platforms also send out
+                                    job announcements to many people who are not qualified
+                                    and can overwhelm HR Departments wasting valuable staff time."
+                                </p>
+                                <div class="block-banner">Anyone familiar with filling out Interest Cards will quickly
+                                    catch on to how Citygovjobs' core patented feature works.
+                                </div>
+                                <p>Instead of searching for Job Announcements, Cary believed that
+                                    it would be easier to simply search for job titles you knew you were qualified
+                                    for and interested in, and then submit interest in them,
+                                    in large numbers--and quickly. Then, just await job alerts to come your way.
+                                </p>
+                                <p>In a nutshell, that's how Citygovjobs works,
+                                   "It's a little like Interest Cards on steroids," Cary explains.</p>
+                                <p>"Imagine if you're a Management Analyst working for a city in Santa Clara County,
+                                    California, and wanted to land a 'Senior' Management Analyst job in any city in
+                                    Santa Clara County. Using Citygovjobs, you would simply search
+                                    for 'Senior Management Analyst' jobs in Santa Clara County,
+                                    and the system returns a full list of Senior Management Analyst jobs at all cities
+                                    in Santa Clara County.
+                                </p>
+                                <p>You can then filter the list by job categories,
+                                    such as Public Works, and then submit interest in every Senior Management Analyst
+                                    job
+                                    at every city from one web page and await the job postings to come your way.
+                                </p>
+                                <p>No need to fill-out an interest card or online form either, once you register
+                                    and enter your key qualifications you're set to submit interest in any job at
+                                    any city active in the system."
+                                </p>
+                                <p>The original idea was thought to benefit cities as well by providing them with
+                                    a ready list of qualified potential candidates to fill vacancies more quickly.
+                                    Since the website is industry focused, it was thought to provide mainly city
+                                    government career oriented potential applicants to cities.
+                                </p>
+                                <div class="block-banner">Of course, Citygovjobs includes more robust features than
+                                    interest cards on steroids.
+                                    Users can also get job announcements or alerts
+                                    for jobs matching a more general search criteria, and access to city
+                                    job announcement web pages directly from user-friendly dashboard.
+                                </div>
+                                <p>To view all the features, job seekers are encouraged to start a
+                                    free trial and discover how Citygovjobs can help you find your next opportunity
+                                    to serve and improve our local communities.
+                                </p>
+                            </div>
+                            </div>
+                        </div>
+
+                        {% if not app.user %}
+                        <div class="about-founder-footer">
+                            <h5 class="font-weight-bold">Get started today!</h5>
+                            <button class="button-blue-radius font-weight-bold">Start your free trial now</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

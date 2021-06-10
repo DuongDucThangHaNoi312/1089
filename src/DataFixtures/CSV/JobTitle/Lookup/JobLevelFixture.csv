@@ -1,0 +1,5 @@
+id,"name","slug",position,"description"
+1,"Entry","entry",0,NULL
+2,"Mid","mid",2,"(Most common positions)"
+3,"Senior","senior",3,"(e.g., Manager positions)"
+4,"Executive","executive",1,"(e.g., City Manager, Department Heads)"

@@ -1,0 +1,43 @@
+{% block collection_widget %}
+    {% if prototype is defined %}
+        {% set attr = attr|merge({'data-prototype': form_widget(prototype)}) %}
+        {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+    {% endif %}
+    {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+    {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+
+    <div {{ block("widget_attributes") }}">
+        {% for item in form %}
+            {{ form_widget(item) }}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block WorkHistoryType_widget %}
+    <div class="item bg-light p-4 rounded mb-2">
+        <div class="row mb-1">
+            <div class="col-3">
+                {{ form_row(form.startDate) }}
+            </div>
+            <div class="col-3">
+                {{ form_row(form.endDate) }}
+            </div>
+            <div class="col-2 offset-4 text-right align-self-start" >
+                <a href="#" class="collection-remove btn btn-sm btn-danger" title="Delete element"><span class=" fa fa-trash"></span></a>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-6">
+                {{ form_row(form.jobTitle) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.employerName) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-12">
+                {{ form_row(form.description) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

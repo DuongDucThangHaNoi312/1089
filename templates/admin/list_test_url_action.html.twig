@@ -1,0 +1,11 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+    {% set url = object  %}
+    {%  if url.value is defined %}
+        <a class="btn btn-primary test-url" target="_blank" onClick="setTimeout(function() {window.location.reload();}, 1000);" data-url-value="{{ url.value }}" style="display: block;" href="{{ path('admin_app_url_testUrl', {'id': url.id}) }}">
+            Test Url
+        </a>
+    {% endif %}
+{% endblock %}
+

@@ -1,0 +1,58 @@
+<div class="row bg-white rounded mb-3 p-4 mx-md-4">
+    <div class="col-md-12">
+        <div clas="row">
+            <h2 class="d-flex justify-content-between align-items-center mb-3">
+                <span>Job Alerts related to Submitted Interest (<a href="{{ path('job_seeker_jobtitle_search', {'type': 'announcement', 'search_filter[searchSubmittedJobTitle]': 1, '_fragment': 'job-announcement'}) }}">{{ jobAnnouncementCount }}</a>)</span>
+            </h2>
+            <hr/>
+        </div>
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                {% if jobAnnouncements|length <= 0 %}
+                    <p class="text-muted"> There are no job alerts matching your submitted interest. However you can search and submit interest to Job Titles to receive alerts on future Job Alerts. </p>
+                {% else %}
+
+                        <table class="table table-hover topless">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Job Title</th>
+                                    <th>City</th>
+                                    <th>Deadline</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for jobAnnouncement in jobAnnouncements %}
+                                    <tr>
+                                        <td><a href="{{ path('city_view_job_announcement', {'id': jobAnnouncement.id, 'slug': jobAnnouncement.jobTitle.city.slug}) }}">{{ jobAnnouncement.jobTitle }}</a></td>
+                                        <td><a href="{{ path('view_city_profile', {'slug': jobAnnouncement.jobTitle.city.slug}) }}" class="">{{ jobAnnouncement.jobTitle.city }}</a></td>
+                                        <td>{{ jobAnnouncement.applicationDeadline|date('m-d-Y h:i A T', jobAnnouncement.jobTitle.city.phpTimezone) }}</td>
+                                        <td class="d-flex justify-content-end align-content-center align-items-center">
+                                            {% if jobAnnouncement.jobTitle.level.id in allowedLevels %}
+                                                {% if user.hasSavedJobAnnouncementById(jobAnnouncement.id) %}
+                                                    <p class="my-1">Saved</p>
+                                                {% else %}
+                                                    <a class="pr-2 btn btn-link text-primary" href="{{ path('city_save_job_announcement', {'id': jobAnnouncement.id, 'slug': jobAnnouncement.jobTitle.city.slug}) }}"><i class="fa fa-save"></i></a>
+                                                {% endif %}
+                                            {% else %}
+                                                {% set content = 'Your subscriptions does not allow you to save Job Announcement of Job Title with level "' ~ jobAnnouncement.jobTitle.level.name ~'" . <a href="' ~ path('job_seeker_subscription', {'update': 'subscription'}) ~'">You can change your subscription plan here.</a>' %}
+                                                <button class="btn btn-outline-primary" type="button" data-toggle="popover" title="Your Subscription Is Limited"
+                                                        data-content="{{ content }}"
+                                                        data-html="true"><i class="fa fa-save"></i></button>
+                                            {% endif %}
+                                            <a class="btn btn-link text-danger align-self-baseline" href="{{ path("dismiss_job_announcement", {'id': jobAnnouncement.id}) }}"><i class="text-danger fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <a class="btn btn-outline-primary" href="{{ path('job_seeker_jobtitle_search', {'type': 'announcement', 'search_filter[searchSubmittedJobTitle]': 1, '_fragment': 'job-announcement'}) }}"><i class="fa fa-search"></i> View All</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

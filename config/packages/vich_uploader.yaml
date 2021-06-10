@@ -1,0 +1,20 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        city_seal_images:
+            uri_prefix: /images/cities/seal
+            upload_destination: '%kernel.project_dir%/public/images/cities/seal'
+        city_banner_images:
+            uri_prefix: /images/cities/banner
+            upload_destination: '%kernel.project_dir%/public/images/cities/banner'
+        city_job_categories_images:
+            uri_prefix: /images/cities/jobcategories
+            upload_destination: '%kernel.project_dir%/public/images/cities/jobcategories'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+        city_job_categories_detail_images:
+            uri_prefix: /images/cities/jobcategories/details
+            upload_destination: '%kernel.project_dir%/public/images/cities/jobcategories/details'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+

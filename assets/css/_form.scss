@@ -1,0 +1,82 @@
+textarea {
+  &.form-control {
+    min-height: 80px;
+  }
+}
+
+label {
+  &.required {
+    &:after {
+      content: " *";
+      color: $red;
+    }
+  }
+}
+
+.form-group {
+  label {
+    &.required {
+      &:after {
+        content: " *";
+        color: $red;
+      }
+    }
+  }
+}
+
+.item {
+  label {
+    &.required {
+      &:after {
+        content: " *";
+        color: $red;
+      }
+    }
+  }
+}
+
+fieldset {
+  legend {
+    &.required {
+      &:after {
+        content: " *";
+        color: $red;
+      }
+    }
+  }
+
+  .form-check {
+    label {
+      &.required {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+}
+
+form > div > div {
+  margin-bottom: 15px;
+             }
+
+form > div {
+  margin-bottom: 15px;
+}
+
+@media only screen and (width:500px){
+  //MANAGE JOB TITLES - CITY USER
+  .city-manage-job-titles-filter > div{
+    width: 100%;
+    padding-right:0!important; //override bootstrap
+
+  }
+
+}
+
+.select2 {
+  width:100%!important;
+}
+.select2-container--bootstrap4 .select2-selection--multiple .select2-search--inline .select2-search__field {
+  width: 100%!important;
+}

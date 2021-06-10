@@ -1,0 +1,7 @@
+swiftmailer:
+    url: '%env(MAILER_URL)%'
+    spool: { type: 'memory' }
+
+parameters:
+    default_from_email: 'service@citygovjobs.com'
+    default_from_name: 'CityGovJobs.com Customer Service'

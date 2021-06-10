@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Registration Step One | Confirm Your Email{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body_master_container_class %}container{% endblock %}
+{% block body_master_row_class %}bg-white px-md-5 my-md-5 justify-content-center{% endblock %}
+{% block body_master_column_class %}container px-md-5 py-md-5 px-xs-2 {% endblock %}
+
+{% block body_main %}
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2 text-center">
+            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'jobseeker-user-registration-verify-email' }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2 py-3 d-flex align-items-center justify-content-center">
+            <p class="text-danger h4 m-0 mr-2">Can't find it?</p>
+            <a class="btn btn-md btn-outline-primary" href="{{ path('job_seeker_registration_resend_confirmation') }}">Resend Confirmation Email</a>
+        </div>
+    </div>
+{% endblock %}

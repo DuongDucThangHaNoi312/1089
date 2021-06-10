@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Registration Step One{% endblock %}
+
+{% block body_master_container_class %}container{% endblock %}
+{% block body_master_row_class %}bg-white px-5 my-5 justify-content-center{% endblock %}
+{% block body_master_column_class %}container px-5 py-5 px-xs-2 {% endblock %}
+
+{% block body_main %}
+    <div class="row">
+        <div class="col-md-12 pb-3 text-center">
+            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'city-user-registration-step-one-top' }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-md-10 offset-lg-2 offset-md-1">
+            {{ form(form) }}
+        </div>
+    </div>
+    <div class="d-flex justify-content-center city-registration-ul-container">
+        <ul class="bullet-space mt-2 ml-auto mr-auto ">
+            <li><i class="fa fa-star" aria-hidden="true"></i>Easily conduct salary surveys
+            </li>
+            <li><i class="fa fa-star" aria-hidden="true"></i>Quickly find job descriptions by
+                filtering search by job titles
+            </li>
+            <li><i class="fa fa-star" aria-hidden="true"></i>Access bargaining unit agreements and more at other cities
+        </ul>
+    </div>
+
+
+{% endblock %}

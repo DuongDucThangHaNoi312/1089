@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Learn more about news related to CityGovJobs{% endblock %}
+{% block meta_description%}Get up to date with  news relating to CityGovJobs.com and searching for Government Jobs.{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="mt-4 container">
+            <h1>News</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    <div class="container mt-4 bg-white mb-5">
+        <div class="m-4 p-4 bg-white">
+            <div class="row bg-white py-3">
+                <div class="col-12">
+                    {% for article in pagination %}
+                        <h2><a href="{{ path('article', {'slug': article.slug}) }}">{{ article.headline }}</a></h2>
+                        <p class="mb-1 text-muted">{{ article.createdAt| date("m/d/Y H:i A T", "America/Los_Angeles")}}</p>
+                        {{ article.content[:200]|raw  }}
+                        {% if article.content|length > 200%}
+                            ...
+                            <a class="text-danger" href="{{ path('article', {'slug': article.slug}) }}">Read More</a>
+                        {% endif %}
+                        {% if not loop.last %}
+                            <hr/>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-12 mt-3">
+                    <div class="d-flex justify-content-center">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

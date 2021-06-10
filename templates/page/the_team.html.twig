@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}The CityGovJobs Team and Development Partner{% endblock %}
+{% block meta_description %}CitGovJobs is owned and operated by CityGovJobs.com LLC and developed by Endertech.{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+    <div class="about-us">
+        <div class="row">
+            <div class="city-navbar bg-white w-100 py-3">
+                <div class="container">
+                    <h1>About CityGovJobs.com</h1>
+                    {% set m = knp_menu_get( 'aboutUsMenu' ).setChildrenAttribute('class', 'nav nav-tabs city-navbar-list') %}
+                    {{ knp_menu_render(m) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-us">
+        <div class="row">
+            <div class="tab-content city-content w-100 container mt-4 bg-white mb-5">
+                <div class="the-team-wrapper">
+                    <h3>CityGovJob's Team</h3>
+                    <div class="the-team">
+                        <div class="about-us-header">
+                            <h5>Citygovjobs is owned and operated by CityGovJobs.com LLC, located at 2601 E. Chapman
+                                Ave., Suite 203, Fullerton, CA 92831.</h5>
+                        </div>
+                        <div class="block-the-member d-md-flex">
+                            <div class="block-member-image">
+                                <img src="{{ asset('build/images/Cary-Kalscheuer.png') }}" alt="Profile Image of Cary Kalscheuer">
+                            </div>
+                            <div class="block-member-introduce">
+                                <h5>Cary Kalscheuer, Founder</h5>
+                                <div class="block-member-content">
+                                    <p>Cary holds a BA and MPA from California State University, Fullerton, and advanced
+                                        through 7 separate positions while working for 3 city governments in Southern
+                                        California over 29 years. Cary retired from an Assistant Director position with
+                                        the City of Azusa's Utilities Department in May 2018, to start up
+                                        CityGovtJobs.com LLC.
+                                        <a href="{{ path('the_founder_story') }}">See Founder's Story</a> for more information about Cary.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-the-member d-md-flex">
+                            <div class="block-member-image">
+                                <img src="{{ asset('build/images/Theresa-Gawlik.png') }}" alt="Profile Image of Theresa Gawlik">
+                            </div>
+                            <div class="block-member-introduce">
+                                <h5>Theresa Gawlik</h5>
+                                <div class="block-member-content">
+                                    <p>Theresa received her AA degree in Administration of Justice from Long Beach City
+                                        College and worked as a Police Cadet for a Southern California Police
+                                        Department. Theresa also has over 17 years of experience in the Public Records
+                                    & Background Research industry, and now helps with public records requests and data collection
+                                    for CityGovJobs. Theresa leads efforts to categorize city government jobs and helps with
+                                    operations management. Theresa is married to a Police Officer and is a mother of three.</p>
+                                    <span>"I can totally relate to Citygovjobs' vision. Now that my children are grown,
+                                        I decided to re-invent myself and find a new career. After months of searching for
+                                        jobs using other websites, I realized that my applications and resumes
+                                        were not producing desired results. It was disheartening. There were just too many
+                                        various jobs for me to filter through and the websites I used were very time-consuming.
+                                        I now hope to help change that for others here at Citygovjobs.”
+                                    </span>
+                                    <span>- Theresa</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>CityGovJobs's Development Partner - Endertech</h3>
+                        <div class="about-us-header">
+                            <h5><a href="https://endertech.com">Endertech</a> is a <a href="https://endertech.com/services/website-development">Los Angeles web design</a> and <a href="https://endertech.com/services/software-development">software
+                                    development company</a> based in Torrance, California.</h5>
+                        </div>
+                        <div class="block-the-member d-md-flex">
+                            <div class="block-member-image">
+                                <img src="{{ asset('build/images/Gabriel-Richards.png') }}" alt="Profile Image of Gabriel Richards">
+                            </div>
+                            <div class="block-member-introduce">
+                                <h5>Gabriel Richards, Founder & CEO</h5>
+                                <div class="block-member-content">
+                                    <p>Gabe received a BA in Philosophy from UC Irvine in 2000 and founded <a href="https://endertech.com">Endertech</a> that
+                                        same year. He has over twenty years of experience designing
+                                        and developing all sorts of websites, databases, and software applications. He is
+                                        skilled in creative thinking, problem solving, business analysis, software system
+                                        architecture, project management, software engineering, and cloud server administration.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-the-member d-md-flex">
+                            <div class="block-member-image">
+                                <img src="{{ asset('build/images/Noemi-Quezada.png') }}" alt="Profile Image of Noemi Quezada">
+                            </div>
+                            <div class="block-member-introduce">
+                                <h5>Noemi Quezada, Senior Developer</h5>
+                                <div class="block-member-content">
+                                    <p>Noemi received her BS in Computer Science from CSU Fullerton in 2015 and her MS
+                                        in Software Engineering from the same university in 2017. She joined <a href="https://endertech.com">Endertech</a>
+                                        in 2014 and has over five years of professional experience in web development
+                                        and mobile development and design. She is skilled in iOS/web development, software
+                                        architecture, mobile UX and design, and software engineering.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-the-member d-md-flex">
+                            <div class="block-member-image">
+                                <img src="{{ asset('build/images/Juan-Castillo.png') }}" alt="Profile Image of Juan Castillo">
+                            </div>
+                            <div class="block-member-introduce">
+                                <h5>Juan Castillo, Creative Director</h5>
+                                <div class="block-member-content">
+                                    <p>Juan received a BA degree in Art from Yale University in 2008 and has over twelve
+                                        years of professional experience in print design and web design and development.
+                                        He joined <a href="https://endertech.com">Endertech</a> in 2014. He is skilled in UI and UX design for both web
+                                        and mobile, logo design and branding, wireframing, and frontend web development.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

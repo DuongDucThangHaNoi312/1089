@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Job Vacancies{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h1>Vacancies</h1>
+            {% set m = knp_menu_get( 'cityUserJobMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+            {{ knp_menu_render(m) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center">
+        <div class="col-10 m-4 p-4 bg-white">
+            <div class="row">
+                <div class="col-12">
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'city-job-vacancies' }) }}
+                </div>
+                <div class="col-12">
+                    {{ form_start(filterForm) }}
+                    <div class="row my-3 justify-content-end">
+                        <div class="col-12 ml-auto text-right">
+                            <div class="d-inline-flex justify-content-end align-items-baseline top-filter">
+                                <div class="flex-fill pr-2">{{ form_label(filterForm.jobTitleText) }}</div>
+                                <div class="flex-fill pr-4">{{ form_widget(filterForm.jobTitleText) }}</div>
+                                <div class="flex-fill pr-2">{{ form_label(filterForm.department) }}</div>
+                                <div class="flex-fill pr-4">{{ form_widget(filterForm.department) }}</div>
+                                <div class="flex-fill pr-2">{{ form_label(filterForm.display) }}</div>
+                                <div class="flex-fill pr-4">{{ form_widget(filterForm.display) }}</div>
+                                <div class="flex-fill pr-2">{{ form_label(filterForm.showPerPage) }}</div>
+                                <div class="flex-fill pr-4">{{ form_widget(filterForm.showPerPage) }}</div>
+                                <div class="flex-fill pr-2">{{ form_widget(filterForm.Go) }}</div>
+                                <div class="flex-fill"><a class="btn btn-light" href="{{ path('city_job_vacancies', {'slug': city.slug}) }}">Reset</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(filterForm) }}
+                    <table class="table table-striped">
+                        <tr>
+                            {# sorting of properties based on query components #}
+                            <th{% if pagination.isSorted('j.name') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(pagination, 'Job Title', 'j.name') }}
+                            </th>
+                            <th{% if pagination.isSorted('d.name') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(pagination, 'Department', 'd.name') }}
+                            </th>
+                            <th{% if pagination.isSorted('t.name') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(pagination, 'Type', 't.name') }}
+                            </th>
+                            <th{% if pagination.isSorted('l.name') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(pagination, 'Level', 'l.name') }}
+                            </th>
+                            <th class="text-right{% if pagination.isSorted('cntInterest') %} sorted{% endif %}">
+                                {{ knp_pagination_sortable(pagination, 'Interest', 'cntInterest') }}
+                            </th>
+                            <th{% if pagination.isSorted('isVacant') %} class="sorted"{% endif %}>
+                                {{ knp_pagination_sortable(pagination, 'Vacant?', 'isVacant') }}
+                            </th>
+                        </tr>
+                        {% for job_title in pagination %}
+                            <tr>
+                                <td>{{ job_title.name }}</td>
+                                <td>{{ job_title.department }}</td>
+                                <td>{{ job_title.type }}</td>
+                                <td>{{ job_title.level }}</td>
+                                <td class="text-right"><a href="{{ path('city_job_interest', {'slug': city.slug, 'jobTitleId': job_title.id}) }}">{{ job_title.cntInterest }}</a></td>
+                                <td>
+                                    {% if job_title.isVacant %}
+                                        <a class="btn btn-secondary" href="{{ path('toggle-job-title-vacancy', {'slug': city.slug, 'jobTitleId': job_title.id}) }}">Mark Filled</a>
+                                    {% else %}
+                                        <a class="btn btn-primary" href="{{ path('toggle-job-title-vacancy', {'slug': city.slug, 'jobTitleId': job_title.id}) }}">Mark Vacant</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <div>
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+<div class="d-flex flex-sm-column flex-md-row mt-2 p-3 px-3 justify-content-md-between justify-content-sm-start align-content-sm-start job-alert-details-city-links">
+    {% for url in city.urls %}
+        {% if app.user is null %}
+            <a class="btn btn-link pl-0" href="{{ url('job_seeker_registration_step_one', {'source': 'view_city_link'}) }}">{{ url.type }}</a>
+        {% else %}
+            <a class="btn btn-link pl-0 city-link-type" data-url-id="{{ url.id }}" href="{{ url.value }}" target="_blank" >{{ url.type }}</a>
+        {% endif %}
+    {% endfor %}
+</div>

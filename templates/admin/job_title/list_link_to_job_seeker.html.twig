@@ -1,0 +1,10 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+    <a class="btn btn-primary" target="_blank" data-url-value="{{ object.id }}"
+            {% if object.submittedJobTitleInterestCount > 0 %}
+                href="{{ path('admin_app_user_jobseekeruser_list', {'filter[submittedJobTitleInterests__jobTitle][value]': object.id , 'filter[submittedJobTitleInterests__jobTitle__city][value]': object.city ? object.city.id : null }) }}"
+            {% endif %}>
+        {{ object.submittedJobTitleInterestCount }}
+    </a>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Resume{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+    <div class="container bg-white my-4 py-4 rounded">
+        <div class="row pt-2">
+            <div class="col-md-10 offset-1">
+                {% if isEditable %}
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-complete-resume' }) }}
+                {% else %}
+                    {% if is_granted('ROLE_CITYUSER') %}
+                        <div class="d-flex justify-content-between">
+                            <h1 class="h3"><span class="align-bottom">Resume for {{ resume.jobSeeker.firstname }} {{ resume.jobSeeker.lastname }}</span></h1>
+                            {% if app.user.hasSavedResume(resume) %}
+                                <div>Resume is Saved</div>
+                            {% else %}
+                                <a href="{{ path('city_resume_save', {'id': resume.id}) }}"><i class="fa fa-save"></i> Save</a>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <h1 class="h3">Resume for {{ resume.jobSeeker.firstname }} {{ resume.jobSeeker.lastname }}</h1>
+                    {% endif %}
+                {% endif %}
+
+                <hr class="danger"/>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-10 offset-1" id="job-seeker-resume-job-seeker">
+                {{ render(controller(
+                    'App\\Controller\\JobSeeker\\ResumeController::jobSeeker',
+                    { 'resume': resume, 'isEditable': isEditable }
+                )) }}
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-10 offset-1" id="job-seeker-resume-summary">
+                {{ render(controller(
+                    'App\\Controller\\JobSeeker\\ResumeController::summary',
+                    { 'resume': resume, 'isEditable': isEditable  }
+                )) }}
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-10 offset-1" id="job-seeker-resume-interest-profile">
+                {{ render(controller(
+                    'App\\Controller\\JobSeeker\\ResumeController::interestProfile',
+                    { 'resume': resume, 'isEditable': isEditable  }
+                )) }}
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-10 offset-1" id="job-seeker-resume-key-qualifications">
+                {{ render(controller(
+                    'App\\Controller\\JobSeeker\\ResumeController::keyQualifications',
+                    { 'resume': resume, 'isEditable': isEditable  }
+                )) }}
+            </div>
+        </div>
+        {% if isEditable %}
+            <div class="row pt-3">
+                <div class="col-md-10 offset-1" id="job-seeker-resume-settings">
+                    {{ render(controller(
+                        'App\\Controller\\JobSeeker\\ResumeController::settings',
+                        { 'resume': resume, 'isEditable': isEditable  }
+                    )) }}
+                </div>
+            </div>
+        {% endif %}
+        {% if (resume.workHistories.count != 0 and isEditable == false) or isEditable == true %}
+        <div class="row pt-3">
+            <div class="col-md-10 offset-1" id="job-seeker-resume-work-histories">
+                {{ render(controller(
+                    'App\\Controller\\JobSeeker\\ResumeController::workHistory',
+                    { 'resume': resume, 'isEditable': isEditable  }
+                )) }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

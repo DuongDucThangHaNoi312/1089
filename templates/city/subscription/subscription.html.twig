@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Subscription{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/css/stripe.css') }}">
+{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h1>Your City's Subscription</h1>
+            {% set m = knp_menu_get( 'cityUserAccountMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+            {{ knp_menu_render(m) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center">
+        <div class="col-10 m-4 p-5 bg-white page-content-container">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            {% set plan = subscription.subscriptionPlan %}
+                            <h3 class="card-title">{{ plan.name }}</h3>
+                            {% if not subscription.isPaid and (not subscription.cancelledAt and not subscription.cancellationRequestedAt) %}
+                                <p class="card-subtitle text-danger">Incomplete Subscription</p>
+                            {% elseif  not subscription.cancelledAt and not subscription.cancellationRequestedAt %}
+                                {% if subscription.subscriptionChangeRequest != null %}
+                                    <p class="card-title text-muted">Your requested downgrade to {{ subscription.subscriptionChangeRequest.newSubscriptionPlan.name }} (${{ "%.2f"|format(subscription.subscriptionChangeRequest.newSubscriptionPlan.priceByFTE(city.countFTE)) }} per {{ subscription.subscriptionChangeRequest.newSubscriptionPlan.renewalFrequency.determineInterval }}) will be charged at the end of your current billing period, {{ subscription.expiresAt|date('M d, Y h:i A T', city.phpTimezone) }}. To cancel  your downgrade request click, <a href="{{ path('cancel_subscription_request', {'id': subscription.subscriptionChangeRequest.id}) }}">cancel request</a>.</p>
+                                {% else %}
+                                    <p class="card-subtitle text-muted">Your {{ subscription.subscriptionPlan.name }} will {{ subscription.subscriptionPlan.isTrial ? 'expire' : 'renew' }} on {{ subscription.expiresAt|date('M d, Y h:i A T', city.phpTimezone) }}. ${{ "%.2f"|format(subscription.subscriptionPlan.priceByFTE(city.countFTE)) }} per {{ subscription.subscriptionPlan.renewalFrequency.determineInterval }}.</p>
+                                {% endif %}
+                            {% endif %}
+                            {% include 'city/subscription/subscription_terms.html.twig' %}
+                            {% if subscription.cancelledAt %}
+                                <p class="card-text">Cancelled {{ subscription.cancelledAt|date('m/d/Y h:i A T', city.phpTimezone) }}</p>
+                                {% if subscription.subscriptionPlan.isTrial == false %}
+                                    <a class="card-link btn btn-link" href="{{ path('city_reactivate_subscription', {'slug': city.slug, 'id': subscription.subscriptionPlan.id}) }}">Reactivate</a>
+                                {% endif %}
+                                <button class="clear-margin card-link mt-3 btn btn-primary" id="chooseSubscription" data-toggle="modal" data-target="#choosePlanModal">Change plan</button>
+                                <a class="clear-margin card-link mt-3 btn btn-secondary" href="{{ path('city_subcription_options') }}" target="_blank">See plan details</a>
+                            {% elseif subscription.cancellationRequestedAt %}
+                                <p class="card-text">Cancellation requested at {{ subscription.cancellationRequestedAt|date('m/d/Y h:i A T', city.phpTimezone) }}</p>
+                                <p class="card-text">Your account will be active through your expiration date.
+                                    You will no longer be charged. After a short grace period, your account will be cancelled
+                                    and all your job alerts and announcements will be removed.</p>
+                                {% if subscription.subscriptionPlan.isTrial == false and subscription.subscriptionPlan.isActive == true %}
+                                    <a class="card-link btn btn-link" href="{{ path('city_reactivate_subscription', {'slug': city.slug, 'id': subscription.subscriptionPlan.id}) }}">Reactivate</a>
+                                {% endif %}
+                                <button class="clear-margin card-link mt-3 btn btn-primary" id="chooseSubscription" data-toggle="modal" data-target="#choosePlanModal">Change plan</button>
+                                <a class="clear-margin card-link mt-3 btn btn-secondary" href="{{ path('city_subcription_options') }}" target="_blank">See plan details</a>
+                            {% else %}
+                                <button class="card-link btn btn-danger mt-3" data-toggle="modal" data-target="#subscriptionCancelModal">Cancel</button>
+                                {% if not subscription.isPaid%}
+                                    <button class="card-link mt-3 btn btn-outline-danger" id="payInactiveSubscription" data-toggle="modal" data-target="#payInactivePaymentMethodModal">Pay Now</button>
+                                {% else %}
+                                    <button class="clear-margin card-link mt-3 btn btn-primary" id="chooseSubscription" data-toggle="modal" data-target="#choosePlanModal">Change plan</button>
+                                    <a class="clear-margin card-link mt-3 btn btn-secondary" href="{{ path('city_subcription_options') }}" target="_blank">See plan details</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Payment Method</h3>
+                            {% if card %}
+                                <p class="card-subtitle text-muted"><i class="far fa-credit-card"></i> {{ card.brand }} ending in {{ card.last4 }}, exp: {{ card.expMonth }}/{{ card.expYear }}</p>
+                            {% else %}
+                                <p class="text-muted"> You have no Payment on file.</p>
+                            {% endif %}
+                            <button class="mt-3 card-link btn btn-primary " data-toggle="modal" id="updatePayment" data-target="#updatePaymentMethodModal" {{ (city.subscription.paymentProcessorSubscriptionId == '' or city.subscription.paymentProcessorSubscriptionId == null) ? 'disabled' : '' }}>Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ render(controller(
+                'App\\Controller\\City\\SubscriptionController::displayTransactionHistory',
+                { 'city': city }
+            )) }}
+        </div>
+    </div>
+
+    <div class="modal fade" id="subscriptionCancelModal" tabindex="-1" role="dialog" aria-labelledby="subscriptionCancelModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="subscriptionCancelModalLabel">Are You Sure You Want to Cancel?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% if city.subscription.subscriptionChangeRequest is not null %}
+                    <div class="modal-body">
+                        <p class="text-danger">
+                            You cannot cancel your subscription because you have a downgrade request pending. To cancel your subscription, please cancel your pending downgrade request by clicking, <a href="{{ path('cancel_subscription_request', {'id': subscription.subscriptionChangeRequest.id}) }}">cancel request</a>.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                {% else %}
+                    <div class="modal-body">
+                        <p>Are you sure you want to cancel your account?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a class="btn btn-danger" href="{{ path('city_subscription_cancel', {'slug': city.slug, 'id': subscription.id}) }}">Cancel Subscription</a>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'job_seeker/subscription/update_payment_method.html.twig' %}
+    {% include 'city/subscription/choose_subscription_plan.html.twig' with {show: update == 'subscription' ? 'open' : ''} %}
+    {% if inactiveSubscriptionForm %}
+        {% include 'job_seeker/subscription/pay_inactive_subscription.html.twig' with {show: update == 'payment' ? 'open' : '' } %}
+    {% endif %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('build/stripe.js') }}"></script>
+    {% endblock %}
+{% endblock %}

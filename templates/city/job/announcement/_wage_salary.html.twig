@@ -1,0 +1,26 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Salary/Wage', 'canEdit': canEdit, 'urgency': 'Required', checkmark: checkmark} %}
+<hr/>
+<div class="row editable">
+    <div class="col-md-12">
+        {% if jobAnnouncement.wageRangeDependsOnQualifications == true %}
+            <p>Depends on Qualifications</p>
+        {% elseif jobAnnouncement.wageSalaryHigh == null and jobAnnouncement.wageSalaryLow == null %}
+            <p>No Wage or Salary specified</p>
+        {% else %}
+            <p>{{ jobAnnouncement.wageSalaryLow|localizedcurrency('USD') }} - {{ jobAnnouncement.wageSalaryHigh|localizedcurrency('USD') }} {{ jobAnnouncement.wageSalaryUnit }}</p>
+        {% endif %}
+    </div>
+</div>
+{% if form is defined %}
+    {% include 'city/job/announcement/_wage_salary_form.html.twig' with {'form': form} %}
+{% endif %}

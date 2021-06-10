@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About Jobs of Interest for City Users{% endblock %}
+{% block meta_description %}CityGovJobs allows job seekers to quickly submit interest in jobs at multiple cities along with their key qualifications. This gives you access to great potential applicants you can easily direct to your job announcements, ATS or contract recruiters.{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+    <div class="about-us">
+        <div class="row">
+            <div class="city-navbar bg-white w-100 py-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            <h1>More about Jobs of Interest for:</h1>
+                            {% set m = knp_menu_get( 'aboutJobAlertsMenu' ).setChildrenAttribute('class', 'nav nav-tabs city-navbar-list') %}
+                            {{ knp_menu_render(m) }}
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <button class="btn btn-danger btn-rounded-much" onclick="window.location.href = '/registration/find/city'">Register Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-us">
+        <div class="row">
+            <div class="tab-content city-content w-100 container mt-4 bg-white mb-5">
+                <div class="the-team-wrapper">
+                    <div class="about-us-header">
+                        <span class="message-icon"><i class="fas fa-info-circle"></i></span>
+                        <h5>CityGovJobs allows job seekers to quickly submit interest in jobs at multiple cities. This gives you access to great potential applicants you can easily direct to your job announcements, ATS or contract recruiters.</h5>
+                    </div>
+                    <div>
+                        <div class="step">
+                            <h3>1. Upon registration, you'll be able to view count of Submitted Interest in your jobs on your Dashboard:</h3>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-10">
+                                    <img src="{{ asset('build/images/about-job-alerts/about-job-alerts_city-user_1.png') }}" class="responsive-screenshot" alt="Screenshot from the system for city users" />
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>2. Potential Applicant Qualifications</h3>
+                                    <ul>
+                                        <li>Summary info is available on submitted interest for job seeker's that a completed resume.</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="{{ asset('build/images/about-job-alerts/about-job-alerts_city-user_2.png') }}" class="responsive-screenshot" alt="Screenshot from the system for city users" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>3. Post Job Alert <span class="sub-heading">Takes less than 1 minute!</span></h3>
+                                    <ul>
+                                        <li>Use template on the right to easily post a Job Alert or Job Announcement clicking through Edit <i class="fas fa-edit"></i> icons.</li>
+                                        <li>Most Job Posts only require 4 items:
+                                            <ol>
+                                                <li>Salary or Wage</li>
+                                                <li>Application Deadline</li>
+                                                <li>URL to Job Announcement</li>
+                                                <li>Run dates for Job Post</li>
+                                            </ol>
+                                        </li>
+                                        <li>To create a job announcement just cut and paste descriptive info into your job post and enter URL to your ATS.</li>
+                                        <li>Alerts and Announcements are distributed to those that submitted interest and are available to others through searches.</li>
+                                        <li class="special-item">When you post a full Job Announcement, it not only appears on CityGovJobs, but is picked up by Job Seekers using Google Jobs Search.</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="{{ asset('build/images/about-job-alerts/about-job-alerts_city-user_3.png') }}" class="responsive-screenshot" alt="Screenshot from the system for city users" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>4. Track Views / Get Well-Qualified Applicants</h3>
+                                    <ul>
+                                        <li>From your Dashboard panels you can track views of each Job Alert.</li>
+                                        <li class="special-item">No time to post Job Alerts? You may add other City users to help post Job Alerts and manage your City's subscription.</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="{{ asset('build/images/about-job-alerts/about-job-alerts_city-user_4.png') }}" class="responsive-screenshot" alt="Screenshot from the system for city users" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>5. Become a Recruitment Superstar</h3>
+                                    <ul>
+                                        <li class="special-item">City Gov Jobs has uploaded your job titles to help you get started...<br/><br/>All you need to do is register and start posting Job Alerts!<button class="btn btn-danger btn-rounded-much" onclick="window.location.href = '/registration/find/city'">4 Month Free Trial</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="{{ asset('build/images/about-job-alerts/about-job-alerts_city-user_5.png') }}" class="responsive-screenshot" alt="Screenshot from the system for city users" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#{% block footer %}#}
+{#{% endblock %}#}

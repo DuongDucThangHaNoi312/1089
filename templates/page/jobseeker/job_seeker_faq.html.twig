@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Frequently Asked Questions{% endblock %}
+{% block meta_description %}Frequently Asked Questions for Job Seekers{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+
+    <div class="row bg-white justify-content-center">
+        <div class="col-12 col-md-10 mx-6 px-5 py-3 bg-white inner-menu-container">
+            <h1>FAQ</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="bg-white my-5 justify-content-center">
+            <div class="container px-md-5 py-5 px-2 inner-menu-container">
+            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-faq' }) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

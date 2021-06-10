@@ -1,0 +1,147 @@
+.modal {
+  &-dialog {
+    max-width: 540px;
+  }
+
+  &-content {
+    border-color: $blue;
+    border-radius: 0.375rem;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.12);
+  }
+
+  &-header, &-body, &-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  &-header {
+    justify-content: center;
+    color: $white;
+    font-size: 1.25rem;
+    background-color: $blue;
+
+    .modal-title {
+      color: inherit;
+      font-size: inherit;
+    }
+  }
+
+  &-footer {
+    background-color: $blue-two;
+  }
+
+  form {
+    .row, .form-row {
+      margin-right: -10px;
+      margin-left: -10px;
+
+      > .col {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+    }
+  }
+
+  &--show {
+    display: block;
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    z-index: 1;
+  }
+
+  form {
+    .modal-footer {}
+
+    .google-recaptcha {}
+  }
+
+
+  @include media-breakpoint-up(md) {
+    form {
+      .modal-footer {
+        button {
+          &[type="submit"] {
+            min-width: calc(50% - 0.625rem);
+          }
+        }
+      }
+    }
+  }
+
+
+  @include media-breakpoint-down(xs) {
+    form {
+      .row, .form-row {
+        display: block;
+      }
+
+      .modal-footer {
+        display: block;
+
+        .google-recaptcha, .btn {
+          width: 100%;
+          margin: 0;
+        }
+
+        .google-recaptcha {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+}
+
+.printable-invoice {
+  .fade:not(.show) {
+    opacity: 1;
+  }
+
+  .modal {
+    display: block;
+    position: unset;
+
+    .modal-dialog {
+      transform: initial;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .modal-lg, .modal-xl {
+    max-width: 80% !important;
+  }
+}
+
+.submitted-interest-summary-container {
+  .summary-title {
+    font-size: 20px;
+  }
+
+  .list-group {
+    font-size: 0.9rem;
+  }
+
+  .card-group {
+    .card {
+      border-radius: 0.25rem;
+      border: 1px solid rgba(40, 40, 40, 0.125);
+    }
+
+    .card-header {
+      border-top-left-radius: 0.25rem !important;
+      border-top-right-radius: 0.25rem !important;
+    }
+  }
+
+  [data-toggle="collapse"] {
+      &.collapsed .if-not-collapsed {
+        display: none;
+      }
+      &:not(.collapsed) .if-collapsed {
+        display: none;
+      }
+  }
+}

@@ -1,0 +1,6 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+{% block field %}
+    <a href="{{ path('admin_app_jobannouncement_edit', {'id': object.jobAnnouncement.id }) }}">
+        {{ object.jobAnnouncement.jobTitle }}
+    </a>
+{% endblock %}

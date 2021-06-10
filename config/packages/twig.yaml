@@ -1,0 +1,15 @@
+twig:
+    globals:
+        stripe_publishable_key: '%env(STRIPE_PUBLISHABLE_KEY)%'
+        system_domain: '%env(SYSTEM_DOMAIN)%'
+        analytics_active: '%env(ANALYTICS_ACTIVE)%'
+    paths: ['%kernel.project_dir%/templates']
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_themes:
+      - 'bootstrap_4_layout.html.twig'
+      - 'SonataCoreBundle:Form:datepicker.html.twig'
+      - '@SonataFormatter/Form/formatter.html.twig'
+      - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+      - 'form/fields.html.twig'
+      - 'TetranzSelect2EntityBundle:Form:fields.html.twig'

@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Edit Job Announcements{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.11.1/standard/ckeditor.js"></script>
+    <script>
+        function CKupdate(){
+            for ( instance in CKEDITOR.instances )
+                CKEDITOR.instances[instance].updateElement();
+        }
+
+        $(document).ready(function() {
+            $('.ajax-form.ckeditor').click(function() {
+                CKupdate();
+            });
+        });
+    </script>
+    {% include '_sharethis.html.twig'%}
+{% endblock %}
+
+{% block body_top %}
+
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h1>Edit Job Alert{{ city.allowsJobAnnouncements == true ? '/Announcement' : ''}}</h1>
+            {% set m = knp_menu_get( 'cityUserJobMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+            {{ knp_menu_render(m) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    {% set canEdit  = true %}
+    <div class="container bg-white rounded my-4 pb-5 py-4">
+        <div class="row pt-3">
+            <div class="bg-light mb-4 rounded col-md-10 offset-1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-flex  mt-2 p-3 px-3 justify-content-between">
+                            <div class="align-self-center col-md-2" id="city-job-announcement-status">
+                                {{ render(controller(
+                                    'App\\Controller\\City\\JobAnnouncementController::status',
+                                    { 'city': city, 'jobAnnouncement': jobAnnouncement, 'isEditable': true  }
+                                )) }}
+                            </div>
+                            <div class="align-self-center" id="city-job-announcement-active-dates">
+                                {{ render(controller(
+                                    'App\\Controller\\City\\JobAnnouncementController::activeDates',
+                                    { 'city': city, 'jobAnnouncement': jobAnnouncement, 'isEditable': true }
+                                )) }}
+                            </div>
+                            <div class="align-self-center">
+                                <a
+                                        {% if jobAnnouncement.isAlert %}
+                                            href="{{ path("city_view_job_announcement", { "slug": city.slug ,"id": jobAnnouncement.id}) }}"
+                                        {% else %}
+                                            href="{{ path("city_full_view_job_announcement", { "slug": city.slug ,"id": jobAnnouncement.id}) }}"
+                                        {% endif %}
+
+                                ><i class="fa fa-eye"></i> Preview</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-10 offset-1">
+                <h1>{{ jobAnnouncement.jobTitle }}</h1>
+                <p class="h4 text-muted"><a class="text-muted" href="{{ url('view_city_profile', {'slug': city.slug}) }}">{{ jobAnnouncement.jobTitle.city.prefix }} {{ jobAnnouncement.jobTitle.city }}</a>, {{ jobAnnouncement.jobTitle.city.stateFromCounty }}</p>
+                {#{{  include ('city/job/announcement/_message.html.twig' ,{'jobAnnouncement': jobAnnouncement, 'isEditable': true}) }}#}
+                <hr class="danger"/>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-3 offset-1">
+                {% if city.sealImage is not null %}
+                    <img class="seal preview" src="{{ vich_uploader_asset(city, 'sealImageFile')|default("https://via.placeholder.com/200x200") }}" alt="{{ city.name }} Seal" />
+                {% endif %}
+                {% include 'city/job/announcement/_job_information.html.twig'%}
+            </div>
+            <div class="col-md-7">
+                <div class="pb-4" id="city-job-announcement-wage-salary">
+                    {{ render(controller(
+                        'App\\Controller\\City\\JobAnnouncementController::wageSalary',
+                        { 'city': city, 'jobAnnouncement': jobAnnouncement, 'isEditable': true }
+                    )) }}
+                </div>
+                <div class="pb-4" id="city-job-announcement-application-deadline">
+                    {{ render(controller(
+                        'App\\Controller\\City\\JobAnnouncementController::applicationDeadline',
+                        { 'city': city, 'jobAnnouncement': jobAnnouncement, 'isEditable': true }
+                    )) }}
+                </div>
+                <div class="pb-4" id="city-job-announcement-closed-promotional">
+                    {{ render(controller(
+                        'App\\Controller\\City\\JobAnnouncementController::closedPromotional',
+                        { 'city': city, 'jobAnnouncement': jobAnnouncement, 'isEditable': true }
+                    )) }}
+                </div>
+                {% if city.allowsJobAnnouncements == true %}
+                    <div class="pb-4" id="city-job-announcement-is-alert">
+                        {{ render(controller(
+                            'App\\Controller\\City\\JobAnnouncementController::isAlert',
+                            { 'city': city, 'jobAnnouncement': jobAnnouncement, 'isEditable': true }
+                        )) }}
+                    </div>
+                    <div class="pb-4" id="city-job-announcement-announcement">
+                        {{ render(controller(
+                            'App\\Controller\\City\\JobAnnouncementController::announcement',
+                            { 'city': city, 'jobAnnouncement': jobAnnouncement, 'isEditable': true }
+                        )) }}
+                    </div>
+                {% endif %}
+                <div class="pb-4 {{ city.allowsJobAnnouncements == false ? 'only' : '' }}" id="city-job-announcement-alert">
+                    {{ render(controller(
+                        'App\\Controller\\City\\JobAnnouncementController::alert',
+                        { 'city': city, 'jobAnnouncement': jobAnnouncement, 'isEditable': true }
+                    )) }}
+                </div>
+                <div class="pb-4" id="city-job-announcement-location">
+                    {{ render(controller(
+                        'App\\Controller\\City\\JobAnnouncementController::location',
+                        { 'city': city, 'jobAnnouncement': jobAnnouncement, 'isEditable': true }
+                    )) }}
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-md-10 offset-1">
+                <hr class="danger"/>
+                {% include 'city/job/announcement/_city_links.html.twig'%}
+            </div>
+        </div>
+    </div>
+{% endblock %}

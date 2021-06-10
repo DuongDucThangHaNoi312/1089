@@ -1,0 +1,75 @@
+/* Fields */
+
+td > .field-container span, .sonata-ba-field-standard-natural > .field-container span, td > .field-container > .field-widget:not(.inline),
+.sonata-ba-field-standard-natural > .field-container > .field-widget:not(.inline) {
+  flex: 1 1 80%;
+  margin-right: 5px;
+}
+
+td > .field-container,
+.sonata-ba-field-standard-natural.sonata-ba-field > .field-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+td > .field-container > .field-actions,
+.sonata-ba-field-standard-natural > .field-container > .field-actions {
+  flex: 1 1 20%;
+  margin-top: 0;
+}
+
+.field-container > .field-actions > .btn-group .btn,
+.field-container > .field-actions > .btn {
+  line-height: 20px;
+}
+
+.scrollable-field {
+  overflow-x: auto;
+}
+
+.sonata-ba-field-standard-natural > .vich-image img {
+    max-height: 100px;
+}
+
+.visibility-hidden {
+  visibility: hidden!important;
+}
+
+
+.readonly-select2.select2-container {
+  pointer-events: none;
+  touch-action: none;
+}
+
+.readonly-select2.select2-container .select2-choice {
+  background: #eee;
+  box-shadow: none;
+}
+
+.readonly-select2.select2-container .select2-selection__arrow,
+.readonly-select2.select2-container .select2-selection__clear {
+  display: none;
+}
+
+.order-hide-profile-label {
+  width: 15%;
+  text-align: center;
+}
+
+.sortable-departments table thead tr th:nth-child(2), .sortable-departments table thead tr th:nth-child(3) {
+  text-align: center;
+}
+
+.sortable-departments table thead tr th:first-child {
+  width: 8%;
+}
+
+.login-page .login-logo img {
+  width: 100% !important;
+}
+
+.total-view-text {
+  width: 100px;
+}

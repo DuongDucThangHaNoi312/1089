@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Registration Step Two{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body_master_container_class %}container{% endblock %}
+{% block body_master_row_class %}bg-white px-md-5 my-md-5 justify-content-center{% endblock %}
+{% block body_master_column_class %}container px-md-5 py-md-5 px-xs-2 {% endblock %}
+
+{% block body_main %}
+    <div class="row">
+        <div class="col-md-12 pt-5 text-center">
+            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'jobseeker-user-registration-step-two-top' }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            {{ form(form) }}
+        </div>
+    </div>
+{% endblock %}

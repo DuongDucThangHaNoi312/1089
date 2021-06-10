@@ -1,0 +1,24 @@
+{% extends '@SonataAdmin/CRUD/base_show_field.html.twig' %}
+{% block field %}
+    {% if value %}
+        {# Lets you define in the admin to be able to remove the link #}
+        {%  if field_description.options is defined
+            and field_description.options.no_link is defined
+            and field_description.options.no_link == true %}
+            {% set no_link = false %}
+        {% else %}
+            {% set no_link = true %}
+        {% endif %}
+        {% set route_name = field_description.options.route.name %}
+        {% if field_description.hasAssociationAdmin
+            and field_description.associationadmin.hasRoute(route_name)
+            and field_description.associationadmin.hasAccess(route_name, value)
+            and no_link %}
+            <a href="{{ field_description.associationadmin.generateObjectUrl(route_name, value, field_description.options.route.parameters) }}">
+                {{ value|render_relation_element(field_description) }}
+            </a>
+        {% else %}
+            {{ value|render_relation_element(field_description) }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

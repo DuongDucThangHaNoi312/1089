@@ -1,0 +1,281 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City User Subscription Options{% endblock %}
+{% block meta_description %}Register to use Citygovjobs and you'll be signed up for a 4 MONTH FREE TRIAL. CityGovJobs.com has uploaded ~100% of your budgeted job titles for each city in active counties of states served. {% endblock %}
+
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+
+    <div class="bg-white p-md-5 py-4 job-seeker-subscriptions">
+        {#<div class="col-12">#}
+        {#{{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-faq' }) }}#}
+        {#</div>#}
+
+        <div class="m-auto job-seeker-wrapper">
+            <div class="container max-width-800">
+                {% if is_granted('ROLE_CITYUSER') %}
+                    <div class="col-12 text-center">
+                        <h1> EMPLOYER SUBSCRIPTIONS </h1>
+                        {{ include('cms_block/_cms_block.html.twig', { 'slug': 'cityuser-subscription-options-loggedin-top' }) }}
+
+                        <a class="btn btn-danger button-register badge-pill my-3 px-4 font-weight-bold"
+                           href="{{ path('city_subscription', { 'slug': app.user.city.slug, 'update': 'subscription' }) }}">Change Subscription</a>
+                    </div>
+                {% elseif is_granted('ROLE_JOBSEEKER') %}
+                    <div class="col-12 text-center">
+                        <h1> EMPLOYER SUBSCRIPTIONS </h1>
+                        {{ include('cms_block/_cms_block.html.twig', { 'slug': 'cityuser-subscription-options-jobseeker-top' }) }}
+                    </div>
+                {% else %}
+                    <div class="col-12 text-center">
+                        <h1> EMPLOYER SUBSCRIPTIONS </h1>
+                        <p class="mb-0">Register to use Citygovjobs and you'll be signed up for a 4 MONTH FREE TRIAL</p>
+
+                        <a class="btn btn-danger button-register badge-pill my-3 px-4 font-weight-bold"
+                            href="{{ path('city_registration_find_city') }}">REGISTER NOW</a>
+                    </div>
+
+{#                    <div class="col-12 job-seeker-description mt-2 mb-5 px-0">#}
+{#                        <p>To continue to post jobs for FREE after your trial, simply continue to allow at least 80% of your budgeted job titles to collect interest from job seekers, and post as job alerts on Citygovjobs when doing recruitments. Other subscription options are available after your trial for reduced levels of participation.</p>#}
+{#                    </div>#}
+                {% endif %}
+
+
+
+{#                <table class="table table-bordered table-subscriber-options text-center w-100 d-block d-md-table table-responsive">#}
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th class="align-middle" scope="col" style="width: 30%"><span class="text-uppercase align-middle mb-0 font-weight-bold">Subscriber option</span></th>#}
+{#                        <th class="align-middle" scope="col" style="width: 25%"><span class="text-uppercase align-middle mb-0 font-weight-bold">When doing recruitment</span></th>#}
+{#                        <th class="align-middle" scope="col" style="width: 25%"><span class="text-uppercase align-middle mb-0 font-weight-bold">Minimum % of job titles collecting interest</span></th>#}
+{#                        <th class="align-middle" scope="col" style="width: 20%"><span class="text-uppercase align-middle mb-0 font-weight-bold">Stars on jobs collecting interest</span></th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+{#                    <tbody>#}
+{#                    <tr>#}
+{#                        <td class="align-middle"><h3 class="text-uppercase align-middle mb-0 font-weight-bold">Free-unlimited</h3></td>#}
+{#                        <td class="align-middle">Post All Jobs Collecting Interest</td>#}
+{#                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">80%</h3></td>#}
+{#                        <td class="align-middle" scope="col"><h3 class="align-middle mb-0 font-weight-bold">4</h3></td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <td class="align-middle"><h3 class="text-uppercase align-middle mb-0 font-weight-bold">Paid-unlimited</h3></td>#}
+{#                        <td class="align-middle">Post Unlimited Jobs at any time for 1 Year</td>#}
+{#                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">60%</h3></td>#}
+{#                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">3</h3></td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">5 Job Posts</h3></td>#}
+{#                        <td class="align-middle">Post up to 5 jobs at a time for 1 Month</td>#}
+{#                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">40%</h3></td>#}
+{#                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">2</h3></td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">1 Job Post</h3></td>#}
+{#                        <td class="align-middle">Post 1 job at a time for 1 Month</td>#}
+{#                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">20%</h3></td>#}
+{#                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">1</h3></td>#}
+{#                    </tr>#}
+{#                    </tbody>#}
+{#                </table>#}
+
+                <div class="col-12 job-seeker-description mt-5 mb-5 px-0">
+                    <p class="text-justify">
+                        CityGovJobs.com has uploaded ~100% of your budgeted job titles for each city in active counties of states served.
+                        You may hide some job titles from job seekers to block them from submitting interest, but to continue to post
+                        jobs for FREE after your trial, simply allow at least 80% of your budgeted job titles to collect interest from job
+                        seekers, and post as job alerts on CityGovJobs when doing recruitments. Other subscription options are available
+                        below for reduced levels of job post commitments.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-12 container-custom m-auto pt-5">
+                <div class="text-center">
+                    <h2 class="text-uppercase font-weight-bold mb-md-4 mb-2">Option features & Pricing</h2>
+                </div>
+
+                <table class="table table-option-feature-details text-center w-100 d-block d-md-table table-responsive" style="border-bottom:1px solid #dee2e6;">
+                    <thead>
+                    <tr class="bg-color-light-blue" >
+                        <th class="align-middle" scope="col" style="width: 25%;"><span class="dark-bg text-uppercase align-middle mb-0 font-weight-bold">Service Feature</span></th>
+                        <th class="align-middle" scope="col" style="width: 17%;"><span class="dark-bg align-middle mb-0 font-weight-bold">1-Any Time<br>Job Post</span></th>
+                        <th class="align-middle" scope="col" style="width: 17%;"><span class="dark-bg align-middle mb-0 font-weight-bold">5-Any Time<br>Job Posts</span></th>
+                        <th class="align-middle" scope="col" style="width: 17%;"><span class="dark-bg text-uppercase align-middle mb-0 font-weight-bold">Paid Unlimited<br>Job Posts</span></th>
+                        <th class="align-middle" scope="col" style="width: 24%;"><span class="dark-bg text-uppercase align-middle mb-0 font-weight-bold">Free Unlimited<br>Job Posts</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th class="align-middle"><span class="text-uppercase align-middle mb-0 font-weight-bold">City Profile</span><span class="font-size-14">Create/Edit profile & Links</span></th>
+                        <td class="align-middle"><i class="fa fa-check"></i></td>
+                        <td class="align-middle"><i class="fa fa-check"></i></td>
+                        <td class="align-middle"><i class="fa fa-check"></i></td>
+                        <td class="align-middle"><i class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <th class="align-middle"><span class="text-uppercase align-middle mb-0 font-weight-bold">Manage budgeted job titles</span><span class="font-size-14">Add, Edit, Delete, Hide</span></th>
+                        <td class="align-middle"><i class="fa fa-check"></i></td>
+                        <td class="align-middle"><i class="fa fa-check"></i></td>
+                        <td class="align-middle"><i class="fa fa-check"></i></td>
+                        <td class="align-middle"><i class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <th class="align-middle"><span class="text-uppercase align-middle mb-0 font-weight-bold">Minimum % of job titles set to collect interest</span></th>
+                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">20%</h3></td>
+                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">40%</h3></td>
+                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">60%</h3></td>
+                        <td class="align-middle"><h3 class="align-middle mb-0 font-weight-bold">80%</h3></td>
+                    </tr>
+{#                    <tr>#}
+{#                        <th class="align-middle"><span class="text-uppercase align-middle mb-0 font-weight-bold">Stars on jobs collecting interest</span></th>#}
+{#                        <td class="align-middle no-wrap"><i class="fas fa-star"></i></td>#}
+{#                        <td class="align-middle no-wrap"><i class="fas fa-star"></i><i class="fas fa-star"></i></td>#}
+{#                        <td class="align-middle no-wrap"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>#}
+{#                        <td class="align-middle no-wrap"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>#}
+{#                    </tr>#}
+                    <tr>
+                        <th class="align-middle"><span class="text-uppercase align-middle mb-0 font-weight-bold">Hide Executive & Senior Level Jobs</span></th>
+                        <td class="align-middle">YES</td>
+                        <td class="align-middle">YES</td>
+                        <td class="align-middle">YES</td>
+                        <td class="align-middle">NO</td>
+                    </tr>
+                    <tr>
+                        <th class="align-middle"><span class="text-uppercase align-middle mb-0 font-weight-bold">Job alerts</span></th>
+                        <td class="align-middle">Limit of 1 Job at a time for 1 Month</td>
+                        <td class="align-middle">Up to 5 Jobs at a time for 1 Month</td>
+                        <td class="align-middle">UNLIMITED</td>
+                        <td class="align-middle">UNLIMITED</td>
+                    </tr>
+                    <tr>
+                        <th class="align-middle"><span class="text-uppercase align-middle mb-0 font-weight-bold">Human resources users</span></th>
+                        <td class="align-middle">2</td>
+                        <td class="align-middle">4</td>
+                        <td class="align-middle">UNLIMITED</td>
+                        <td class="align-middle">6</td>
+                    </tr>
+                    <tr>
+                        <th class="align-middle"><span class="text-uppercase align-middle mb-0 font-weight-bold">City links search</span></th>
+                        <td class="align-middle">LIMITED to County of City</td>
+                        <td class="text-uppercase align-middle">All active counties</td>
+                        <td class="text-uppercase align-middle">All active counties</td>
+                        <td class="text-uppercase align-middle">All active counties</td>
+                    </tr>
+                    <tr>
+                        <th class="align-middle"><span class="text-uppercase align-middle mb-0 font-weight-bold">Resume search</span></th>
+                        <td class="align-middle">LIMITED to County of City</td>
+                        <td class="text-uppercase align-middle">All active counties</td>
+                        <td class="text-uppercase align-middle">All active counties</td>
+                        <td class="text-uppercase align-middle">All active counties</td>
+                    </tr>
+                    <tr>
+                        <th class="align-middle"><span class="text-uppercase align-middle mb-0 font-weight-bold">Price</span></th>
+                        <td class="align-middle font-weight-bold">$35/Month</td>
+                        <td class="align-middle font-weight-bold">$75/Month</td>
+                        <td class="align-middle">
+                            <div class="d-flex" style="justify-content:space-evenly;min-width: 200px;">
+                                <div class="">
+                                    <span class="font-size-14"><u>Price</u></span>
+                                    <ul class="pl-0 text-left font-size-14 font-weight-bold">
+                                        <li style="list-style-type: none;">$1,200/yr</li>
+                                        <li style="list-style-type: none;">$1,900/yr</li>
+                                        <li style="list-style-type: none;">$3,200/yr</li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <span class="font-size-14"><u>FTEs</u></span>
+                                    <ul class="pl-0 text-left; font-size-14 font-weight-bold">
+                                        <li style="list-style-type: none;">up to 499</li>
+                                        <li style="list-style-type: none;">500-999</li>
+                                        <li style="list-style-type: none;">>1,000</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle font-weight-bold">FREE</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-12 container max-width-800">
+                {% if is_granted('ROLE_CITYUSER') %}
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'cityuser-subscription-options-loggedin-bottom' }) }}
+
+                    <div class="text-center">
+                        <a class="btn btn-danger button-register badge-pill my-3 px-4 font-weight-bold"
+                           href="{{ path('city_subscription', { 'slug': app.user.city.slug, 'update': 'subscription' }) }}">Change Subscription</a>
+                    </div>
+                {% elseif is_granted('ROLE_JOBSEEKER') %}
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'cityuser-subscription-options-jobseeker-bottom' }) }}
+                {% else %}
+                    <div class="text-center">
+                        <a class="btn btn-danger button-register badge-pill my-3 px-4 font-weight-bold"
+                           href="{{ path('city_registration_find_city') }}">REGISTER NOW</a>
+                    </div>
+                    <div class="text-justify">
+                        <p>During your FREE TRIAL you will be signed up for the Free Unlimited Option as described above. Following your FREE TRIAL you may select any subscription option above and upgrade or downgrade at any time.</p>
+                        <p>Any upgrades or downgrades in paid subscriptions will go into effect immediately and will replace your current paid subscription. Unused paid subscription amounts are applied as a credit when upgrading. Billing amounts for downgrades are charged when your current paid plan expires.</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-12 container max-width-800 pt-5">
+                <div class="text-center">
+                    <h2 class="text-uppercase font-weight-bold mb-md-4 mb-2">Stars On Jobs of Interest</h2>
+                    <p class="text-justify">
+                        Immediately following your registration, we place Stars on your budgeted jobs to attract job seeker
+                        submittal of interest so you have a ready list of potential applicants when the time comes to post your job alerts.
+                        The higher percentage of budgeted job titles you make available to job seekers, the more stars we put on your jobs:
+                    </p>
+                    <table class="table table-bordered text-center w-100 d-block d-md-table table-responsive font-weight-bold" style="color: #174275;">
+                        <thead>
+                        <tr class="bg-color-light-blue" >
+                            <th class="align-middle text-white" scope="col" colspan="2">Stars on Jobs of Interest</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="align-middle font-weight-bold">% of Budgeted Job Titles Accessible</td>
+                            <td class="align-middle font-weight-bolder">Stars on Jobs to Attract & Collect Job Seeker Interest</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">80%+</td>
+                            <td class="align-middle"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">60% - 79%</td>
+                            <td class="align-middle"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">40% - 59%</td>
+                            <td class="align-middle"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">20% - 39%</td>
+                            <td class="align-middle"><i class="fas fa-star"></i><i class="fas fa-star"></i></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="col-12 container max-width-800 pt-5">
+                <div class="col-12 text-center">
+                    <h1> PATENTED SOLE SOURCE SERVICE </h1>
+                </div>
+                <div class="pt-3">
+                    <p>The No. 1 problem faced by busy, well-qualified city government career job seekers, is that they don't have time to search multiple websites to find city government jobs.</p>
+                    <p>Citygovjobs was created to address this and other problems, and its Jobs of Interest search and other features are covered by Patent No. 9,449,300, issued on September 20, 2016, and entitled <i>Prospective City Government Jobs Posting System for Multiple City Goverment Employers with Intergrated Service Feartures.</i></p>
+                    <p>When considering city purchasing requirements, please note the U.S. Patent likely qualifies Citygovjobs as a sole source service of CityGovtJobs.com LLC.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

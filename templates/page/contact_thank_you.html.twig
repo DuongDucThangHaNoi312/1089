@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs - Thank You For Contacting Us{% endblock %}
+{% block meta_description %}Thank you for contacting us, we appreciate your feedback.{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+<div class="row bg-white p-0 p-md-5">
+    <div class="col-12">
+        <section class="section section-text mb-3">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'contact-form-thank-you' }) }}
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

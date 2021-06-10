@@ -1,0 +1,19 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Recruitment Type', 'canEdit': canEdit, 'urgency': 'Required', checkmark: checkmark} %}
+<hr/>
+<div class="row editable">
+    <div class="col-md-12">
+            <p>{{ jobAnnouncement.jobTitle.isClosedPromotional == false ? "Open Competitive" : "Closed Promotional"}}</p>
+    </div>
+</div>
+{% if form is defined %}
+    {% include 'city/job/announcement/_closed_promotional_form.html.twig' with {'form': form} %}
+{% endif %}

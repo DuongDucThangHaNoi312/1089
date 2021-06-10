@@ -1,0 +1,17 @@
+<div class="d-flex flex-row">
+
+    {% if canEdit is defined and canEdit %}
+        <div>
+            {% if checkmark is defined%}
+                <span class="align-baseline">{% include '_checkmark.html.twig' with {checkmark: checkmark }%}</span>
+            {% endif %}
+            <span class="align-middle {{ class|default("h5") }} uppercase">{{ name }}</span>
+            {% if urgency is defined %}<span class="align-middle label text-danger font-weight-bold uppercase"> ({{ urgency }})</span>{% endif %}
+            {% if description is defined %}<span class="align-middle text-muted h6">{{ description }}</span>{% endif %}
+        </div>
+        <div class="px-3">{{ include('_inline_edit_button.html.twig') }}</div>
+    {% else %}
+        {% set urgency = false %}
+        <div class="">{% include 'city/profile/_section_title.html.twig' with {'name': name, 'description': description|default(null)} %}</div>
+    {% endif %}
+</div>

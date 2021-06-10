@@ -1,0 +1,50 @@
+{% set descriptionId = (form is defined) ? form_name~'_description' : 'description' %}
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% set name="Details" %}
+{% if canEdit %}
+    {% set name="Details" %}
+    {% block javascripts %}
+    {% endblock %}
+{% endif %}
+
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': name, 'canEdit': canEdit, 'urgency': 'Required', checkmark: checkmark} %}
+<hr/>
+{% if form is defined %}
+    <div class="editable row">
+        <div class="col-md-12">
+            <div class="pb-1">
+                <label>Job Alert Link (URL to Existing Job Announcement)</label>
+                {% if jobAnnouncement.applicationUrl == null or jobAnnouncement.applicationUrl == '' %}
+                    <p>No Job Alert Link</p>
+                {% else %}
+                    <p><a class="btn btn-primary" href="{{ jobAnnouncement.applicationUrl }}" target="_blank">Test Now</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% include 'city/job/announcement/_alert_form.html.twig' with {'form': form} %}
+{% else %}
+    <div class="editable row">
+        <div class="col-md-12">
+            <div class="pb-1 ja-description-row">
+                <p class="h5 font-weight-bold">
+                    {% if jobAnnouncement.description %}
+                        {{ jobAnnouncement.description|raw }}
+                    {% else %}
+                        The {{ city.prefix }} {{ city.mediumName }}, is accepting applications for this position. To view the Job Announcement and other application information, click on the "Apply Link" button below.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+{% endif %}

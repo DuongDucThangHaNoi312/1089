@@ -1,0 +1,140 @@
+{% set lastmod = "now"|date('Y-m-d\\TH:i:s\\+00:00') %}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+    <url>
+        <loc>{{ system_domain }}/</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>1.00</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/login</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/registration/find/city</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/registration/job-seeker/step/one</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/cities-served</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/about/job-alerts/job-seekers</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/about/job-alerts/city-users</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/city/search</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/job-seeker/subscription/options</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/city/subscription/options</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/about-us/the-team</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/faq</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/contact</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/privacy</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/terms</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/news</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/resetting/request</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/registration/job-seeker/step/one?source=view_city_profile</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/registration/job-seeker/step/one?source=view_city_link</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/about-us/the-founder-story</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>{{ system_domain }}/news/citygovjobs-com-is-launched</loc>
+        <lastmod>{{ lastmod }}</lastmod>
+        <priority>0.64</priority>
+    </url>
+
+    {% for job in jobAnnouncements %}
+        <url>
+            <loc>{{ system_domain }}/city/{{ job.jobTitle.city.slug }}/job/announcements/{{ job.id }}/full-view</loc>
+            <lastmod>{{ job.updatedAt|date('Y-m-d\\TH:i:s\\+00:00') }}</lastmod>
+            <priority>0.22</priority>
+        </url>
+    {% endfor %}
+
+    {% for county in counties %}
+        <url>
+            <loc>{{ system_domain }}/job/search/{{ county.state.slug }}/{{ county.slug }}</loc>
+            <lastmod>{{lastmod}}</lastmod>
+            <priority>0.26</priority>
+        </url>
+    {% endfor %}
+
+    {% for city in cities %}
+        <url>
+            <loc>{{ system_domain }}/job/search/{{ city.stateSlug }}/{{ city.countySlug }}/{{ city.citySlug }}</loc>
+            <lastmod>{{ lastmod }}</lastmod>
+            <priority>0.26</priority>
+        </url>
+    {% endfor %}
+</urlset>

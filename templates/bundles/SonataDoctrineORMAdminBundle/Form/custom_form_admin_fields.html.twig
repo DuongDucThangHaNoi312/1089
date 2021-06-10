@@ -1,0 +1,68 @@
+{% block sonata_admin_orm_one_to_many_widget %}
+    {% include '@SonataAdmin/CRUD/Association/edit_one_to_many.html.twig' %}
+{% endblock %}
+
+{# form_row located in /vendor/sonata-project/admin-bundle/src/Resources/views/Form/form_admin_fields.html.twig #}
+{% block form_row %}
+    {% set show_label = show_label|default(true) %}
+    {# Checks to see if custom field size is defined #}
+    {%  set css_class = (sonata_admin is defined and sonata_admin.field_description is defined and sonata_admin.field_description.options is defined and sonata_admin.field_description.options['custom_field_size'] is defined and sonata_admin.field_description.options['inline_standard'] is not defined) ? 'col-md-' ~ sonata_admin.field_description.options['custom_field_size'] : 'col-md-12' %}
+    <div class="form-group {{ css_class }} {% if errors|length > 0 %} has-error{% endif %}" id="sonata-ba-field-container-{{ id }}">
+        {% if sonata_admin.field_description.options is defined %}
+            {% set label = sonata_admin.field_description.options.name|default(label)  %}
+        {% endif %}
+
+        {% set div_class = 'sonata-ba-field' %}
+
+        {% if label is same as(false) %}
+            {% set div_class = div_class ~ ' sonata-collection-row-without-label' %}
+        {% endif %}
+
+        {% if sonata_admin is defined and sonata_admin.options['form_type'] == 'horizontal' %}
+            {# Add an offset if no label or is a checkbox/radio #}
+            {% if label is same as(false) or form.vars.checked is defined %}
+                {% if 'collection' in form.parent.vars.block_prefixes %}
+                    {% set div_class = div_class ~ ' col-sm-12' %}
+                {% else %}
+                    {% set div_class = div_class ~ ' col-sm-9 col-sm-offset-3' %}
+                {% endif %}
+            {% else %}
+                {% set div_class = div_class ~ ' col-sm-9' %}
+            {% endif %}
+        {% endif %}
+
+        {% if show_label %}
+            {{ form_label(form, label|default(null)) }}
+        {% endif %}
+
+        {% if sonata_admin is defined and sonata_admin_enabled %}
+            {% set div_class = div_class ~ ' sonata-ba-field-' ~ sonata_admin.edit ~ '-' ~ sonata_admin.inline %}
+        {% endif %}
+
+        {% if errors|length > 0 %}
+            {% set div_class = div_class ~ ' sonata-ba-field-error' %}
+        {% endif %}
+
+        <div class="{{ div_class }}">
+            {{ form_widget(form, {'horizontal': false, 'horizontal_input_wrapper_class': ''}) }} {# {'horizontal': false, 'horizontal_input_wrapper_class': ''} needed to avoid MopaBootstrapBundle messing with the DOM #}
+
+            {% if errors|length > 0 %}
+                <div class="help-block sonata-ba-field-error-messages">
+                    {{ form_errors(form) }}
+                </div>
+            {% endif %}
+
+            {% if sonata_admin is defined and sonata_admin_enabled and sonata_admin.field_description.help|default(false) %}
+                <span class="help-block sonata-ba-field-help">{{ sonata_admin.field_description.help|trans({}, sonata_admin.field_description.translationDomain ?: admin.translationDomain)|raw }}</span>
+            {% endif %}
+        </div>
+    </div>
+{% endblock form_row %}
+
+{% block template_widget %}
+    {% spaceless %}
+        {% if template %}
+            {% include template %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}

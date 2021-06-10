@@ -1,0 +1,85 @@
+{% macro render_groups(admin, form, groups, has_tab) %}
+    <div class="row">
+
+        {% for code in groups if admin.formgroups[code] is defined %}
+            {% set form_group = admin.formgroups[code] %}
+
+        {% if form_group is defined and form_group['start_row'] is defined and form_group['start_row'] == true %}
+            <div class="row">
+        {% endif %}
+            <div class="{{ form_group.class|default('col-md-12') }}">
+                <div class="{{ form_group.box_class }}">
+                    <div class="box-header">
+                        <h4 class="box-title">
+                            {{ form_group.label|trans({}, form_group.translation_domain ?: admin.translationDomain) }}
+                        </h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="sonata-ba-collapsed-fields">
+                            {% if form_group.description %}
+                                <p>{{ form_group.description|trans({}, form_group.translation_domain ?: admin.translationDomain) }}</p>
+                            {% endif %}
+
+                            {% set container_size = 0 %}
+                            {% for field_name in form_group.fields %}
+                            {% if loop.first %}
+                            <div class="row">
+                                {% endif %}
+                                {% if form[field_name] is defined %}
+                                {% set sonata_admin = form[field_name].vars['sonata_admin'] %}
+                                {% set field_size = 12 %}
+                                {% if sonata_admin is defined and sonata_admin['field_description'] is defined and sonata_admin['field_description'].options is defined and sonata_admin['field_description'].options['custom_field_size'] is defined %}
+                                    {% set field_size = sonata_admin['field_description'].options['custom_field_size'] %}
+                                {% endif %}
+                                {% set container_size = container_size + field_size %}
+
+                                {% if loop.last %}
+                                {% if container_size > 12 %}
+                            </div>
+                            <div class="row">
+                                {{ form_row(form[field_name]) }}
+                            </div>
+                            {% else %}
+                            {{ form_row(form[field_name]) }}
+                        </div>
+                        {% endif %}
+                        {% elseif container_size < 12 %}
+                            {{ form_row(form[field_name]) }}
+                        {% elseif container_size == 12 %}
+                        {% set container_size = 0 %}
+                        {{ form_row(form[field_name]) }}
+                    </div>
+                    <div class="row">
+                        {% elseif container_size == 0 %}
+                        <div class="row">
+                            {{ form_row(form[field_name]) }}
+                            {% elseif container_size > 12 %}
+                            {% set container_size = field_size %}
+                        </div>
+                        <div class="row">
+                            {{ form_row(form[field_name]) }}
+                            {% endif %}
+
+                            {% if sonata_admin is defined and sonata_admin['field_description'] is defined and sonata_admin['field_description'].options is defined and sonata_admin['field_description'].options['end_row'] is defined %}
+                                {% set end_row = sonata_admin['field_description'].options['end_row'] %}
+                                {% if end_row == true %}
+                                    {% if container_size != 0  %}
+                                        {%  set container_size = 12 %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% else %}
+                                <em>{{ 'message_form_group_empty'|trans({}, 'SonataAdminBundle') }}</em>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% if form_group is defined and form_group['end_row'] is defined and form_group['end_row'] == true %}
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% endmacro %}

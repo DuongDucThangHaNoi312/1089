@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About Jobs of Interest for Job Seekers{% endblock %}
+{% block meta_description %}Learn how to get notified of Job Alerts in response to your interest in budgeted job titles or "Jobs of Interest".{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+    <div class="about-us">
+        <div class="row">
+            <div class="city-navbar bg-white w-100 py-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            <h1>More about Jobs of Interest for:</h1>
+                            {% set m = knp_menu_get( 'aboutJobAlertsMenu' ).setChildrenAttribute('class', 'nav nav-tabs city-navbar-list') %}
+                            {{ knp_menu_render(m) }}
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                            <button class="btn btn-danger btn-rounded-much" onclick="window.location.href = '/registration/job-seeker/step/one'">Register Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-us">
+        <div class="row">
+            <div class="tab-content city-content w-100 container mt-4 bg-white mb-5">
+                <div class="the-team-wrapper">
+                    <div class="about-us-header">
+                        <span class="message-icon"><i class="fas fa-info-circle"></i></span>
+                        <h5>This page shows you how to get Job Alerts in response to interest submitted in budgeted job titles or "Jobs of Interest."</h5>
+                    </div>
+                    <div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>1. Upon registration, you'll be matched with Jobs of Interest that you may access from your dashboard.</h3>
+                                    <div class="about-us-header"><p>Jobs of Interest are not current job openings, they are budgeted job titles provided for user convenience to submit interest in so that you may get future job alerts once jobs are posted by CityGovJobs or City Govts themselves.</p></div>
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="{{ asset('build/images/about-job-alerts/about-job-alerts_job-seeker_1.png') }}" class="responsive-screenshot" alt="Screenshot from the system for job seekers" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>2. Open JOB SEARCH from your Dashboard and Click on Submit Interest tab. Note the following definitions:</h3>
+                                    <ol type="A">
+                                        <li>
+                                            <span class="list-item-heading">Levels</span>
+                                            <span class="list-item-subheading">Executive</span>City Manager and Department Heads<br/>
+                                            <span class="list-item-subheading">Senior</span>Division Manager positions<br/>
+                                            <span class="list-item-subheading">Mid</span>Most other City Government Jobs<br/>
+                                            <span class="list-item-subheading">Entry</span>Interns, Trainees, Cadets
+                                        </li>
+                                        <li><span class="list-item-heading">Links</span>Use hyperlinks to City web pages to research job titles and to view City Profile on CityGovJobs.</li>
+                                        <li><span class="list-item-heading">Stars on Jobs<span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span></span>Stars on Jobs means either that the City has registered and will post the job or that CityGovJobs is monitoring the City's Job Postings and ensuring they are posted on CityGovJobs so that you get alerts.</li>
+                                    </ol>
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="{{ asset('build/images/about-job-alerts/about-job-alerts_job-seeker_3.png') }}" class="responsive-screenshot" alt="Screenshot from the system for job seekers" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>3. Submit Interest</h3>
+                                    <ul>
+                                        <li>Click on "Submit Interest" button to submit interest in jobs and to receive Job Alerts for open positions.</li>
+                                        <li>CityGovJobs encourages you to submit interest in all jobs you're well qualified for and want to pursue, even if the job doesn't have stars.</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="{{ asset('build/images/about-job-alerts/about-job-alerts_job-seeker_4.png') }}" class="responsive-screenshot" alt="Screenshot from the system for job seekers" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>4. Get Jobs Alerts and Apply</h3>
+                                    <ul>
+                                        <li>When jobs are posted, you'll receive an email alert about jobs you submitted interest in.</li>
+                                        <li>Settings allow you to get alerts for only jobs you submit interest in as separate from Jobs Matching Saved Search Criteria.</li>
+                                        <li>Alerts will link you to your Dashboard and to City Job Announcements and info on how to apply.</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="{{ asset('build/images/about-job-alerts/about-job-alerts_job-seeker_5.png') }}" class="responsive-screenshot" alt="Screenshot from the system for job seekers" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h3>5. Find Jobs You Want</h3>
+                                    <ul>
+                                        <li>We've uploaded thousands of jobs to help you find ones that are right for you.</li>
+                                        <li>All you need to do is register to get started.<br/><br/><button class="btn btn-danger btn-rounded-much" onclick="window.location.href = '/registration/job-seeker/step/one'">Register Now for Free Trial</button></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-7">
+                                    <img src="{{ asset('build/images/about-job-alerts/about-job-alerts_job-seeker_6.png') }}" class="responsive-screenshot" alt="Screenshot from the system for job seekers" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{#{% block footer %}#}
+{#{% endblock %}#}

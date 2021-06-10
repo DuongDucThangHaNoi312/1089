@@ -1,0 +1,11 @@
+id,renewal_frequency_id,stripe_plan_id,created_by,updated_by,"slug","name",price,next_price,"description","next_price_effective_date","raw_stripe_plan",is_active,"created_at","updated_at","type",is_trial,count_saved_searches,limit_city_link_search_to_county_of_residence,allowed_active_job_postings,has_job_title_maintenance_requirement,job_title_maintenance_percentage,count_of_allowed_users,jobs_of_interest_stars,has_search_resume_limitation,has_search_city_links_limitation,allowed_change_hide_executive_senior_job_level_positions
+1,1,NULL,NULL,NULL,"free-unlimited-trial","Free Unlimited Trial",0.00,NULL,NULL,NULL,NULL,1,"2019-06-12 17:32:10","2019-06-12 17:32:10","city",1,NULL,NULL,NULL,1,80.00,NULL,4,NULL,NULL,NULL
+2,1,NULL,NULL,NULL,"free-trial","Free Trial",0.00,NULL,NULL,NULL,NULL,1,"2019-06-12 17:32:10","2019-06-12 17:32:10","job-seeker",1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+3,1,NULL,1,1,"free-unlimited","Free Unlimited",0.00,NULL,NULL,NULL,NULL,1,"2019-06-17 17:52:13","2019-06-17 17:52:13","city",0,NULL,NULL,NULL,1,80.00,NULL,4,0,0,NULL
+4,2,NULL,1,1,"paid-unlimited","Paid Unlimited",0.00,NULL,NULL,NULL,NULL,1,"2019-06-17 17:54:30","2019-06-17 17:54:37","city",0,NULL,NULL,NULL,1,60.00,NULL,3,0,0,NULL
+5,1,NULL,1,1,"5-job-posts","5 Job Posts",75.00.00,NULL,NULL,NULL,NULL,1,"2019-06-17 17:55:43","2019-06-17 17:55:54","city",0,NULL,NULL,5,1,40.00,4,2,0,0,NULL
+6,1,NULL,1,1,"1-job-post","1 Job Post",35.00.00,NULL,NULL,NULL,NULL,1,"2019-06-17 17:56:47","2019-06-17 17:56:54","city",0,NULL,NULL,1,1,20.00,2,1,1,1,NULL
+7,1,NULL,1,1,"basic","Basic",0.00,NULL,NULL,NULL,NULL,1,"2019-06-17 17:58:17","2019-06-17 17:58:25","job-seeker",0,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+8,1,NULL,1,1,"enhanced","Enhanced",9.99,NULL,NULL,NULL,NULL,1,"2019-06-17 17:59:22","2019-06-17 17:59:33","job-seeker",0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+9,1,NULL,1,1,"advanced","Advanced",14.99,NULL,NULL,NULL,NULL,1,"2019-06-17 18:19:14","2019-06-17 18:19:14","job-seeker",0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+10,1,NULL,1,1,"executive","Executive",19.99,NULL,NULL,NULL,NULL,1,"2019-06-17 18:42:37","2019-06-17 20:14:52","job-seeker",0,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL

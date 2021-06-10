@@ -1,0 +1,28 @@
+{% block collection_widget %}
+    {% if prototype is defined %}
+        {% set attr = attr|merge({'data-prototype': form_widget(prototype)}) %}
+        {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+    {% endif %}
+    {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+    {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+
+    <div {{ block("widget_attributes") }}">
+        {% for item in form %}
+            {{ form_widget(item) }}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block EducationType_widget %}
+    <div class="form-row mb-2 item">
+        <div class="col-6">
+            {{ form_row(form.degreeType) }}
+        </div>
+        <div class="col-5">
+            {{ form_row(form.major) }}
+        </div>
+        <div class="col-1 align-self-end" >
+            <a href="#" class="collection-remove btn btn-sm btn-danger" title="Delete element"><span class=" fa fa-trash"></span></a>
+        </div>
+    </div>
+{% endblock %}

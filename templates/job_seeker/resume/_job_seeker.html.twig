@@ -1,0 +1,80 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% if form is not defined %}
+    <div class="text-center row">
+        <div class="section-title justify-content-center col-md-12">
+            <h2 class="h1">{{ resume.firstname }} {{ resume.lastname }}</h2>
+        </div>
+        <div class="col-md-12">
+            <span>{{ resume.city }}, {{ resume.state }}</span>
+        </div>
+        <div class="col-md-12">
+            <span>{{ resume.phone }}</span>
+        </div>
+        <div class="col-md-12">
+            <span><a href="mailto:{{ resume.email }}">{{ resume.email }}</a></span>
+        </div>
+    </div>
+{% else %}
+    {% set checkmark = false %}
+    {% if section is defined and section['complete'] and section['complete'] == true %}
+        {% set checkmark = true %}
+    {% endif %}
+
+    {% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Contact Information', 'canEdit': canEdit, 'urgency': 'Required'} %}
+    <hr/>
+    <div class="editable row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <label>First Name</label>
+                        <p>{{ resume.firstname }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <label>Last Name</label>
+                        <p>{{ resume.lastname }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <label>City</label>
+                        <p>{{ resume.city }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <label>State</label>
+                        <p>{{ resume.state }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Phone</label>
+                    {% if resume.phone == '' %}
+                        <p>No phone number provided</p>
+                    {% else %}
+                        <p>{{ resume.phone }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Email</label>
+                    <p><a href="mailto:{{ resume.email }}">{{ resume.email }}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if form is defined %}
+        {% include 'job_seeker/resume/_job_seeker_form.html.twig' with {'form': form} %}
+    {% endif %}
+{% endif %}

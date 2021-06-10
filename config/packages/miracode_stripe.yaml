@@ -1,0 +1,11 @@
+miracode_stripe:
+    secret_key: '%env(STRIPE_SECRET_KEY)%'
+    database:
+        model:
+            charge: 'App\Entity\Stripe\StripeCharge'
+            card: 'App\Entity\Stripe\StripeCard'
+            customer: 'App\Entity\Stripe\StripeCustomer'
+            invoice: 'App\Entity\Stripe\StripeInvoice'
+            plan: 'App\Entity\Stripe\StripePlan'
+            refund: 'App\Entity\Stripe\StripeRefund'
+            subscription: 'App\Entity\Stripe\StripeSubscription'

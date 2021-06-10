@@ -1,0 +1,59 @@
+// customize some Bootstrap variables
+$blue:    #174275 !default;
+$blue-two:    #D3E6FF !default;
+$blue-three:    #64A7FD !default;
+$red:     #C1272D !default;
+$gray:     #CBD5E1 !default;
+$gray-two:     #E6EFF9 !default;
+$gray-three:     #F1F3F7 !default;
+$black:       #282828 !default;
+$white: #FFFFFF !default;
+$gray-four: #888888;
+$gray-five: #646464;
+$gray-six: #9c9a9a;
+$gray-seven: #e9ecef;
+$default-gray-border: #dee2e6;
+
+$secondary: $blue-two !default;
+$tertiary: $blue !default;
+$light:         $gray-three !default;
+
+$theme-colors: (
+        "tertiary":   $tertiary,
+        "white":   $white,
+);
+
+$headings-color:  $blue !default;
+
+$navbar-dark-color:                 rgba($white, 1) !default;
+$navbar-dark-hover-color:           rgba($white, 1) !default;
+
+// order of variable definition is important.
+// $font-size-base is defined in scss import above
+$font-size-base:              1rem; // Assumes the browser default, typically `16px`
+
+
+// Headings
+$h1-font-size:                $font-size-base * 2;
+$h2-font-size:                $font-size-base * 1.5;
+$h3-font-size:                $font-size-base * 1.25;
+$h4-font-size:                $font-size-base * 1.125;
+$h5-font-size:                $font-size-base * 1.0625;
+$h6-font-size:                $font-size-base;
+//$headings-font-weight:        600;
+
+
+//$btn-border-radius:           1.0rem;
+//$btn-border-radius-lg:        1.5rem;
+//$btn-border-radius-sm:        0.8rem;
+
+
+$input-placeholder-color:               $gray-four;
+
+$text-muted:                  $gray-six;
+
+
+// Card
+$card-cap-color: $white;
+$card-cap-bg: $blue;
+$progress-bg: $default-gray-border;

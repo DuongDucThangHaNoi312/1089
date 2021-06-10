@@ -1,0 +1,62 @@
+<div class="row bg-white rounded mb-3 p-4 mx-md-4">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="d-flex justify-content-start flex-column">
+                    <span>Job Alerts</span>
+                    <span class="label text-primary">Current Job Openings</span>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="d-flex justify-content-between  bg-secondary align-content-center px-3 pt-3">
+                    <span class="font-weight-bold">Matching Default Search</span>
+                    <a href="{{ path('job_seeker_jobtitle_search', {'type': 'announcement', '_fragment': 'job-announcement'}) }}">{{ jobAnnouncementCount  }}</a>
+                </div>
+
+                <div
+                            {% if savedSearches|length == 0 %}
+                                class="d-flex justify-content-between  bg-secondary align-content-center px-3"
+                            {% else %}
+                                class="bg-secondary align-content-center px-3"
+                            {% endif %}
+                    >
+                    <span class="font-weight-bold">Matching Extra Saved Searches</span>
+                    {% if savedSearches|length == 0 %}
+                        0
+                    {% else %}
+                        {% for savedSearch in savedSearches %}
+                            <div class="d-flex justify-content-between">
+                                <span class="ml-3">{{ savedSearch.name }}</span>
+                                {% for key, count in countOfJobAlerts %}
+                                    {% if key == savedSearch.id %}
+                                        <a href="{{ savedSearch.searchQuery }}#job-announcement">{{ count }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="d-flex justify-content-between  bg-secondary align-content-center px-3 pb-3">
+                    <span class="font-weight-bold">Saved by You</span>
+                    <a href="{{ path('job_seeker_jobtitle_search', {'type': 'announcement', 'saved': true, '_fragment': 'job-announcement'}) }}">{{ savedJobAnnouncementCount  }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p>Job alerts above reflect your default search criteria.</p>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3 mb-md-0 text-center text-md-left">
+                        <a class="btn btn-outline-primary" href="{{ path('job_seeker_jobtitle_search') }}#edit-profile"> <i class="fa fa-list"></i> Edit Default Search </a>
+                    </div>
+                    <div class="col-12 col-md-6 text-center text-md-right">
+                        <a class="btn btn-outline-primary" href="{{ path('job_seeker_jobtitle_search', {'type': 'announcement', '_fragment': 'job-announcement'}) }}">View Job Posts <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

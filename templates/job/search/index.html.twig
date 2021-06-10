@@ -1,0 +1,183 @@
+{% extends 'base.html.twig' %}
+
+{% if isFriendlyUrl %}
+    {% set state = (formData and formData.state is defined and formData.state) ? formData.state.name : '' %}
+    {% set county = (formData and formData.counties is defined and formData.counties|length) ? ', ' ~ formData.counties[0].name : '' %}
+    {% set city = (formData and formData.cities|length) ? ', ' ~ formData.cities[0].name ~ '.' : '' %}
+{% endif %}
+
+{% block title %}{% if isFriendlyUrl %}Available City Government Jobs in {{ state }}{{ county }}{{ city }}{% else %}CityGovJobs Submit Interest Search{% endif %}{% endblock %}
+{% block meta_description %}{% if isFriendlyUrl %}Find your next city government job in {{ state }}{{ county }}{{ city }} at CityGovJobs.com{% else %} CityGovJobs helps put City Government Jobs in one place so you can find them, because searching for a job should not be an Easter Egg Hunt.{% endif %}{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% include '_sharethis.html.twig'%}
+{% endblock %}
+
+
+{% block shareThisTitle %}CityGovJobs Search Results{% endblock %}
+
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-12 col-md-10 mx-6 pt-4 bg-white">
+            <h1>Job Search</h1>
+        </div>
+    </div>
+
+    {# Drawer Saved Search #}
+    {% if jobSeeker is defined %}
+        <div class="row justify-content-center getting-started-section mb-5 mb-md-3">
+            {{ render(controller(
+                'App\\Controller\\SaveSearchController::drawerFormSavedSearchJobSeeker'
+            )) }}
+
+            <div class="getting-started-footer">
+                <a class="btn btn-primary btn-saved-search"data-toggle="collapse" href="#collapse-saved-search"
+                    role="button" aria-expanded="false" aria-controls="collapse-saved-search">
+                    Default Saved Search
+                    <span class="btn-icon"><i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center">
+        <div class="col-12 col-md-10 m-md-4 p-4 bg-white">
+            <div class="row bg-white py-md-3">
+                <div class="col-12 col-md-3 bg-white py-md-3">
+                    <a class="btn btn-primary my-3 text-center d-block d-md-none" id="jobSearchControlToggle" type="button" data-toggle="collapse" href="#jobSearchFilterContainer" aria-expanded="false" aria-controls="jobSearchFilterContainer">Toggle Search Filters</a>
+                    <div id="jobSearchFilterContainer" class="collapse dont-collapse-sm mb-3 mb-md-0">
+                        {% if jobSeeker is defined %}
+                        <div class="collapse my-3" id="saveSearchForm">
+                            {{ form_start(saveSearchForm) }}
+                            <div class="form-group">
+                                {{ form_widget(saveSearchForm.name) }}
+                            </div>
+                            <div class="form-group">
+                                {% if jobSeeker.subscription.subscriptionPlan.countSavedSearches > countSavedSearches %}
+                                    {{ form_widget(saveSearchForm.Save) }}
+                                {% else %}
+                                    {% do saveSearchForm.Save.setRendered() %}
+                                    <button class="btn btn-primary" type="button" data-placement="bottom" data-toggle="popover" title="Your Subscription Is Limited"
+                                            data-content='You have already saved your maximum number of searches ({{ countSavedSearches }}) based upon your subscription level. Please upgrade to a higher subscription plan to have more saved searches. <a href="{{ path('job_seeker_subscription', {'update': 'subscription'}) }}">You can change your subscription plan here.</a>'
+                                            data-html="true">Save</button>
+                                {% endif %}
+                                {{ form_widget(saveSearchForm.Cancel) }}
+                            </div>
+                            {{ form_rest(saveSearchForm) }}
+                            {{ form_end(saveSearchForm) }}
+                        </div>
+                        <div class="text-center mb-3">
+
+                            <a class="btn btn-danger btn-collapse-save-search-form" data-toggle="collapse" href="#saveSearchForm" role="button" aria-expanded="false" aria-controls="saveSearchForm">Save Current Search</a>
+                        </div>
+                        {% endif %}
+                        <div class="col-12 bg-light py-3 job-search-filter-section">
+                            {% if jobSeeker is defined %}
+                                {% set buttonLabel = '' %}
+                                {% if currentSavedSearch is not null %}
+                                    {% set buttonLabel = 'Switch Saved Search' %}
+                                {% endif %}
+                                {% include 'save_search/_saved_search_menu.html.twig' with {'savedSearches': savedSearches, 'buttonLabel': buttonLabel, 'currentSavedSearch': currentSavedSearch} %}
+                            {% endif %}
+                            {{ form_start(filterForm) }}
+                            <button type="submit" class="btn btn-primary btn-block sticky my-1 main-job-search-btn"><i class='fa fa-search'></i> Search</button>
+                            <a class="btn btn-info d-block sticky two mb-3" href="{{ path('job_seeker_jobtitle_search', {'reset': 1}) }}">Clear Search Filters</a>
+                            {{ form_rest(filterForm) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-9">
+
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link {{not type or type == 'announcement' ? ' active' : '' }}" id="job-announcement-nav" data-type="job-announcement" data-toggle="tab" href="#job-announcements"  role="tab" aria-controls="job-announcements" aria-selected="true">Job Alerts ({{ jobAnnouncementPagination.paginationData.totalCount|number_format  }})</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ (type == 'jobTitle') ? ' active' : '' }}" id="job-title-nav" data-type="job-title" data-toggle="tab" href="#job-titles"  role="tab" aria-controls="job-titles" aria-selected="true">Submit Interest ({{ jobTitlePagination.paginationData.totalCount|number_format  }})</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade {{ (not type  or type == 'announcement') ? 'show active' : '' }}" id="job-announcements" role="tabpanel" aria-labelledby="job-announcement-nav">
+                            {% if jobSeeker is defined and currentSavedSearch is not null %}
+                                <div class="row py-3">
+                                    <div class="col-12 col-md-6 mb-3 mb-md-0">
+                                        <span class="font-weight-bold ">Saved Search: </span><span class="p-2 text-white rounded-sm bg-danger">{{ currentSavedSearch.name }}</span>
+                                    </div>
+                                    <div class="col-12 col-md-6 text-right">
+                                        Showing {{ jobAnnouncementPagination.paginationData.firstItemNumber }} - {{ jobAnnouncementPagination.paginationData.lastItemNumber}} of {{ jobAnnouncementPagination.paginationData.totalCount }}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row py-3">
+                                    <div class="col-12">
+                                        <div class="text-right">
+                                            Showing {{ jobAnnouncementPagination.paginationData.firstItemNumber }} - {{ jobAnnouncementPagination.paginationData.lastItemNumber}} of {{ jobAnnouncementPagination.paginationData.totalCount }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="col-12">
+                                {% for job_announcement in jobAnnouncementPagination %}
+                                    {{ render(controller('App\\Controller\\City\\JobAnnouncementController::countJobAnnouncementImpression', {'jobAnnouncementId': job_announcement.jobAnnouncementId})) }}
+                                    {% include 'job/search/_job_announcement_card.html.twig' with {'job': job_announcement, 'type': 'announcement'} %}
+                                {% endfor %}
+                            </div>
+                            {% if is_granted('ROLE_USER') == false %}
+                            <div class="card bg-light m-3 p-3 rounded">
+                                <h4><span class="fa fa-bell m-0 pr-1 mr-1"></span><span class="ml-2">Not finding what you’re looking for?</span></h4>
+                                <div class="row">
+                                    <div class="col-md-8 mb-2">
+                                        <p class="m-0">To save your search and get alerted about future job openings create an account. </p>
+                                        <p class="m-0 mt-1">With CityGovJobs your job search has never been easier.</p>
+                                    </div>
+                                    {% set save_dest_url =  path('job_seeker_jobtitle_search',{'_fragment': 'announcement'})%}
+                                    <div class="col-md-4 text-md-right"><a href="{{ path("job_seeker_registration_step_one", {'source': 'save_searches', 'dest_url': save_dest_url}) }}" class="btn btn-danger">Create an Account</a></div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="col-12">
+                                {{ knp_pagination_render(jobAnnouncementPagination) }}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade {{ (type == 'jobTitle') ? 'show active' : '' }}" id="job-titles" role="tabpanel" aria-labelledby="job-title-nav">
+                            {% if jobSeeker is defined and currentSavedSearch is not null %}
+                                <div class="row py-3">
+                                    <div class="col-12 col-md-6 mb-3 mb-md-0">
+                                        <span class="font-weight-bold ">Saved Search: </span><span class="p-2 text-white rounded-sm bg-danger">{{ currentSavedSearch.name }}</span>
+                                    </div>
+                                    <div class="col-12 col-md-6 text-right">
+                                        Showing {{ jobTitlePagination.paginationData.firstItemNumber }} - {{ jobTitlePagination.paginationData.lastItemNumber}} of {{ jobTitlePagination.paginationData.totalCount|number_format  }}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row py-3">
+                                    <div class="col-12">
+                                        <div class="text-right">
+                                            Showing {{ jobTitlePagination.paginationData.firstItemNumber }} - {{ jobTitlePagination.paginationData.lastItemNumber}} of {{ jobTitlePagination.paginationData.totalCount|number_format  }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="col-12">
+                                {% for job_title in jobTitlePagination %}
+                                    {% include 'job/search/_job_card.html.twig' with {'job': job_title, 'blockedCities': blockedCities, 'allowedLevels': allowedLevels, 'type': 'jobTitle'} %}
+                                {% endfor %}
+                            </div>
+                            <div class="col-12">
+                                {{ knp_pagination_render(jobTitlePagination) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

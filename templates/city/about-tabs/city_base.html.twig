@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if title is defined %}
+        {{ title }}
+    {% endif %}
+{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+{% block body_main %}
+    {% block body_main_navbar %}
+        <div class="about-cities">
+            <div class="row">
+                <div class="city-navbar bg-white w-100 py-3">
+                    <div class="container">
+                        <h1>
+                            {% if title is defined %}
+                                {{ title }}
+                            {% endif %}
+                        </h1>
+                        {% set m = knp_menu_get( 'aboutCitiesMenu' ).setChildrenAttribute('class', 'nav nav-tabs city-navbar-list') %}
+                        {{ knp_menu_render(m) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    <div class="about-cities">{% block body_main_content %}{% endblock  %}</div>
+{% endblock %}

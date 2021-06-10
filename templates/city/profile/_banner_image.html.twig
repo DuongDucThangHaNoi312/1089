@@ -1,0 +1,32 @@
+{% set image = false %}
+{% if city.bannerImage is defined and city.bannerImage is not null %}
+    {% set image = true %}
+{% endif %}
+
+{% set defaultImage = asset('build/images/city-profile-banner-placeholder.png') %}
+
+<div class="uploadable-image banner" id="city-profile-banner-image" style="background-image:url('{{ vich_uploader_asset(city, 'bannerImageFile')|default(defaultImage) }}');">
+    {% set canEdit = false %}
+    {% if form is defined %}
+        {% set canEdit = true %}
+        {% include '_inline_upload_button.html.twig' with {'position': 'bottom-right', 'image': image, 'type': 'Banner'} %}
+        {% include 'city/profile/_banner_image_form.html.twig' with {'form': form} %}
+    {% endif %}
+    <div class="col-md-offset-1 col-md-4 col-sm-12 col-sm-offset-0 uploadable-image" id="city-profile-seal-image">
+        {% if form is defined %}
+            {{ render(controller(
+                'App\\Controller\\City\\ProfileController::sealImage',
+                { 'city': city, 'isEditable': canEdit }
+            )) }}
+        {% else %}
+            {% if city.sealImage is null %}
+            {% else %}
+                {{ render(controller(
+                    'App\\Controller\\City\\ProfileController::sealImage',
+                    { 'city': city, 'isEditable': canEdit }
+                )) }}
+            {% endif %}
+        {% endif %}
+
+    </div>
+</div>

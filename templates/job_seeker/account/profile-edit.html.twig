@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Profile Edit{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.getElementById("remove").addEventListener("click", function() {
+            alert("Do you want to delete your account?");
+        });
+    </script>
+
+{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-12 col-md-10 py-3 bg-white personal-profile-container">
+            <h1>Account</h1>
+            {% set m = knp_menu_get( 'jobSeekerAccountMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+            {{ knp_menu_render(m) }}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block body_main %}
+    <div class="row mt-3">
+        <div class="col-10 offset-1 col-md-8 offset-md-2 personal-profile-container">
+            <div class="row pt-3 bg-white">
+                <div class="block-form-profile-edit col-md-8 offset-md-2">
+                    {{ form_start(formProfileEdit) }}
+                    <div class="block-form-personal-profile pb-3">
+                        <h2>Personal Profile</h2>
+                        <div class="form-group">
+                            {{ form_label(formProfileEdit.firstName, 'First Name') }}
+                            {{ form_widget(formProfileEdit.firstName) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(formProfileEdit.lastName, 'Last name') }}
+                            {{ form_widget(formProfileEdit.lastName) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(formProfileEdit.email, 'Email') }}
+                            {{ form_widget(formProfileEdit.email) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(formProfileEdit.residentLocation, 'Resident location') }}
+                            {{ form_widget(formProfileEdit.residentLocation) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_label(formProfileEdit.zipcode, 'Zip Code') }}
+                            {{ form_widget(formProfileEdit.zipcode) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_widget(formProfileEdit.save) }}
+                        </div>
+                    </div>
+                    {{ form_end(formProfileEdit) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

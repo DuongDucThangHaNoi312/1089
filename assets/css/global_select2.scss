@@ -1,0 +1,13 @@
+.select2-container--bootstrap4  {
+  &.select2 {
+    .select2-selection--multiple {
+      .select2-selection__rendered {
+        padding: 0.45rem .45em 0.45em .45rem;
+      }
+      .select2-selection__choice {
+        padding: 0.3em 0.75em;
+        margin: .1875rem .1875rem 0.1875rem .1875rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+sonata_user_admin_security:
+     resource: '@SonataUserBundle/Resources/config/routing/admin_security.xml'
+     prefix: /admin
+
+sonata_user_admin_resetting:
+     resource: '@SonataUserBundle/Resources/config/routing/admin_resetting.xml'
+     prefix: /admin/resetting
+
+miracode_stripe:
+   resource: '@MiracodeStripeBundle/Resources/config/routing.xml'
+
+city_search_filter:
+  path:     /search/filter
+  defaults: { _controller: "App:City:searchFilter" }
+  methods:  GET
+
+job_search_filter:
+  path:     /search/filter
+  defaults: { _controller: "App:Job:searchFilter" }
+  methods:  GET

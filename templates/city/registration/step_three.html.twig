@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Registration Step three{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body_master_container_class %}container{% endblock %}
+{% block body_master_row_class %}bg-white px-5 my-5 justify-content-center{% endblock %}
+{% block body_master_column_class %}container px-5 py-5 px-xs-2 {% endblock %}
+
+{% block body_main %}
+    {% set slug = 'city-user-registration-step-three-passcode-top' %}
+    {% set submit = 'city_registration.step_three.default.submit.label' | trans %}
+    {% set skip = 'city_registration.step_three.default.skip.label' | trans %}
+    {% if invalid and invalid == true %}
+        {% set slug = 'city-user-registration-step-three-passcode-invalid-top' %}
+        {% set submit = 'city_registration.step_three.invalid.submit.label' | trans %}
+        {% set skip = 'city_registration.step_three.invalid.skip.label' | trans %}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12 pt-5 text-center">
+            {{ include('cms_block/_cms_block.html.twig', { 'slug': slug }) }}
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-12">
+            {{ include('_flash_message.html.twig') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {{ form_start(form) }}
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10 col-sm-12 ">
+                    {{ form_row(form.passcode) }}
+                </div>
+            </div>
+            <div class="row pt-3 justify-content-center">
+                <div class="col-lg-8 col-md-10 col-sm-12">
+                    <div class="justify-content-between align-items-center city_registration_validate_button_container">
+                        {{ form_widget(form.validate,  {'attr': {'label': submit }}) }}
+                        <a class="btn btn-lg btn-light" href="{{ path('city_registration_step_three_verification', { 'city_slug': city_slug }) }}">{{ skip }}</a>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

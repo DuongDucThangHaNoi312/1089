@@ -1,0 +1,358 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Subscription Options{% endblock %}
+{% block meta_description %}Review subscriptions Options. Register for FREE and test drive all features.{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+
+    <div class="bg-white p-md-5 py-4 job-seeker-subscriptions">
+        <div class="col-12">
+{#            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-subscription-options-top' }) }}#}
+        </div>
+
+        <div class="m-auto job-seeker-wrapper">
+            <div class="container max-width-800">
+                {% if is_granted('ROLE_CITYUSER') %}
+                    <div class="col-12 mt-2 text-center">
+                        <h1 class="mb-4">JOB SEEKER SUBSCRIPTIONS</h1>
+                        {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-subscription-options-cityuser-top' }) }}
+                    </div>
+                {% elseif is_granted('ROLE_JOBSEEKER') %}
+                    <div class="col-12 mt-2 text-center">
+                        <h1 class="mb-4">JOB SEEKER SUBSCRIPTIONS</h1>
+                        {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-subscription-options-loggedin-top' }) }}
+                        <a class="btn btn-danger button-register badge-pill my-3 px-4 font-weight-bold"
+                           href="{{ path('job_seeker_subscription', {'update': 'subscription'}) }}">Change Subscription</a>
+                    </div>
+                {% else %}
+{#                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-subscription-options-anonymous-top' }) }}#}
+                    <div class="col-12 mt-2 text-center">
+                        <h1 class="mb-4">SUBSCRIPTION OPTIONS</h1>
+
+                        <p class="mb-0">Register for FREE and test drive all features.</p>
+
+                        <button class="btn btn-danger button-register badge-pill my-3 px-4 font-weight-bold" onclick="window.location.href = '{{ path('job_seeker_registration_step_one') }}'">
+                            REGISTER NOW
+                        </button>
+                    </div>
+
+                    <div class="col-12 job-seeker-description mt-2 mb-5 px-0">
+                        <p>After 14 days, you may select an option below and if no action is taken your account will remain active under the Free Basic Plan below, which will allow you to access all job alerts and links while logged in for free. Other premium options that can save you time finding mid, senior, and executive level jobs are described below.</p>
+                    </div>
+
+                {% endif %}
+            </div>
+
+            <div class="col-12 container-custom m-auto pt-5">
+                <div class="text-center">
+                    <h2 class="text-uppercase font-weight-bold mb-md-4 mb-2">Option feature details</h2>
+                </div>
+                <div class="cgj-jobseeker-option-tables">
+                    {% for subscriptionOption in jobSeekerSubscriptionOptions %}
+                        <div class="cgj-table-column">
+                            <div class="cgj-table-header">
+                                <span class="tier-name">{{subscriptionOption.name}}</span>Plan Features
+                                <span class="tier-price">{% if subscriptionOption.slug == 'basic' %}Free!{% else %}${{subscriptionOption.price}}/mo{% endif %}</span>
+                            </div>
+                            <div class="cgj-table-cell">
+                                <span class="feature">Dashboard</span>
+                                <ul>
+                                    <li>Search Results</li>
+                                    <li>Saved Jobs & Links</li>
+                                    <li>Submitted Interest</li>
+                                </ul>
+                            </div>
+                            <div class="cgj-table-cell">
+                                <span class="feature">Searches</span>
+                                <ul>
+                                    <li>Job Alerts Search</li>
+                                    <li>Jobs of Interest Search</li>
+                                    <li>City Links Search</li>
+                                </ul>
+                            </div>
+                            <div class="cgj-table-cell">
+                                <span class="feature">Submit Interest</span>
+                                <ul>
+                                    <li>Entry Level Jobs
+                                        {% if subscriptionOption.slug == 'basic' %}
+                                            <br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                                        {% endif %}
+                                    </li>
+                                    {% if subscriptionOption.slug != 'basic' %}
+                                        <li>Mid Level Jobs
+                                        {% if subscriptionOption.slug == 'enhanced' %}
+                                            <br/>&nbsp;<br/>&nbsp;
+                                        {% endif %}
+                                        </li>
+                                    {% endif %}
+                                    {% if subscriptionOption.slug == 'advanced' %}
+                                        <li>Senior Level Jobs<br/>&nbsp;</li>
+                                    {% elseif subscriptionOption.slug == 'executive' %}
+                                        <li>Senior Level Jobs</li>
+                                    {% endif %}
+                                    {% if subscriptionOption.slug == 'executive' %}
+                                        <li>Executive Level Jobs</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <div class="cgj-table-cell">
+                                <span class="feature">Alerts by Email for</span>
+                                <ul>
+                                    <li>Entry Level Jobs
+                                        {% if subscriptionOption.slug == 'basic' %}
+                                            <br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                                        {% endif %}
+                                    </li>
+                                    {% if subscriptionOption.slug != 'basic' %}
+                                        <li>Mid Level Jobs
+                                            {% if subscriptionOption.slug == 'enhanced' %}
+                                                <br/>&nbsp;<br/>&nbsp;
+                                            {% endif %}
+                                        </li>
+                                    {% endif %}
+                                    {% if subscriptionOption.slug == 'advanced' %}
+                                        <li>Senior Level Jobs<br/>&nbsp;</li>
+                                    {% elseif subscriptionOption.slug == 'executive' %}
+                                        <li>Senior Level Jobs</li>
+                                    {% endif %}
+                                    {% if subscriptionOption.slug == 'executive' %}
+                                        <li>Executive Level Jobs</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <div class="cgj-table-cell">
+                                <span class="feature">Allowed Saved Searches</span>
+                                <ul>
+                                    <li>{{subscriptionOption.countSavedSearches}}</li>
+                                </ul>
+                            </div>
+                            <div class="cgj-table-footer">
+                                {% if is_granted('ROLE_JOBSEEKER') %}
+                                    <a class="btn btn-danger button-register my-4 py-2 px-3 pt-10 font-weight-bold badge-pill font-size-md-18 font-size-16" href="{{ path('job_seeker_subscription', {'update': 'subscription', 'planId': subscriptionOption.id}) }}">Select Plan</a>
+                                {% else %}
+                                    <button class="btn btn-danger button-register my-5 py-2 px-3 pt-10 font-weight-bold badge-pill font-size-md-18 font-size-16" onclick="window.location.href = '{{ path('job_seeker_registration_step_one') }}'">Register Now</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+                <!--<div class="">
+                <table class="table table-option-feature-details w-100 d-block d-md-table table-responsive" style="border-bottom:1px solid #dee2e6;">
+                    <thead>
+                        <tr class="bg-color-light-blue">
+                            <th class="align-middle position-relative" scope="col" style="width: 55%"><span class="dark-bg text-uppercase font-weight-bold">Key Features/Service Levels</span></th>
+                            <th class="align-middle text-center" scope="col" style="width: 10%"><span class="dark-bg text-uppercase align-middle mb-0 font-weight-bold">Basic</span><p class="mt-1 mb-0 h5">Free/Limited</p></th>
+                            <th class="align-middle text-center" scope="col" style="width: 10%"><span class="dark-bg text-uppercase align-middle mb-0 font-weight-bold">Enhanced</span><p class="mt-1 mb-0 h5">$5.99/month</p></th>
+                            <th class="align-middle text-center" scope="col" style="width: 10%"><span class="dark-bg text-uppercase align-middle mb-0 font-weight-bold">Advanced</span><p class="mt-1 mb-0 h5">$7.99/month</p></th>
+                            <th class="align-middle text-center" scope="col" style="width: 15%"><span class="dark-bg text-uppercase align-middle mb-0 font-weight-bold">Executive</span><p class="mt-1 mb-0 h5">$9.99/month</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="lightest-bg">
+                            <th><span class="align-middle mb-0 font-weight-bold">Emails of Job Alerts Matching</span><span class="font-size-md-18 font-size-16">Saved Search Criteria, Be Notified for: </span></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><span class="align-middle mb-0 pl-md-5 pl-2 font-weight-bold">Executive Level Jobs</span></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><i class="fa fa-check"></i></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                    <tr >
+                        <th><span class="align-middle mb-0 pl-md-5 pl-2 font-weight-bold">Senior Level Jobs</span></th>
+                        <td></td>
+                        <td></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td><i class="fa fa-check"></i></td>
+                    </tr>
+                    <tr >
+                        <th><span class="align-middle mb-0 pl-md-5 pl-2 font-weight-bold">Mid Level Jobs</span></th>
+                        <td></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td><i class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <th><span class="align-middle mb-0 pl-md-5 pl-2 font-weight-bold">Trainee and Entry Level Jobs</span></th>
+                        <td><i class="fa fa-check"></i></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td><i class="fa fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <th><span class="align-middle mb-0 font-weight-bold">No. of Saved Job Searches with Job Alerts</span></th>
+                        <td><h3 class="align-middle mb-0 font-weight-bold">2</h3></td>
+                        <td><h3 class="align-middle mb-0 font-weight-bold">4</h3></td>
+                        <td><h3 class="align-middle mb-0 font-weight-bold">7</h3></td>
+                        <td><h3 class="align-middle mb-0 font-weight-bold">10</h3></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr class="lightest-bg">
+                        <th><span class="align-middle mb-0 font-weight-bold">Jobs of Interest Search</span><span>Save and Submit Interest in specific job titles and get Job Alerts for:</span></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                         <tr >
+                            <th><span class="align-middle mb-0 pl-md-5 pl-2 font-weight-bold">Executive Level Jobs</span></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><i class="fa fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <th><span class="align-middle mb-0 pl-md-5 pl-2 font-weight-bold">Senior Level Jobs</span></th>
+                            <td></td>
+                            <td></td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td><i class="fa fa-check"></i></td>
+                        </tr>
+
+
+                         <tr>
+                            <th><span class="align-middle mb-0 pl-md-5 pl-2 font-weight-bold">Mid Level Jobs</span></th>
+                            <td></td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td><i class="fa fa-check"></i></td>
+                        </tr>
+                        <tr>
+                             <th><span class="align-middle mb-0 pl-md-5 pl-2 font-weight-bold">Trainee and Entry Level Jobs</span></th>
+                            <td><i class="fa fa-check"></i></td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td><i class="fa fa-check"></i></td>
+                            <td><i class="fa fa-check"></i></td>
+                        </tr>
+                        <tr class="lightest-bg">
+                            <th><span class="align-middle mb-0 font-weight-bold">City Links and Profiles Search</span><span>Save, Reuse Links to City Job Pages, and City Profiles</span></th>
+                            <td>ALL ACTIVE COUNTIES SERVED</td>
+                            <td>ALL ACTIVE COUNTIES SERVED</td>
+                            <td>ALL ACTIVE COUNTIES SERVED</td>
+                            <td>ALL ACTIVE COUNTIES SERVED</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>-->
+            </div>
+
+            <div class="container max-width-800">
+                {#
+                {% if is_granted('ROLE_CITYUSER') %}
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-subscription-options-cityuser-bottom' }) }}
+                {% elseif is_granted('ROLE_JOBSEEKER') %}
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-subscription-options-loggedin-bottom' }) }}
+                    <div class="col-12 mt-2 mb-5 text-center">
+                        <a class="btn btn-danger button-register badge-pill my-3 px-4 font-weight-bold"
+                           href="{{ path('job_seeker_subscription', {'update': 'subscription'}) }}">Change Subscription</a>
+                    </div>
+                {% else %}
+                    {#{{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-subscription-options-anonymous-bottom' }) }}#}
+                    {#<div class="col-12 container max-width-800">
+                        <div class="text-center">
+                            <button class="btn btn-danger button-register my-5 py-2 px-4 pt-10 font-weight-bold badge-pill font-size-md-18 font-size-16" onclick="window.location.href = '{{ path('job_seeker_registration_step_one') }}'">Register Now</button>
+                        </div>
+                    </div>
+                {% endif %}#}
+
+                <h2 class="text-center font-weight-bold">DEFINITIONS</h2>
+
+                <div class="mt-4">
+                    <p>You may select any subscription option above and upgrade or downgrade at anytime. If you cancel or downgrade your submitted interest will be removed if it isn't
+                        allowed by the chosen subscription option.</p>
+                </div>
+
+                <table class="table table-bordered table-subscriber-options text-center mb-5">
+                    <thead>
+                        <tr class="bg-color-light-blue">
+                            <th class="align-middle" scope="col" style="width: 20%"><span class="text-white text-uppercase align-middle mb-0 font-weight-bold">Job level</span></th>
+                            <th class="align-middle" scope="col" style="width: 50%"><span class="text-white text-uppercase align-middle mb-0 font-weight-bold">Sample jobs</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Entry</td>
+                        <td>Intern, Trainee, Cadet, Office Clerk I, Police Recruit, and various other positions</td>
+                    </tr>
+                    <tr>
+                        <td>Mid</td>
+                        <td>Most city government jobs above Entry level but not Manager, Assistant Director, or Executive level positions</td>
+                    </tr>
+                    <tr>
+                        <td>Senior</td>
+                        <td>Manager, Assistant Director, Captain, City Planner, City Engineer positions</td>
+                    </tr>
+                    <tr>
+                        <td>Executive</td>
+                        <td>Department Directors, Chiefs and City Managers</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h2 class="text-center font-weight-bold mt-4">FAQs ABOUT SUBSCRIPTIONS</h2>
+
+                <div class="my-4">
+                    <h3><strong>Q: What Jobs would I submit interest in?</strong></h3>
+                    <p class="mb-4">A: CityGovJobs has uploaded budgeted job titles of cities in our service area, which may be
+                        filled or vacant positions.  These job titles have been categorized by CityGovJobs so that job
+                        seekers can quickly find them, submit interest in them at specific cities, and get job alerts
+                        for these positions once they become open recruitments.  This feature is offered to help busy,
+                        hard working job seekers that don't have time to monitor job postings or junk emails of job
+                        postings unrelated to their career track.  CityGovJobs is currently monitoring job postings and
+                        submitted interest and posting jobs to test the market for this feature and demonstrate to
+                        cities how it works.</p>
+
+                    <h3><strong>Q: What's the purpose of having Multiple Saved Searches?</strong></h3>
+                    <p class="mb-4">A: Through the onboarding process, you will set up a default saved search which limits users to
+                        5 counties. Some users may wish to add separate saved job searches in order to cover additional
+                        geographic areas or broaden their job search criteria.  For instance, you might have one search
+                        based on Job Categories, and another search based on specific job titles, such as "Assistant
+                        City Manager." Depending on your subscription level, you can get Job Alerts by Email for all
+                        the Saved Searches, or login to view matching jobs for free which are summarized on your
+                        Dashboard for each named saved search.
+
+                    <h3><strong>Q: Why does CityGovJobs charge Job Seekers small monthly fees?</strong></h3>
+                    <p class="mb-4">A: The variety of job boards used by Cities has made it difficult for many City Govt Career Job
+                        Seekers to find jobs. It's like a time-consuming Easter Egg hunt that many busy professionals
+                        don't have time for. CityGovJobs is seeking to aggregate all City Jobs in each county served
+                        into one website and provide you with meaningful time-saving features. To do this, we have had
+                        to collect, characterize, and upload considerable data into our database, and then monitor and
+                        post job alerts.  Until cities subscribe in numbers, we established the modest subscription fees
+                        above for value-added services and to offset our costs.</p>
+
+                {% if is_granted('ROLE_CITYUSER') %}
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-subscription-options-cityuser-bottom' }) }}
+                {% elseif is_granted('ROLE_JOBSEEKER') %}
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-seeker-subscription-options-loggedin-bottom' }) }}
+                    <div class="col-12 mt-2 mb-5 text-center">
+                        <a class="btn btn-danger button-register badge-pill my-3 px-4 font-weight-bold"
+                           href="{{ path('job_seeker_subscription', {'update': 'subscription'}) }}">Change Subscription</a>
+                    </div>
+                {% else %}
+                    <div class="col-12 container max-width-800">
+                        <div class="text-center">
+                            <button class="btn btn-danger button-register my-5 py-2 px-4 pt-10 font-weight-bold badge-pill font-size-md-18 font-size-16" onclick="window.location.href = '{{ path('job_seeker_registration_step_one') }}'">Register Now</button>
+                        </div>
+                    </div>
+                {% endif %}
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.js"></script>
+    <script type="text/javascript">
+
+        /* Create noty notification */
+        function createNoty(type = 'error', message) {
+            new Noty({
+                layout: 'topCenter',
+                theme: 'metroui',
+                type: type,
+                text: message,
+                timeout: 2500,
+            }).show();
+        }
+
+
+        window.onload = function() {
+            {% set flashes = app.flashes %}
+            {% if flashes is not empty %}
+                {% for label, messages in flashes %}
+                {% if label == 'error' and app.request.pathinfo == '/job/search' %}
+                    $('.btn-saved-search').trigger('click');
+                {% endif %}
+                    {% for message in messages %}
+                        createNoty("{{ label }}", "{{ message }}");
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        }
+    </script>
+{% endblock %}
+
+

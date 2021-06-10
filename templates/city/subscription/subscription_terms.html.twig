@@ -1,0 +1,25 @@
+<h4>Subscription Terms</h4>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <tbody>
+        <tr>
+            <th scope="row">Price</th><td>{{ plan.price > 0 ? plan.price|localizedcurrency('USD') : 'Free' }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Renewal Frequency</th><td>{{ plan.renewalFrequency }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Allowed Active Job Postings</th><td>{{ plan.allowedActiveJobPostings ? plan.allowedActiveJobPostings : 'Unlimited' }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Job Titles That Must Be Visible</th><td>{{ plan.jobTitleMaintenancePercentage|number_format }}%</td>
+        </tr>
+        <tr>
+            <th scope="row">City Search Limited to County</th><td>{{ plan.hasSearchCityLinksLimitation ? 'Yes' : 'No' }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Resume Search Limited to County</th><td>{{ plan.hasSearchResumeLimitation ? 'Yes' : 'No' }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

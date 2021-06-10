@@ -1,0 +1,10 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+{% set title %}
+    Status:&nbsp;<span>{{ jobAnnouncement.status }}</span>
+{% endset %}
+<div class="align-self-center">
+    <span class="{{ class|default("h5") }} uppercase d-flex mb-0">{{ title }}</span>
+</div>

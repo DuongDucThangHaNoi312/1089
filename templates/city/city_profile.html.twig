@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Profile{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/ajax_form.js') }}"></script>
+    {% include '_sharethis.html.twig'%}
+{% endblock %}
+
+{% block body_master_column_class %}col-10 m-4 p-5 bg-white page-content-container{% endblock %}
+
+{% block body_main %}
+    <div id="city-profile-banner-wrap">
+        <div class="row align-content-center">
+            <div class="col-md-8" id="city-profile-name">
+                {{ render(controller(
+                    'App\\Controller\\City\\ProfileController::name',
+                    { 'city': city, 'isEditable': isEditable }
+                )) }}
+            </div>
+            <div class="col-md-4 text-right">
+                {% if is_granted('ROLE_CITYUSER') %}
+                    {% if isEditable == true %}
+                        <a href="{{ path('view_city_profile', {'slug': city.slug}) }}"><i class="fa fa-eye"></i> Preview</a>
+                    {% else %}
+                        <a href="{{ path('edit_city_profile', {'slug': city.slug}) }}"><i class="fa fa-pencil-alt"></i> Edit</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        {{ render(controller(
+            'App\\Controller\\City\\ProfileController::bannerImage',
+            { 'city': city, 'isEditable': isEditable }
+        )) }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="row" id="city-profile-opportunities">
+                {{ render(controller(
+                'App\\Controller\\City\\ProfileController::opportunities',
+                { 'city': city }
+                )) }}
+            </div>
+            <div class="row" id="city-profile-city-links">
+                {{ render(controller(
+                'App\\Controller\\City\\ProfileController::urls',
+                { 'city': city, 'isEditable': isEditable  }
+                )) }}
+            </div>
+            <div class="row" id="city-profile-contact-info">
+                {{ render(controller(
+                    'App\\Controller\\City\\ProfileController::contactInfo',
+                    { 'city': city, 'isEditable': isEditable  }
+                )) }}
+            </div>
+        </div>
+        <div class="col-md-6" id="city-profile-about">
+            {{ render(controller(
+                'App\\Controller\\City\\ProfileController::about',
+                { 'city': city, 'isEditable': isEditable  }
+            )) }}
+        </div>
+        <div class="col-md-3">
+            <div class="row" id="city-profile-city-departments">
+                {{ render(controller(
+                    'App\\Controller\\City\\ProfileController::departments',
+                    { 'city': city }
+                )) }}
+            </div>
+            <div class="row" id="city-profile-agency-info">
+                {{ render(controller(
+                'App\\Controller\\City\\ProfileController::agencyInfo',
+                { 'city': city, 'isEditable': isEditable  }
+                )) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

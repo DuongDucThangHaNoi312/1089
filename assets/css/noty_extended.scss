@@ -1,0 +1,33 @@
+
+.noty_theme__metroui.noty_type__error {
+  background-color: $red;
+}
+
+.noty_theme__metroui.noty_type__warning {
+  background-color: $warning;
+}
+
+.noty_theme__metroui.noty_type__success {
+  background-color: $success;
+}
+
+.noty_theme__metroui.noty_type__info,
+.noty_theme__metroui.noty_type__information {
+  background-color: $info;
+}
+
+.noty_theme__metroui.noty_type__alert,
+.noty_theme__metroui.noty_type__notification {
+  background-color: $light;
+  color: $gray-900;
+}
+
+#noty_layout__topCenter {
+  left: 50% !important;
+  width: 80% !important;
+  text-align: center;
+}
+
+.noty_theme__metroui.noty_bar .noty_body {
+  font-size: 1.25rem;
+}

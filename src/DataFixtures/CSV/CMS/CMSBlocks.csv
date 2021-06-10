@@ -1,0 +1,317 @@
+id,"name","slug","content"
+1,"City User Registration Find City Top","city-user-registration-find-city-top","<h1>Find Your City</h1>
+
+<h3>Type your City&#39;s name below, select correct City/County/State, and click &quot;Next&quot;.</h3>"
+2,"City User Registration Step One Top","city-user-registration-step-one-top","<h1>Enter User Information</h1>
+
+<h2>If you&#39;re responsible for posting Job Announcements on behalf of your City, please enter your user information below.</h2>"
+3,"City User Registration Verify Email","city-user-registration-verify-email","<h1>Confirm Your Email</h1>
+
+<p>&nbsp;</p>
+
+<h3>Thank you for starting the registration process.</h3>
+
+<p>&nbsp;</p>
+
+<h3>Please go to your Email Inbox and click on link to Confirm Your Email.</h3>
+
+<h3>&nbsp;</h3>
+
+<h3>If you don&#39;t see a new message, please check your Junk Folder.</h3>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>"
+4,"City User Registration Step Three Passcode Top","city-user-registration-step-three-passcode-top","<h1>Do you have a Passcode?</h1>
+
+<p>&nbsp;</p>
+
+<h3>If you were provided with a Passcode from CityGovJobs, you may enter it below and click &quot;Validate&quot; to start using CityGovJobs immediately.&nbsp;</h3>
+
+<p>&nbsp;</p>
+
+<h4>If you don&#39;t have a Passcode, please click &quot;I don&#39;t have a Passcode&quot;.&nbsp;</h4>"
+5,"City User Registration Step Three Passcode Invalid","city-user-registration-step-three-passcode-invalid","<h1>Passcode Not Valid</h1>
+
+<h3>Sorry, the passcode you entered does not match the one on record. You may try to re-enter the passcode or click Next to register without a passcode.</h3>"
+6,"City User Registration Step Three Passcode Valid","city-user-registration-step-three-passcode-valid","<h1>Passcode Validated</h1>
+
+<p>&nbsp;</p>
+
+<h3>Thank you, your passcode has been validated.</h3>
+
+<p>&nbsp;</p>
+
+<h4>Click below to complete your registration and start using Citygovjobs.</h4>"
+7,"City User Registration City Already Registered","city-user-registration-city-already-registered","<h1>City is already Registered</h1>
+
+<h2>&nbsp;</h2>
+
+<h3>A City official has already registered to use Citygovjobs from the City you selected.</h3>
+
+<p>&nbsp;</p>
+
+<h3>Please contact Human Resources of the <strong>[City of Covina]</strong> to find out who is using Citygovjobs.&nbsp; They may be able to add you as a user if desired.&nbsp;</h3>
+
+<p>&nbsp;</p>
+
+<div>If you feel the wrong person may be registered for this City, feel free to contact us at customerservice@citygovjobs.com.&nbsp; Be sure to include your name, title, department, City name, and telephone no, along with details about who you believe should be registered.</div>
+
+<p>&nbsp;</p>
+
+<h2>Thank you.</h2>"
+8,"City User Registration Step Three Verification Top","city-user-registration-step-three-verification-top","<h1>Enter City Info</h1>
+
+<h3>Please enter information below to complete registration.&nbsp;</h3>"
+9,"City User Registration Step Three Verifying","city-user-registration-step-three-verifying","<h1>Thank You!</h1>
+
+<p>&nbsp;</p>
+
+<h3>We received your registration information.&nbsp; To protect your City&#39;s use of Citygovjobs we need to verify submitted information.</h3>
+
+<h3>&nbsp;</h3>
+
+<h3>Once we verify the information provided, we will approve your use of Citygovjobs via a separate email.&nbsp; Approval can take up to 2 business days.</h3>
+
+<h3>&nbsp;</h3>
+
+<h3>If we are unable to verify submitted information, your application will be rejected and you will be notified by email.</h3>"
+10,"Jobseeker User Registration Step One Top","jobseeker-user-registration-step-one-top","<h1>Enter Email and Password</h1>"
+11,"Jobseeker User Registration Verify Email","jobseeker-user-registration-verify-email","<h1>Confirm Your Email</h1>
+
+<h3>Thank you for starting the registration process.</h3>
+
+<h3>Please go to your Email Inbox and click on link to Confirm your Email.</h3>
+
+<h3>If you don&#39;t see a new message, please check your Junk Folder.</h3>"
+12,"Job Announcement Edit Hint","job-announcement-edit-hint","<p><strong>Create or Edit your Job Alert or Job Announcement using template below.&nbsp;</strong></p>
+
+<p style=\"margin-left:40px\">For <strong>Job Alerts</strong> enter the following required information:</p>
+
+<ol style=\"margin-left:40px\">
+	<li>Salary or Wage</li>
+	<li>Application Deadline</li>
+	<li>Link or URL to Job Announcement on another website.</li>
+</ol>
+
+<p style=\"margin-left:40px\">For <strong>Job Announcements</strong> enter the following required information:</p>
+
+<ol style=\"margin-left:40px\">
+	<li>Salary or Wage</li>
+	<li>Application Deadline</li>
+	<li>Application Link</li>
+	<li>Description</li>
+</ol>
+
+<p>As an option, add brief description of Benefits.&nbsp; When finished with above, set the Run dates for your job post<strong>.</strong></p>"
+14,"City Manage Job Titles","city-manage-job-titles","<h4>Below include your City&#39;s budgeted job titles collecting interest from Job Seekers.&nbsp; Click &quot;Mark Vacant&quot; for all jobs you&#39;d like to post, and then go to <u><a href=\"http://52.25.113.152/city/calimesa/job/announcements/to-do\">Job Alerts/Announcements</a> </u>to draft your job posts.</h4>"
+15,"City Job Vacancies","city-job-vacancies","<p>Click &quot;Mark Vacant&quot; button to select one or more Jobs to Post.&nbsp; Vacant Job Titles are moved to your <u><a href=\"http://citygovjobs.stage72.endertech.net/city/calimesa/job/announcements/to-do\">Job Announcements&gt;Jobs to Post</a></u> page where you can draft and schedule job alerts or announcements to be available to job seekers.&nbsp; After your job post has ended, it will be moved to your Ended queue where you may repost the job alert or announcement.&nbsp; After XX days, Ended jobs are Archived, and once Archived, your job&#39;s status below will be changed to Filled.&nbsp; To view resumes of those that submitted interest, click on the number below for respective job title.</p>"
+16,"City Manage Departments","city-manage-departments","<h4>Below includes your City&#39;s Departments.&nbsp; Click on below Edit icon for Department Name you want to Edit.&nbsp;&nbsp; To Delete a Department, you will need to delete or assign all the job titles in that Department to a different Department. To assign job titles to a different Department, go to your Manage Job Titles page, filter Jobs by Department, and then Edit corresponding job title(s).&nbsp; <strong>Only non-budgeted job titles should be deleted.&nbsp; If you do recruitments for some job titles to fill positions in multiple departments, you may want to add a Department with name of Various and delete these job titles from specific Departments.&nbsp; </strong></h4>"
+17,"Job Seeker Complete Resume","job-seeker-complete-resume","<h1 class=\"pt-3\">Complete Your Resume</h1>
+
+<h4>Enter required info below to proactively submit interest in budgeted job titles and receive job alerts.</h4>
+
+<h4>Note that your resume will be viewable by cities where you submit interest in jobs and other cities through searches.&nbsp; You may also block cities you specify below from finding and viewing your resume.</h4>
+
+<h4>To enhance your resume, CityGovJobs &quot;recommends&quot; that you complete the &quot;Work History&quot; section when you have time.</h4>"
+18,"City Submitted Interest","city-submitted-interest","<p>Below includes a list of job seekers that submitted interest in your job titles.&nbsp; Once you post a job alert or announcement, these job seekers will be notified your city is accepting applications for the job posted.&nbsp; To view the resume of each job seeker below, click on the magnifying glass icon.</p>"
+19,"City Job Announcements Active","city-job-announcements-active","<p>Below are your Active Job Post(s) available to Job Seekers.&nbsp; You may Edit your job post(s) and change the run dates at any time.&nbsp; Once a job post&#39;s run date has Ended, it will be moved to your Ended queue where you may repost the Job Alert or Announcement if desired.&nbsp; Ended jobs are automatically Archived after XX days.&nbsp; You may also End or Archive the job manually below, however, be aware that Archived jobs typically signify that the job opening is Filled.</p>"
+20,"City Job Announcements To Do","city-job-announcements-to-do","<h4>Vacant jobs below are&nbsp; ready for you to post.&nbsp;&nbsp; Select Edit icon to Draft your job post.&nbsp; Enter the Run or Active dates ONLY when you are finished entering other information.&nbsp;</h4>"
+21,"City Job Announcements Ended","city-job-announcements-ended","<p>Below include job posts that have Ended.&nbsp; You may repost any job below to job seekers by clicking on the Edit icon, and changing the Run or Active Dates.&nbsp; If you only change the &quot;Ends on&quot; date and click Save, the job post will become Active immediately.&nbsp; Before changing the Run date(s) be sure to check other information first, to make sure, for instance, the Application Deadline is still valid.&nbsp; All Ended job posts will be auto-Archived in XX days.&nbsp; You may also Archive the job post manually below.&nbsp; Archived job posts generally signify the job is filled.</p>"
+22,"City Job Announcements Archived","city-job-announcements-archived","<p>Below includes jobs that you have posted using CityGovJobs as well as the number of views your job posts have received.&nbsp; When you mark a job as Vacant which is also included in below Archive, info from your Archived Job Post is copied to your Jobs to Post page to help you complete your new job post more quickly.&nbsp; Use the info below to ensure your city continues to qualify for FREE job posting service and to view your prior job posts for reference purposes.&nbsp;</p>"
+23,"Home Page","home-page","<h1>Welcome to CityGovJobs.com!</h1>"
+24,"Default City About","default-city-about","Admin will define the template soon."
+25,"Jobseeker User Registration Step Two Top","jobseeker-user-registration-step-two-top","<h1>Tell Us More About You</h1>"
+26,"Jobseeker User Registration Step Three Top","jobseeker-user-registration-step-three-top","<h1>Help Us Set Up Your Dashboard</h1>
+
+<h3>With Jobs of Interest and Links to City Websites where you want to work.</h3>"
+27,"Job Seeker Faq","job-seeker-faq","<h1>Frequently Asked Questions</h1>
+
+<h2>&nbsp;</h2>
+
+<h2><strong>Q:&nbsp; Will the City I work for see my Resume on this Website?</strong></h2>
+
+<h3><strong>A:&nbsp;</strong> You can hide your Resume from up to 5 cities, including the one you work for.&nbsp; However, if you want to submit interest in Closed Promotional jobs at your City, the City you work for will see your resume.</h3>
+
+<p>&nbsp;</p>
+
+<p>Didn&#39;t find what you&#39;re looking for, feel free to send email to <strong>customerservice@citygovjobs.com</strong>.&nbsp;</p>
+
+<p>&nbsp;</p>"
+28,"General Error","general-error","<h3>Error:&nbsp; You&#39;re already logged in.</h3>"
+29,"City Job Levels Definition","city-job-levels-definition","<p>Please be careful when assigning Job Levels and use below definitions/guidelines:</p>
+
+<table align=\"left\" border=\"1\" cellpadding=\"10\" cellspacing=\"1\" height=\"205\" width=\"1438\">
+	<caption>&nbsp;</caption>
+	<tbody>
+		<tr>
+			<td>
+			<p><strong>Executive</strong></p>
+			</td>
+			<td>
+			<div>City Manager, Assistant City Manager, City Attorney, Assistant City Attorney, Department Heads, .e.g., Human Resources Director, Finance Directror, Police Chief, Fire Chief</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<p><strong>Senior</strong></p>
+			</td>
+			<td>
+			<div>Manager positions, including Building Offiical, City Planner, City Engineer, Customer Service Manager, Assistant Directors of moderately sized Departments, Police Captain, Fire Captain, Personnel Manager, Public Works SuperIntendent, Deputy City Clerk, Fire Marshall</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<p><strong>Mid</strong></p>
+			</td>
+			<td>Most city jobs, from Clerical Positions through Supervisory positions such as Accounting Supervisor; Senior/Administrative Technicians, Senior/Management Analysts, Engineers, Assistant Planners; Field Service Representatives and Construciton Trade positions</td>
+		</tr>
+		<tr>
+			<td>
+			<div><strong>Entry</strong></div>
+			</td>
+			<td>Internship, Cadet, Police Recruit, Entry level and Trainee positions; first in series positions, e.g. Clerk Typist I, Water Worker I, Customer Service Representative I</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>&nbsp;</p>"
+30,"City Faq","city-faq","<h1>Frequently Asked Questions</h1>
+
+<h2>&nbsp;</h2>
+
+<h2><strong>Q:&nbsp; When my 4-Month FREE Trial period ends will we have to pay?</strong></h2>
+
+<h3><strong>A:&nbsp;</strong> No, so long as you:</h3>
+
+<h3>1.&nbsp; Maintain at least 80% of your budgeted jobs on CityGovJobs so that job seekers can submit interest in them; and</h3>
+
+<h3>2.&nbsp; Post Job Alerts or Job Annoncements on CityGovJobs when doing recruitments for the same jobs that are visible to job seekers on CityGovJobs.*</h3>
+
+<address>*It would be unfair to job seekers who submit interest in your jobs to not post job alerts or announcements to them.&nbsp; It literally only takes seconds to post a Job Alert.</address>
+
+<p>&nbsp;</p>
+
+<h2><strong>Q:&nbsp; How is the 80% threshold determined?</strong></h2>
+
+<h3><strong>A:&nbsp; </strong>From your &quot;Manage Job Titles&quot; page, you can &quot;Hide&quot; job titles from job seekers that are using CityGovJobs.&nbsp; Each job title you hide causes your percentage of job titles available to job seekers to drop.&nbsp; When you hide 20% of your job titles, you will be prompted to start a paid subscription. Also, failure to post jobs that are visible to job seekers on CityGovJobs could result in more and more of your jobs being hidden by CityGovJobs&#39; administrators and cause you to start a paid subscription in order to post jobs.&nbsp; You may add newly budgeted jobs to increase your counts if desired, but the job titles should be budgeted positions.</h3>
+
+<p>&nbsp;</p>
+
+<h2><strong>Q:&nbsp; How do I <u>Hide</u> job titles from Job Seekers?</strong></h2>
+
+<h3><strong>A:&nbsp;</strong> Below steps may be used to hide budgted job titles:</h3>
+
+<h3>1.&nbsp; Click on &quot;Jobs&quot; at top of your Dashboard.</h3>
+
+<h3>2.&nbsp; Click on &quot;Manage Job Titles&quot;</h3>
+
+<h3>3.&nbsp;&nbsp; Find the job title you want to hide by typing it into the Filter on Manage Job Titles page.&nbsp; Be sure it&#39;s in the right Department, and is the right Job Type, e.g., Part-Time or Full-Time.</h3>
+
+<h3>4.&nbsp; Click on the 3 vertical dots on the right side of the table for the job title you want to hide, and select Hide.</h3>
+
+<h3>5.&nbsp; When you hide a job title the percentage of jobs available to job seekers will display in a pop up.</h3>
+
+<p>&nbsp;</p>
+
+<h2><strong>Q:&nbsp; How do I <u>Delete</u> job titles that are no longer budgeted?</strong></h2>
+
+<h3><strong>A:&nbsp;</strong> Below steps may be used to delete job titles:</h3>
+
+<h3>1.&nbsp; Click on &quot;Jobs&quot; at top of your Dashboard.</h3>
+
+<h3>2.&nbsp; Click on &quot;Manage Job Titles&quot;</h3>
+
+<h3>3.&nbsp; Find the job title you want to Delete by typing it into the Filter on Manage Job Titles page.&nbsp; Be sure it&#39;s in the right Department, and is the right Job Type, e.g., Part-Time or Full-Time.</h3>
+
+<h3>4.&nbsp; Click on the 3 vertical dots on the right side of the table for the job title you want to delete, and select Delete.</h3>
+
+<address>NOTE:&nbsp; All submitted interest will be deleted, so be sure it&#39;s the right job title.&nbsp;&nbsp; Also, according to our Terms of Use Agreement, you may only delete non-budgeted job titles.</address>
+
+<p>&nbsp;</p>
+
+<h2><strong>Q:&nbsp; How do I <u>Edit</u> a Job Title and its attributes?</strong></h2>
+
+<h3><strong>A:&nbsp;</strong> Below steps may be used to Edit budgted job titles:</h3>
+
+<h3>1.&nbsp; Click on &quot;Jobs&quot; at top of your Dashboard.</h3>
+
+<h3>2.&nbsp; Click on &quot;Manage Job Titles&quot;</h3>
+
+<h3>3.&nbsp;&nbsp; Find the job title you want to hide by typing it into the Filter on Manage Job Titles page.&nbsp; Be sure it&#39;s in the right Department, and is the right Job Type, e.g., Part-Time or Full-Time.</h3>
+
+<h3>4.&nbsp; Click on the 3 vertical dots on the right side of the table for the job title you want to edit, and select Edit.</h3>
+
+<h3>5.&nbsp; Using the Edit form, you may: edit the job title; change what Department it is assigned to; add job categories to help job seekers find the job; and change it&#39;s type to Part-Time or Full-Time, Seasonal or Interim/Temporary.&nbsp; You may also change the Level of the job to Executive, Senior, Mid or Entry, but please read Level Definitions on this page to ensure you assign proper level to the job title.</h3>
+
+<h3>6. Click of Save Job Title button when finished editing to Save your changes.</h3>
+
+<h2>&nbsp;</h2>
+
+<h2><strong>Q:&nbsp; How do I <u>Add</u> a Job Title?</strong></h2>
+
+<h3><strong>A:&nbsp;</strong> Below steps may be used to Add budgted job titles:</h3>
+
+<h3>1.&nbsp; Click on &quot;Jobs&quot; at top of your Dashboard.</h3>
+
+<h3>2.&nbsp; Click on &quot;Manage Job Titles&quot;</h3>
+
+<h3>3.&nbsp; Click on &quot;Create New Job Title&quot; in the upper right corner of Manage Job Titles page.</h3>
+
+<h3>4.&nbsp; Fillout the form with all *Required information to add a new job title and Click &quot;Save Job Title&quot; button.</h3>
+
+<h3>5.&nbsp; Please type out the Job Title in &quot;perfect&quot; format for consistency, i.e., &quot;Management Analyst&quot;.&nbsp;&nbsp;</h3>
+
+<p>&nbsp;</p>
+
+<h2><strong>Q:&nbsp; How do I post a Job Alert or Job Announcement?</strong></h2>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>Didn&#39;t find what you&#39;re looking for<strong>?</strong></p>
+
+<p>ADD CONTACT US [BUTTON]</p>
+
+<p>&nbsp;</p>"
+31,"Contact Form","contact-form","<div style=\"text-align:center\">
+<h1>Comments/Questions?</h1>
+
+<h3>Your feedback is important to us!</h3>
+
+<h4>Feel free to report any broken hyperlinks to us</h4>
+
+<h4>or any other concerns you might have.</h4>
+
+<h2>THANK YOU!</h2>
+</div>"
+32,"Contact Form","contact-form-1","<h2>Please use the form below for any questions or comments you have regarding our service and we will be sure to follow up with you.</h2>
+
+<p>[prefer to see city name and state for this form---CAN ET ADD CENTER FUNCTION TO TEST EDITOR??]</p>
+
+<h2>Thank you.</h2>"
+33,"City User Registration Step Two Top","city-user-registration-step-two-top","<h1>Enter Your Information Below</h1>
+
+<p>&nbsp;</p>"
+34,"Login","login","<h1>LOGIN</h1>
+
+<h3>For Registered Job Seekers and City Government Users</h3>"
+35,"City Manage Users","city-manage-users","<h2>Add / Edit City Users</h2>
+
+<h4>As the Administrator you may add and manage other users.&nbsp; Only employees of your City may be added to help manage your job postings.</h4>"
+36,"Access Denied","access-denied","<h1>Sorry, Access Denied!</h1>
+
+<h3>If you feel you should be allowed to access this feature</h3>
+
+<h3>please send us a message using Contact Form.</h3>"
+37,"City Departments Definition","city-departments-definition","<h4>Name edits will apply to all job titles in the selected Department.</h4>"
+38,"Job Seeker Subscription Options Loggedin Top","job-seeker-subscription-options-loggedin-top","<div align=\"justify\">
+<h3>Turbo-charge your passive jobs search with one of CityGovJobs&#39; enhanced service options, which allow you to get emails of job alerts and announcements matching your saved search criteria.&nbsp; Options also allow you to submit interest in Mid, Senior and Executive jobs at multiple cities from one webpage, and get job alerts once these are advertised as open positions.&nbsp; If you&#39;re a busy, well-qualified city government career professional, these patented features can save you a huge amount of time and get you better quality job postings you can best compete for.&nbsp; Read below and then choose an option that will be of the greatest help to your career.&nbsp;</h3>
+</div>"
+39,"Page Not Found","page-not-found","<p>Checkout for any URL misspelling or <a href='/'>return to the homepage</a></p>"
+40, "City About Tab", "city-about-tab", "<p>The cards below represent many of the common job categories that are found in many cities and towns across the United States. Generally, these categories parallel the department organization structure of cities and towns, and cover many of the job categories used to classify job listings on CityGovtJobs. Jobs vary by city, and so every category doesn’t apply to every city. Click on a category to see a basic description, along with a sample of job titles you will find in searches on CityGovtJobs under that category.</p>"

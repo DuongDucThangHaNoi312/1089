@@ -1,0 +1,10 @@
+{% if form.parent.vars.value is defined %}
+{% set url = form.parent.vars.value  %}
+    {% if sonata_admin.admin.canAccessObject('edit', url) and sonata_admin.admin.hasRoute('edit') %}
+        {%  if url.id is defined %}
+            <a class="btn btn-primary test-url" target="_blank" onClick="setTimeout(function() {window.location.reload();}, 1000);" data-url-value="{{ url.value }}" style="display: block;" href="{{ path('admin_app_url_testUrl', {'id': url.id}) }}">
+                Test Url
+            </a>
+        {% endif %}
+    {% endif %}
+{% endif %}

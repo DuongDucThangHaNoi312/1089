@@ -1,0 +1,14 @@
+// Flat
+.irs--flat {
+  .irs-bar, .irs-from, .irs-from, .irs-to, .irs-single, .irs-handle>i:first-child {
+    background-color: $blue;
+  }
+
+  .irs-from, .irs-to, .irs-single {
+    &::before {
+      border-top-color: $blue;
+    }
+  }
+}
+
+

@@ -1,0 +1,83 @@
+<div class="mx-md-6 px-md-5 p-4 getting-started-body col-12 col-md-10 {{ toggle }}" id="getting-started">
+    <div class="row">
+        <div class="col-12 col-md-7 mb-3">
+            {% if resume %}
+                {% if resume.isComplete is defined and resume.isComplete  %}
+                    <h2 class="text-primary">Request a Review</h2>
+                    <p>Your Resume is complete. Now you can request a free review of your search settings using the
+                        <a class="btn-contact-link" href="{{ path('contact') }}">Contact Us</a> form.
+                        We'll help you to optimize your Search Settings on CityGovJobs.
+                    </p>
+                {% else %}
+                    <h2 class="text-primary">Resume Incomplete</h2>
+                    <p>Your Resume is Incomplete. Once you complete your resume we'll be happy to review your search settings to help you get the most out of CityGovJobs.
+                    </p>
+                {% endif %}
+            {% else %}
+                <h2 class="text-primary">Create a Resume</h2>
+                <h3 class="text-black">Create a resume and request us to review your search settings. We'll help you to
+                    optimize your settings to get the most out of CityGovJobs.</h3>
+            {% endif %}
+            <div class="actions mt-4 d-flex justify-content-start align-content-between">
+                {% if not resume %}
+                    <a class="btn btn-primary" href="{{ path('job_seeker_add_resume') }}"><i class="fa fa-plus"></i>
+                        Create</a></span>
+                {% else %}
+                    <a class="btn btn-outline-primary mr-2 "
+                       href="{{ path('job_seeker_view_resume', {'id': resume.id}) }}"><i class="fa fa-eye"></i> Preview</a>
+                    <a class="btn btn-outline-primary mr-2"
+                       href="{{ path('job_seeker_edit_resume', {'id': resume.id}) }}"><i class=" fa fa-edit"></i>
+                        Edit</a>
+                    <a class="btn btn-outline-danger"
+                       href="{{ path('job_seeker_delete_resume', {'id': resume.id}) }}"><i class="fa fa-trash"></i>
+                        Delete</a>
+                {% endif %}
+            </div>
+        </div>
+        {% if resume %}
+            <div class="col-md-5">
+                <div class="progress" style="height: 30px;">
+                    <p class="mb-0 progress-bar-percentage">{{ resume.percentageComplete|round(1, 'floor') }}%</p>
+                    <div class="progress-bar bg-success text-center" role="progressbar"
+                         style="width: {{ resume.percentageComplete | round(1, 'floor') }}%;"
+                         aria-valuenow="{{ resume.percentageComplete|round(1, 'floor') }}" aria-valuemin="0"
+                         aria-valuemax="100"></div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6">
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Contact Information', 'complete': resume.sectionComplete('contact')} %}
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Summary', 'complete': resume.sectionComplete('summary')} %}
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Interest Profile', 'complete': resume.sectionComplete('interest-profile')} %}
+                    </div>
+                    <div class="col-6">
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Key Qualifications', 'complete': resume.sectionComplete('key-qualifications')} %}
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Settings', 'complete': resume.sectionComplete('settings')} %}
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Work History', 'complete': (resume.workHistories|length <= 0 ? false : resume.sectionComplete('work-history')), 'required': false} %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-md-5">
+                <div class="progress" style="height: 30px;">
+                    <div class="progress-bar bg-success progress-bar-percentage" role="progressbar" style="width: 0%;"
+                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-6">
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Contact Information', 'complete': false} %}
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Summary', 'complete': false} %}
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Interest Profile', 'complete': false} %}
+                    </div>
+                    <div class="col-6">
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Key Qualifications', 'complete': false} %}
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Settings', 'complete': false} %}
+                        {% include 'job_seeker/dashboard/_resume_section_title.html.twig' with {'section': 'Work History', 'complete': false, 'required': false} %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+

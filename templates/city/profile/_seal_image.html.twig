@@ -1,0 +1,11 @@
+{% set image = false %}
+{% if city.sealImage is defined and city.sealImage is not null %}
+    {% set image = true %}
+{% endif %}
+{% if form is defined %}
+    {% include 'city/profile/_seal_image_form.html.twig' with {'form': form} %}
+    {% include '_inline_upload_button.html.twig' with {'position': 'center', 'type': 'Seal'} %}
+{% endif %}
+{% if image or form is defined %}
+    <img class="seal preview" src="{{ vich_uploader_asset(city, 'sealImageFile')|default("https://via.placeholder.com/200x200") }}" alt="{{ city.name }} Seal" />
+{% endif %}

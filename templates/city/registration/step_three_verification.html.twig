@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Registration | Verify City Info{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body_master_container_class %}container{% endblock %}
+{% block body_master_row_class %}bg-white px-5 my-5 justify-content-center{% endblock %}
+{% block body_master_column_class %}container px-5 py-5 px-xs-2 {% endblock %}
+
+{% block body_main %}
+    <div class="row">
+        <div class="col-md-12 pt-5 text-center">
+            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'city-user-registration-step-three-verification-top' }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 justify-content-md-center">
+            {{ include('_flash_message.html.twig') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-2 justify-content-md-center">
+            {{ form(form) }}
+        </div>
+    </div>
+
+{% endblock %}

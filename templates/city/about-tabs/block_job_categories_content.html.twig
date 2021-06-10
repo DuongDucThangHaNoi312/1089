@@ -1,0 +1,39 @@
+<div class="content-header">
+    <h3 class="font-weight-bold">
+        {% if activeCategory is defined and activeCategory is not null %}
+            {{ activeCategory.name }}
+        {% endif %}
+    </h3>
+</div>
+
+
+
+    {% if activeCategory is defined and activeCategory is not null and activeCategory.detailImage is not null and activeCategory.detailImage != '' %}
+        <div class="text-center py-3">
+            <img class="w-100" src="{{ vich_uploader_asset(activeCategory, 'detailImageFile') | imagine_filter('job_category_detail') }}" alt="{{ 'Job Category ' ~ activeCategory.name}}"/>
+        </div>
+    {% else %}
+        <div class="text-center py-3">
+            <img class="w-100" src="http://placehold.it/730x300" alt="Placeholder image for job category"/>
+        </div>
+    {% endif %}
+
+
+<div class="content-description">
+    {% if activeCategory is defined and activeCategory is not null and activeCategory.description is not null and activeCategory.description != '' %}
+        {{ activeCategory.description | raw }}
+    {% else %}
+        {{ include('cms_block/_cms_block.html.twig', { 'slug': 'default-cms-job-category-no-content' }) }}
+    {% endif %}
+</div>
+
+<div class="city-about-footer d-md-flex pl-4">
+    <div class="footer-question d-md-flex">
+        {% if activeCategory is defined and activeCategory is not null %}
+        <h5 class="font-weight-bold mb-0">Interested in working in {{ activeCategory.name }}?</h5>
+        {% endif %}
+    </div>
+    <div class="footer-button mr-2 mt-md-0 mt-2">
+        <button class="button-blue-radius font-weight-bold" onclick="window.location.href = '{{ path('job_seeker_registration_step_one') }}'">Start your free trial now</button>
+    </div>
+</div>

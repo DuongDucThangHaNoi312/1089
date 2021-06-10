@@ -1,0 +1,58 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'What would you like to post?', 'canEdit': false, 'urgency': 'One Required', checkmark: false} %}
+<hr/>
+{% if canEdit %}
+    {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                if ($('input.is_alert_yes').is(':checked')) {
+                    $('#city-job-announcement-announcement').hide();
+                    $('#city-job-announcement-alert').show();
+                    $('input#alert_isAlert').val(1);
+                } else {
+                    $('#city-job-announcement-announcement').show();
+                    $('#city-job-announcement-alert').hide();
+                    $('input#announcement_isAlert').val(0);
+                }
+
+                $('#city-job-announcement-is-alert input:radio').click(function() {
+                    // Make an Ajax Request
+                    let form = $(this).closest("form");
+                    $.ajax({
+                        type: form.attr('method'),
+                        url: form.attr('action'),
+                        data: form.serialize(),
+                        success: function(data, status) {
+                        },
+                        error: function(xhr, desc, err) {
+                        }
+                    });
+
+                    // Toggle Alert if True
+                    if ($(this).is(':checked')) {
+                        if ($(this).hasClass('is_alert_yes')) {
+                            // Show Alert
+                            $('#city-job-announcement-announcement').hide();
+                            $('#city-job-announcement-alert').show();
+                            $('input#alert_isAlert').val(1);
+                        } else {
+                            $('#city-job-announcement-announcement').show();
+                            $('#city-job-announcement-alert').hide();
+                            $('input#announcement_isAlert').val(0);
+                        }
+                    }
+                });
+            });
+        </script>
+    {% endblock %}
+    {{ form(form) }}
+{% endif %}

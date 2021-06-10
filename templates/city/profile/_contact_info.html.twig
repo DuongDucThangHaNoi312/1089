@@ -1,0 +1,38 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+<div class="col-12 p-1">{% include 'city/profile/_section_editable_title.html.twig' with {'name': 'Contact Info', 'canEdit': canEdit} %}</div>
+{% set cityHallPhoneId = (form is defined) ? form_name~'_profileCityHallPhone' : 'cityHallPhone' %}
+{% set operationalHoursId = (form is defined) ? form_name~'_operationHours' : 'operationHours' %}
+{% set hoursDescriptionId = (form is defined) ? form_name~'_hoursDescription' : 'hoursDescription' %}
+{% set hoursDescriptionOtherId = (form is defined) ? form_name~'_hoursDescriptionOther' : 'hoursDescriptionOther' %}
+{% set addressId = (form is defined) ? form_name~'_address' : 'address' %}
+<div class="editable col-12">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="label">Telephone</h3>
+            <p id="{{ cityHallPhoneId }}">{{ city.cityHallPhone }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="{{ operationalHoursId }}">
+            <h3 class="label">Operational Hours</h3>
+            <p id="{{ hoursDescriptionId }}">{{ city.hoursDescription }}</p>
+            <p id="{{ hoursDescriptionOtherId }}">{{ city.hoursDescriptionOther }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="label">Address</h3>
+            <div id="{{ addressId }}" class="d-flex flex-column justify-content-start mb-2">
+                <span>{{ city.address }}</span>
+                <span>{{ "%s, %s %s"|format(city.name, city.counties.first.state|abbreviate, city.zipCode) }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if form is defined %}
+    {% include 'city/profile/_contact_info_form.html.twig' with {'form': form} %}
+{% endif %}

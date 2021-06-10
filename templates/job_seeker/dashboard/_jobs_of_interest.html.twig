@@ -1,0 +1,65 @@
+
+<div class="row bg-white rounded mb-3 p-4 mx-md-4">
+    <div class="col-md-12">
+        <div clas="row">
+            <h2 class="d-flex justify-content-start flex-column">
+                <span>Jobs of Interest</span>
+                <span class="label text-primary">Budgeted Job Titles of interest to you</span>
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="d-flex justify-content-between  bg-secondary align-content-center px-3 pt-3">
+                    <span class="font-weight-bold">Matching Default Search</span>
+                    <a href="{{ path('job_seeker_jobtitle_search', {'type': 'jobTitle', '_fragment': 'job-title'}) }}">{{ jobTitleCount  }}</a>
+                </div>
+
+                <div
+                        {% if savedSearches|length == 0 %}
+                            class="d-flex justify-content-between  bg-secondary align-content-center px-3"
+                        {% else %}
+                            class="bg-secondary align-content-center px-3"
+                        {% endif %}
+                >
+                    <span class="font-weight-bold">Matching Extra Saved Searches</span>
+                    {% if savedSearches|length == 0 %}
+                        0
+                    {% else %}
+                        {% for savedSearch in savedSearches %}
+                            <div class="d-flex justify-content-between">
+                                <span class="ml-3">{{ savedSearch.name }}</span>
+                                {% for key, count in countJobsOfInterest %}
+                                    {% if key == savedSearch.id %}
+                                        <a href="{{ savedSearch.searchQuery }}#job-title">{{ count }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="d-flex justify-content-between  bg-secondary align-content-center px-3">
+                    <span class="font-weight-bold">Saved by You</span>
+                    <a href="{{ path('job_seeker_jobtitle_search', {'type': 'jobTitle', 'saved': 1, '_fragment': 'job-title'}) }}">{{ savedJobTitleCount  }}</a>
+                </div>
+                <div class="d-flex justify-content-between bg-secondary align-content-center px-3 pb-3">
+                    <span class="font-weight-bold">Your Submitted Interest In</span>
+                    <a href="{{ path('job_seeker_jobtitle_search', {'type': 'jobTitle', 'search_filter[searchSubmittedJobTitle]': 1, '_fragment': 'job-title'}) }}">{{ submittedJobTitleInterestCount  }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>Submit interest in every job title that you are qualified for and interested in applying for. The more you submit the better your chances are to receive an alert of a job opening.</p>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3 mb-md-0 text-center text-md-left">
+                        <a class="btn btn-outline-primary" href="{{ path('job_seeker_jobtitle_search') }}#edit-profile"> <i class="fa fa-list"></i> Edit Profile </a>
+                    </div>
+                    <div class="col-12 col-md-6 text-center text-md-right">
+                        <a class="btn btn-outline-primary" href="{{ path('job_seeker_jobtitle_search', {'type': 'jobTitle', '_fragment': 'job-title'}) }}"><i class="fa fa-search"></i> Search Jobs of Interest</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

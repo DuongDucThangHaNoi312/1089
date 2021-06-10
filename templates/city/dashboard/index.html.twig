@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Dashboard{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h1 class="mb-0">{{ user.city.name }} Dashboard</h1>
+        </div>
+    </div>
+    {{ render(controller(
+        'App\\Controller\\City\\DashboardController::gettingStarted'
+    )) }}
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary my-5 justify-content-center">
+        <div class="col-10">
+            <div class="row">
+                <div class="col-md-6">
+                    {{ render(controller(
+                        'App\\Controller\\City\\DashboardController::jobsOfInterest'
+                    )) }}
+                    {{ render(controller(
+                        'App\\Controller\\City\\DashboardController::savedCityLinks'
+                    )) }}
+                    {{ render(controller(
+                        'App\\Controller\\City\\DashboardController::savedResumes'
+                    )) }}
+                    {% if user.id == user.city.adminCityUser.id %}
+                    {{ render(controller(
+                        'App\\Controller\\City\\DashboardController::subscription'
+                    )) }}
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    {{ render(controller(
+                        'App\\Controller\\City\\DashboardController::jobsToPost'
+                    )) }}
+                    {{ render(controller(
+                        'App\\Controller\\City\\DashboardController::activeJobAnnouncements'
+                    )) }}
+                    {{ render(controller(
+                        'App\\Controller\\City\\DashboardController::endedJobAnnouncements'
+                    )) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

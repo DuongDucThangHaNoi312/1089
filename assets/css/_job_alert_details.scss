@@ -1,0 +1,14 @@
+@media(max-width: 576px) {
+  #city_view_job_announcement {
+      .job-alert-details-city-links {
+        flex-direction: column;
+      }
+  }
+}
+
+#jobSearchControlToggle {
+  -webkit-appearance: initial!important;
+  border-radius: 20px;
+  max-width: 180px;
+  margin: 0 auto;
+}

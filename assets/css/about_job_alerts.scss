@@ -1,0 +1,142 @@
+@import "_job_alert_details.scss";
+
+#about_job_alerts_job_seekers,
+#about_job_alerts_city_users {
+  .btn-rounded-much {
+    padding: 16px 30px 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .city-navbar {
+    .row {
+      align-items: center;
+      .col-3 {
+        text-align: right;
+      }
+    }
+  }
+  .the-team-wrapper {
+    padding-bottom: 60px;
+  }
+  .about-us-header {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+    color: #212529;
+    display: flex;
+    flex-flow: row nowrap;
+    border-color: #dee2e6;
+    align-items: center;
+    .message-icon {
+      flex: 0 0 5%;
+      font-size: 30px;
+    }
+    h5,
+    p {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #212529;
+      flex: 0 0 95%;
+      margin: 0;
+    }
+  }
+  h3 .sub-heading {
+    font-size: 15px;
+    font-style: italic;
+    color: #d50d2f;
+    margin-left: 16px;
+    letter-spacing: .02em;
+  }
+  .step {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid #dee2e6;
+    &:first-of-type {
+      padding-top: 15px;
+    }
+    ol li,
+    ul li {
+      font-size: 15px;
+      line-height: 1.5;
+      i {
+        color: #004472;
+      }
+      &.special-item {
+        color: #004472;
+        list-style-type: none;
+        font-style: italic;
+      }
+      .btn {
+        margin-top: 38px;
+      }
+      .list-item-heading {
+        display: block;
+        color: #004472;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+      .list-item-subheading {
+        display: inline-block;
+        width: 25%;
+        text-decoration: underline;
+      }
+      .stars {
+        float: right;
+      }
+    }
+    ul > li {
+      margin-bottom: 12px;
+    }
+    ol[type="A"] > li {
+      margin-bottom: 22px;
+    }
+    ul ol {
+      margin-top: 12px;
+    }
+    > .row {
+      align-items: center;
+    }
+  }
+  .responsive-screenshot {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .city-navbar {
+    .container {
+      .row {
+        flex-direction: column;
+
+        .col-lg-9.col-xs-12{
+          h1{
+            text-align: center;
+          }
+
+          ul {
+            display: flex;
+            justify-content: center;
+          }
+        }
+
+        .col-lg-3.col-xs-12{
+          display: flex;
+          justify-content: center;
+
+          button {
+            padding: 10px 30px 6px!important;
+            font-size: 15px;
+            margin-top: 2rem;
+          }
+        }
+
+      }
+    }
+  }
+
+  .message-icon {
+    margin-left: -.5rem;
+    margin-right: .5rem;
+  }
+}

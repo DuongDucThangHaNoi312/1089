@@ -1,0 +1,586 @@
+// @todo only import the components of bootstrap we need
+@import "variables.scss";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/tooltip";
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+@import "~noty/src/noty.scss";
+@import "~noty/src/themes/metroui.scss";
+@import "~noty/src/themes/bootstrap-v4.scss";
+
+@import '~bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css';
+
+@import "_form.scss";
+@import "_modal.scss";
+
+@import '~ion-rangeslider/css/ion.rangeSlider.min.css';
+@import "_ion-rangeslider.scss";
+
+@import "_card.scss";
+@import "_dashboard.scss";
+@import "account.scss";
+@import "homepage.scss";
+@import "about_cities.scss";
+@import "job_seeker_subscription.scss";
+@import "city_job_announcements.scss";
+@import "city_registration.scss";
+@import "global_select2.scss";
+@import "noty_extended.scss";
+@import "_checkmark.scss";
+@import "job_categories.scss";
+@import "job_seeker_registration.scss";
+@import "about_us.scss";
+@import "_job_search.scss";
+@import "about_job_alerts.scss";
+
+// the ~ allows you to reference things in node_modules
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+
+@font-face {
+  font-family: 'Avenir-Medium';
+  src: url("../fonts/AvenirLTStd-Medium.otf");
+}
+
+@font-face {
+  font-family: 'Avenir-Heavy';
+  src: url("../fonts/AvenirLTStd-Heavy.otf");
+}
+
+@font-face {
+  font-family: 'Avenir-Black';
+  src: url("../fonts/AvenirLTStd-Black.otf");
+}
+
+@font-face {
+  font-family: 'Avenir-Medium';
+  src: url("../fonts/AvenirLTStd-Roman.otf");
+}
+
+body {
+  font-family: 'Avenir-Medium', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh; /* to keep footer at the bottom*/
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-link {
+  @include hover-focus {
+    text-decoration: underline;
+  }
+}
+
+.font-weight-bold {
+  font-family: 'Avenir-Heavy', sans-serif;
+}
+
+.text-black {
+  color: $black;
+}
+
+header nav a {
+  text-transform: uppercase;
+  letter-spacing: .05rem;
+}
+
+#noty_layout__topCenter {
+  top: 10% !important;;
+}
+
+.nav a.active, .navbar a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.nav-pills a.active {
+  text-decoration: none;
+}
+
+h1, .h1 {
+  font-family: 'Avenir-Heavy', sans-serif;
+  //font-weight: bold !important;
+}
+h2, .h2 {
+  font-family: 'Avenir-Medium', sans-serif;
+  //font-weight: bold !important;
+}
+
+.table {
+  &.topless {
+    th
+    {
+      border-top: 0;
+    }
+  }
+  thead {
+    th {
+      vertical-align: baseline;
+    }
+  }
+  th,
+  td {
+    vertical-align: baseline;
+  }
+}
+
+.btn-rounded-little {
+  border-radius: .5rem !important;
+  padding: $spacer ($spacer * 3) $spacer ($spacer * 3);
+}
+
+.btn-rounded-much {
+  border-radius: 2rem !important;
+  padding: $spacer ($spacer * 3) $spacer ($spacer * 3);
+}
+
+.bullet-space li {
+  margin-bottom: $spacer;
+}
+
+.navbar-brand img {
+  border: white .25rem solid;
+  background: white;
+}
+
+.ui-autocomplete-loading {
+  background: url('../images/ajax-loader.gif') no-repeat right center;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+#search_filter .select2 {
+  width: 100% !important;
+}
+
+.select2-selection--multiple{
+  overflow: hidden !important;
+  height: auto !important;
+}
+
+.select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice {
+  margin: 0 0 .75rem 0 !important;
+  padding: .2rem !important;
+}
+
+// @todo Noemi and Gabe to figure out what to do about this
+.d-inline-flex .select2-container--bootstrap4 {
+  display: inline-block !important;
+}
+
+.ajax-form {
+  display: none;
+}
+
+#city-job-announcement-announcement, #city-job-announcement-alert:not(.only) {
+  display: none;
+}
+
+.cancel-btn {
+  &.title {
+    display: none;
+    padding: 0;
+  }
+}
+
+.section-title {
+  display: flex;
+  align-items: flex-end;
+}
+
+// @todo refactor below into page specific scss files?
+
+.trial.btn {
+  font-size: 1.25rem;
+}
+
+.trials {
+  font-size: 1.75rem;
+}
+
+.card:hover {
+  box-shadow: 0 .5rem 2rem rgba(0, 0, 0, 0.5) !important
+}
+
+.link-hover:hover {
+  background-color: $gray-three;
+}
+
+// @todo for city profile only, right?
+
+label, .col-form-label, .label {
+  font-size: .85rem;
+  color: $gray-six;
+}
+
+p {
+  font-size: 0.9rem;
+}
+
+img.seal {
+  height: 200px;
+  max-height: 200px;
+  width: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  @media screen and (max-width: 991px) {
+    height: 150px;
+  }
+  @media screen and (max-width: 767px) {
+    height: 120px;
+  }
+}
+
+.edit-btn {
+  padding: 0;
+}
+
+hr {
+  margin-top: 0.1rem;
+  border-top: 2px solid rgba(40, 40, 40, 0.1);
+  &.danger {
+    border-top-color: $danger;
+  }
+}
+
+
+div.uploadable-image {
+  position: relative;
+  text-align: center;
+  margin-bottom: 50px;
+  &.banner {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 380px;
+    border-radius: 4px;
+  }
+
+  .btn-wrapper {
+    &.center {
+      text-align: center;
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.bottom {
+      &.right {
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        &.existing-upload {
+
+        }
+      }
+    }
+  }
+}
+
+.sticky {
+  position: sticky;
+  top: 1rem;
+  z-index: 999;
+  &.two {
+    position: sticky;
+    top: 3.6rem;
+    z-index: 999;
+  }
+}
+
+
+
+.btn-drawer {
+  .hidden {
+    display: none;
+  }
+}
+
+.job-title-form-label {
+  label {
+    font-size: 16px;
+  }
+
+  #job_title_isClosedPromotional {
+    margin-top: 2px;
+  }
+}
+
+.city-job-submenu .nav {
+  text-transform: uppercase;
+}
+
+#city-profile-seal-image {
+  transform: translateY(-50%);
+  top: 50%;
+}
+
+#city-profile-banner-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-feature-options-h3 {
+  color: $red;
+}
+
+.is_alert_choice_label {
+  color: #212529;
+}
+
+.collection-add {
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#job_seeker_profile_interestedJobLevels input[type="checkbox"]:disabled {
+  opacity: .3;
+}
+
+.no-active-county h2 {
+  margin-bottom: 1.5rem;
+  font-weight: bolder;
+}
+
+.no-active-county .blue-text {
+  color: #174275;
+}
+
+#contact .form-contact .modal-footer {
+  margin-bottom: 0;
+  justify-content: center;
+}
+
+#contact .contact-form-footer p {
+  color: #174275;
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  .collapse.dont-collapse-sm {
+    display: block;
+    height: auto !important;
+    visibility: visible;
+  }
+}
+
+.pagination {
+  flex-wrap: wrap !important;
+}
+
+footer {
+  background-color: $blue;
+  color: #ffffff;
+  margin-top: auto;
+
+  a{
+    color: #ffffff;
+  }
+
+  a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+}
+
+.check-gdpr-acceptance {
+  background-color: #f1f3f7;
+  color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  padding: 1rem;
+  width: 100%;
+  z-index: 100001;
+  label {
+    display: inline;
+    font-size: 1.3rem;
+  }
+  button {
+    display: inline-block;
+  }
+
+}
+
+/* Job Seeker Subscription Options Table */
+
+.cgj-jobseeker-option-tables {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  .cgj-table-column {
+    width: 24%;
+    border: 1px solid black;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    & > *:not(:last-child) {
+      border-bottom: 1px solid black;
+      padding: 15px 10px;
+    }
+    .cgj-table-cell {
+      .feature {
+        display: block;
+        font-weight: bold;
+        text-decoration: underline;
+        margin-bottom: 10px;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+    }
+    .cgj-table-header {
+      background-color: rgb(23,66,117);
+      color: lighten(rgb(23,66,117),50%);
+      line-height: 21px;
+      padding: 20px 0 0;
+      border-radius: 5px 5px 0 0;
+      .tier-name {
+        display: block;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        font-size: 19px;
+      }
+      .tier-price {
+        display: block;
+        font-weight: bold;
+        color: rgb(23,66,117);
+        background-color: lighten(rgb(23,66,117),60%);
+        margin-top: 15px;
+        padding: 10px 10px 6px;
+      }
+    }
+    .cgj-table-footer {
+      background-color: whitesmoke;
+      border-radius: 0 0 5px 5px;
+      a, button {
+        letter-spacing: normal;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .cgj-jobseeker-option-tables {
+    .cgj-table-column {
+      width: 48%;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .cgj-jobseeker-option-tables {
+    .cgj-table-column {
+      width: 100%;
+    }
+  }
+}
+
+.job-announcement-container {
+
+  .ja-job-information > .col-12 {
+    padding-left: 5px;
+  }
+
+  .ja-job-details {
+    .ja-description-row {
+      word-break: break-word;
+      
+      table {
+        width: 100% !important;
+
+        td {
+          word-wrap: break-word;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .seal-div-mobile {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .job-announcement-title {
+      margin-bottom: 0px !important;
+    }
+
+    .ja-job-information {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    .ja-job-information-row {
+      padding-top: 0px!important;
+    }
+
+    .ja-job-details {
+      .ja-description-row {
+        blockquote {
+          word-break: break-word;
+        }
+      }
+    }
+
+    .ja-city-links {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .cta-register {
+      text-align: center;
+    }
+
+    .seal-div-desktop {
+      display: none;
+    }
+  }
+
+  @media(max-width: 576px) {
+    .justify-content-sm-start {
+      justify-content: flex-start!important
+    }
+    .flex-sm-column {
+      flex-direction: column!important;
+    }
+  }
+
+
+}
+
+/* City Profile Enhancements */
+
+#view_city_profile {
+  #city-profile-banner-wrap + .row {
+    .col-md-3 > .row {
+      margin-bottom: 25px;
+      & > .col-12:first-child {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  #city-profile-about {
+    p {
+      font-size: .9375em;
+    }
+  }
+}

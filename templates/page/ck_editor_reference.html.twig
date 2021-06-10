@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs | CK Editor Reference{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+
+    <div class="row bg-white p-5">
+        <div class="col-12">
+            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'ck-editor-reference' }) }}
+        </div>
+    </div>
+
+{% endblock %}

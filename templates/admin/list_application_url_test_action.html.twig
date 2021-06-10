@@ -1,0 +1,11 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{% block field %}
+    {% set jobAnnouncement = object %}
+    {% if jobAnnouncement.applicationUrl %}
+        <a class="btn btn-primary test-url" target="_blank" onClick="setTimeout(function() {window.location.reload();}, 1000);" data-url-value="{{ jobAnnouncement.applicationUrl }}" style="display: block;" href="{{ path('admin_app_jobannouncement_applicationUrl', {'id': jobAnnouncement.id}) }}">
+            Test Url
+        </a>
+    {% endif %}
+{% endblock %}
+

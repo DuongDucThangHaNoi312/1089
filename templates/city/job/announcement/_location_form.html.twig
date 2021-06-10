@@ -1,0 +1,22 @@
+<div class="row ajax-form">
+    <div class="col-md-10">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(form.street) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                {{ form_row(form.city) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.zipcode) }}
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        <button type="button" class="btn btn-light cancel-btn">Cancel</button>
+        <button type="submit" class="btn btn-primary save-btn">Save</button>
+        {{ form_end(form) }}
+    </div>
+</div>

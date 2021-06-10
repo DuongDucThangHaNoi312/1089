@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Registration | Find City {% endblock %}
+
+{% block body_main %}
+    <div class="py-5 text-center">
+        {{ include('cms_block/_cms_block.html.twig', { 'slug': 'login' }) }}
+    </div>
+
+    {{ include('@FOSUser/Security/login_content.html.twig') }}
+    <div class="form-group">
+        <a href="{{ path('fos_user_resetting_request') }}" class="btn btn-lg btn-outline-primary mt-5 btn-block btn">Forgot password?</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Reset your Password{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+
+{% block body_top %}
+    {{ parent() }}
+
+    {% if app.request.attributes.get('_route') == 'fos_user_change_password' %}
+        <div class="row bg-white justify-content-center">
+            <div class="col-12 col-md-10 py-3 bg-white inner-menu-container">
+                <h1>Account</h1>
+
+                {% if app.user | get_class ==  'App\\Entity\\User\\CityUser' %}
+                    {% set m = knp_menu_get( 'cityUserAccountMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+                    {{ knp_menu_render(m) }}
+                {% elseif app.user | get_class ==  'App\\Entity\\User\\JobSeekerUser' %}
+                    {% set m = knp_menu_get( 'jobSeekerAccountMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+                    {{ knp_menu_render(m) }}
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block body_main %}
+    <div class="container">
+        <div class="bg-white  my-5 justify-content-center inner-menu-container">
+            <div class="px-3 py-5 ">
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

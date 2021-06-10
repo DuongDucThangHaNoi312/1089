@@ -1,0 +1,32 @@
+<div class="modal fade {{ show }}" id="payInactivePaymentMethodModal" tabindex="-1" aria-labelledby="payInactivePaymentMethodModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            {{ form_start(inactiveSubscriptionForm, {'attr': {'id': 'pay-inactive-payment-form', 'data-attribute':stripe_publishable_key }}) }}
+            <div class="modal-header">
+                <h3 class="modal-title" id="payInactivePaymentMethodModalLabel">Update your Payment Method</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row payment-information">
+                    <div class="col-12">
+                        <div>
+                            <p class="text-muted">You have an incomplete Subscription. </p>
+                        </div>
+                        <div class="form-group">
+                            <label>Card Details</label>
+                            <div id="inactive-card" class="form-control"></div>
+                            <div id="card-errors" role="alert"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="submit" value="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+            {{ form_end(inactiveSubscriptionForm) }}
+        </div>
+    </div>
+</div>

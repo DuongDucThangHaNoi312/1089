@@ -1,0 +1,97 @@
+{% extends 'email_base.html.twig' %}
+
+{% block email_simple_title %}
+    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#174275;">
+        <p style="text-align: center;font-size:33px;font-weight:700;letter-spacing:-3px;">Featured Listings</p>
+        <p style='color:#000;text-align:center;font-weight: 800'>{{ 'now' | date('M d, Y') }}</p>
+        <p style='color:#000;text-align:center;font-weight: 800'>
+            There {% if count > 1 %} are {{ count }} {% else %} is a {% endif %} new job alert{% if count > 1 %}s{% endif %} based on Saved Searches you may be interested in:
+        </p>
+    </div>
+{% endblock %}
+
+
+{% block email_content %}
+    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tr>
+            <td vertical-align="top" style="font-size:0px;padding:20px 0;padding-right:20px;padding-left:20px;word-break:break-word;">
+                <!--[if mso | IE]>
+                <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:800px;" width="800"
+                >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+
+                {% for job in jobs  %}
+
+                <div style="Margin:0px auto;max-width:800px;padding-bottom:20px">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                        <tbody>
+                        <tr>
+                            <td style="border:3px solid #ebf3f9;direction:ltr;font-size:0px;padding-left:20px;padding-right:20px;text-align:center;vertical-align:top;">
+                                <!--[if mso | IE]>
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+
+                                    <tr>
+
+                                        <td
+                                                class="" style="vertical-align:top;width:260px;"
+                                        >
+                                <![endif]-->
+
+                                <!--[if mso | IE]>
+                                </td>
+
+                                <td
+                                        class="" style="vertical-align:top;width:260px;"
+                                >
+                                <![endif]-->
+                                <div class="outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                                        <tr>
+                                            <td align="left" style="font-size:0px;padding:10px 10px;word-break:break-word;">
+                                                <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">
+                                                    <p>
+                                                        <a href="{{ system_domain ~ path('city_view_job_announcement', {'slug': job.jt_city_slug, 'id': job.ja_id}) }}" style='font-size:15px; font-weight:700;'>{{ job.ja_name|upper }}</a>
+                                                        {% if job.ja_doq %}
+                                                            (Salary depends on qualifications.)
+                                                        {% else %}
+                                                            ({{ job.ja_salary_low|localizedcurrency('USD') }} to {{ job.ja_salary_high|localizedcurrency('USD') }} {{ job.ja_salary_unit }})
+                                                        {% endif  %}
+                                                    </p>
+                                                    <p style="margin-top:0px; margin-bottom: 8px">
+                                                        <a style="display:inline-block; text-decoration: none;color: #4293FC;" href="{{ system_domain ~ path('view_city_profile', {'slug': job.jt_city_slug}) }}">City of {{ job.jt_city }}, {{ job.jt_state }}</a>
+                                                    </p>
+                                                    <p style="margin-top:0px;">
+                                                        Application Deadline: {{ job.ja_deadline ? job.ja_deadline|date('m/d/Y h:i A T', job.jt_php_timezone) : job.ja_end_date_description}}
+                                                    </p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!--[if mso | IE]>
+                                </td>
+
+                                </tr>
+
+                                </table>
+                                <![endif]-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                {% endfor %}
+                <!--[if mso | IE]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+
+    </table>
+{% endblock email_content %}

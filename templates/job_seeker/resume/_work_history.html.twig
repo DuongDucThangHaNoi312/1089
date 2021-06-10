@@ -1,0 +1,42 @@
+{% set canEdit = false %}
+{%  if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Work History', 'canEdit': canEdit, 'description': 'In order to make a greater impact, it is recommended that you add your work history', 'urgency': 'Recommended'} %}
+<hr/>
+<div class="editable row">
+    <div class="col-md-12">
+        {% if resume.workHistories.count == 0 and canEdit == false %}
+            <p>No Work History</p>
+        {% endif %}
+        {% if resume.workHistories.count == 0 and canEdit == true %}
+            <div class="row">
+                <div class="col-md-12 pb-3">
+                    <label>Job Title</label>
+                    <p>Add Job Title</p>
+                    <label>Employer</label>
+                    <p>Add company name or organization name you worked for</p>
+                    <label>Years of Employment</label>
+                    <p>Add years of employment</p>
+                    <label>Work Description</label>
+                    <p>Add description of job</p>
+                </div>
+            </div>
+        {% else %}
+            {% for workHistory in resume.workHistories %}
+                <div class="row">
+                    <div class="col-md-12 pb-3">
+                        <p class="h3 font-weight-bold">{{ workHistory.jobTitle }}</p>
+                        <div><span>{{ workHistory.employerName }}</span></div>
+                        <div><label>{{ workHistory.yearsOfEmployment }} year{% if workHistory.yearsOfEmployment != 1 %}s{% endif %}</label></div>
+                        <p>{{ workHistory.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% if form is defined %}
+    {% include 'job_seeker/resume/_work_history_form.html.twig' with {'form': form} %}
+{% endif %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Page Not Found{% endblock %}
+
+{% block body_main %}
+    <div class="py-5 text-center">
+        <h1>Page not found</h1>
+        {% if error is defined %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        {{ include('cms_block/_cms_block.html.twig', { 'slug': 'page-not-found' }) }}
+    </div>
+{% endblock %}

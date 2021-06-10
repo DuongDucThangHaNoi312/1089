@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Account Information{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/filter_job_titles.js') }}"></script>
+{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h1>Account</h1>
+            {% set m = knp_menu_get( 'cityUserAccountMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+            {{ knp_menu_render(m) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center">
+        <div class="col-10 m-4 p-5 bg-white">
+            <h2>Account Information</h2>
+            <div class="row">
+                <div class="col-md-12 pb-4">
+                    <h5>Registration Information</h5>
+                    {{ form(accountInformationForm) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 pb-4">
+                    <h5>Change Email</h5>
+                    {{ form(changeEmailForm) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 pb-4">
+                    <h5>Change Username</h5>
+                    {{ form(changeUsernameForm) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Change Password</h5>
+                    {{ form(changePasswordForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

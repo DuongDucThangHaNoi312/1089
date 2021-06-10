@@ -1,0 +1,8 @@
+<div class="col-12 p-1">{% include 'city/profile/_section_title.html.twig' with {'name': 'Opportunities'} %}</div>
+<div class="col-12">
+    <a id="link_jobsOfInterest" href="{{ jobs_interest_link }}">Jobs of Interest ({{ acceptingInterest }})</a>
+</div>
+<div class="col-12">
+    <a id="link_jobAnnouncements" href="{{ job_announcements_link }}">Job {{ city.allowsJobAnnouncements  == true ? 'Announcements' : 'Alerts' }} ({{ job_announcements }})</a>
+</div>
+

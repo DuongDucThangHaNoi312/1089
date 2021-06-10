@@ -1,0 +1,37 @@
+{% extends 'city/about-tabs/city_base.html.twig' %}
+
+{% block body_main_content %}
+    <div class="row">
+        <div class="tab-content city-content w-100 container mt-4 bg-white mb-5">
+            <div class="about-city-wrapper">
+                <div class="content-header">
+                    <h3 class="font-weight-bold">Learn About Typical Departments in City Governments</h3>
+
+                    <div class="content-description">
+                        {{ include('cms_block/_cms_block.html.twig', { 'slug': 'city-about-tab' }) }}
+                    </div>
+                </div>
+
+                <div class="list-boxes row pb-3">
+                    {% for item in categories %}
+                    <div class="box-item col-md-3 col-lg-2 col-sm-4 col-6 d-flex">
+                        <a href="{{ path('job_categories', {'id': item.id, 'name': item.name}) }}" class="card">
+                            <div class="item-image">
+                                <img src="{{ vich_uploader_asset(item, 'gridImageFile') | imagine_filter('job_category_grid') }}" alt="{{ 'Image for job category ' ~ item.name }}" title="{{ item.name }}"/>
+                            </div>
+                            <div class="item-title">
+                                <span>{{ item.name }}</span>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="city-about-footer">
+                    <h5 class="font-weight-bold">Interested in working for city government?</h5>
+                    <button class="button-blue-radius font-weight-bold" onclick="window.location.href = '{{ path('job_seeker_registration_step_one') }}'">Start your free trial now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

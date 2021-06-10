@@ -1,0 +1,62 @@
+{% extends 'city/about-tabs/city_base.html.twig' %}
+{% block body_main_content %}
+<div class="row">
+    <div class="tab-content city-content w-100 container mt-4 bg-white mb-5">
+        <div class="starting-out-wrapper">
+            <h3 class="font-weight-bold">How to Find a City Job That's Right for You</h3>
+
+            <div class="starting-out">
+                <div class="starting-out-box d-md-flex">
+                    <div class="box-description pr-md-4 flex-50">
+                        <p>If you’re just starting out, we suggest that you
+                            {% if not app.user %}
+                                <a href="{{ path('job_seeker_registration_step_one') }}" class="blue-link font-weight-bold">sign up for our FREE Trial</a> and
+                            {% endif %}
+                            search for City Links to “Job Description” web pages at cities where you may want to work.</p>
+                        <p>Then, save these links to your Dashboard and use them to research specific jobs. Read the job duties included in the job descriptions that interest you, and the job
+                            requirements to see if you meet the minimum requirements, or what you need to do to qualify.</p>
+                        <p>In reviewing the job descriptions, consider who or what position you would be reporting to. Then look at the requirements of the higher-level position(s). Some cities
+                            have organizational charts which can help you more easily assess certain career tracks.</p>
+                    </div>
+                    <div class="box-image flex-50">
+                        <div class="image-area">
+                            <img src="{{ asset('build/images/starting-out-success.png') }}" alt="Starting Out Success" title="Starting Out Success"/>
+                        </div>
+                        <div class="image-content">
+                            <span>A city job can offer valuable experience and success</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="starting-out-box d-md-flex">
+                    <div class="box-description order-2 flex-50">
+                        <p>You can find links to organization charts as well as compensation tables and labor agreements on CityGovtJobs. Labor agreements covering the position you’re interested
+                            in, will include details about the benefits for that position, such as vacation and sick leave, medical, and education incentives.</p>
+                        <p>Review the career track along with the compensation and benefits of positions in the career track to make sure that you are targeting a job that will provide you with
+                            the type of work you will enjoy and the longer term advancement opportunities you desire.</p>
+                        <p>You might also consider the size of city you want to work for. Larger cities typically have more specialized jobs, but more opportunities. Medium size or smaller cities
+                            can offer you more diverse experience starting out, but sometimes have limited advancement opportunities.</p>
+                        <p>Once you are ready, use CityGovtJobs to submit interest in multiple jobs at multiple cities. This service is free for Entry level positions. You may also use our service
+                            to find current City job openings.</p>
+                    </div>
+                    <div class="box-image order-1 mr-md-4 flex-50">
+                        <div class="image-area">
+                            <img src="{{ asset('build/images/starting-out-consider.png') }}" alt="Starting Out Consider" title="Starting Out Consider"/>
+                        </div>
+                        <div class="image-content">
+                            <span>Consider long-term advancement opportunities when looking for a city job</span>
+                        </div>
+                    </div>
+                </div>
+
+                {% if not app.user %}
+                    <div class="city-about-footer">
+                        <h5 class="font-weight-bold">Get start today!</h5>
+                        <button class="button-blue-radius font-weight-bold" onclick="window.location.href = '{{ path('job_seeker_registration_step_one') }}'">Start your free trial now</button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

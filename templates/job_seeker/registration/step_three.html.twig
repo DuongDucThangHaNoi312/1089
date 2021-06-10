@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Registration Step Three{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body_master_container_class %}container{% endblock %}
+{% block body_master_row_class %}bg-white px-md-5 my-md-5 justify-content-center{% endblock %}
+{% block body_master_column_class %}container px-md-5 py-md-5 px-xs-2 {% endblock %}
+
+
+{% block body_main %}
+    <div class="row">
+        <div class="col-md-12 pt-5 text-center">
+            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'jobseeker-user-registration-step-three-top' }) }}
+        </div>
+    </div>
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <div class="form-group">
+                {{ form_label(form.interestedCounties, 'Select up to 5 counties where you are interested in working') }}
+                {{ form_widget(form.interestedCounties) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.interestedJobType, 'What type of job are you interested in?') }}
+                {{ form_widget(form.interestedJobType) }}
+            </div>
+
+            <fieldset class="form-group">
+                {{ form_label(form.interestedJobLevels) }}
+                {{ form_widget(form.interestedJobLevels) }}
+            </fieldset>
+            <div class="job-category-general">
+                <label>Tell us how you'd like to Search for Jobs, by Category or Specific Job
+                    Titles? (You can change this later)</label>
+                <div class="d-flex justify-content-around pb-3">
+                    <div class="job-category">
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseCategory"
+                           role="button" aria-expanded="false" aria-controls="collapseCategory">
+                            By Category
+                        </a>
+                        <div class="mt-2">More General Results</div>
+                    </div>
+                    <div class="job-titles">
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseJobTitle"
+                           role="button" aria-expanded="false" aria-controls="collapseJobTitle">
+                            By Job Titles</a>
+                        <div class="mt-2">Exact Matches</div>
+                    </div>
+                </div>
+                <div class="collapse {% if form.interestedJobCategoryNotGenerals.vars.value %} show{% endif %}" id="collapseCategory">
+                    <div class="card card-body">
+                        <div class="form-group">
+                            {{ form_label(form.interestedJobCategoryNotGenerals, 'Select one of the following City Government job categories of interest to you') }}
+                            {{ form_widget(form.interestedJobCategoryNotGenerals) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.interestedJobCategoryGenerals, 'Select one more job category of interest to you') }}
+                            {{ form_widget(form.interestedJobCategoryGenerals) }}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="collapse {% if form.interestedJobTitleNames.vars.value %} show{% endif %}" id="collapseJobTitle">
+                    <div class="card card-body">
+                        <div class="form-group">
+                            {{ form_label(form.interestedJobTitleNames, 'Enter Up to 5 Job Titles of Interest to you') }}
+                            {{ form_widget(form.interestedJobTitleNames) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-none">
+                    {{ form_label(form.worksForCity, 'If you currently work for a City Government in our service area and want to access Closed Promotional jobs at your City, select City name below.') }}
+                    {{ form_widget(form.worksForCity) }}
+                </div>
+
+                <div class="form-group d-none">
+                    {{ form_label(form.currentJobTitle, 'If you currently work for a City Government, what is your job title (no abbreviations)?') }}
+                    {{ form_widget(form.currentJobTitle) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.save) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

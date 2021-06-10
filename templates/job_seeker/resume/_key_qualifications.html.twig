@@ -1,0 +1,76 @@
+{% set canEdit = false %}
+{%  if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Key Qualifications', 'canEdit': canEdit, 'urgency': 'Required'} %}
+<hr/>
+<div class="editable row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label>Total Years Worked in Profession</label>
+                <p>{{ resume.yearsWorkedInProfession ? resume.yearsWorkedInProfession : '0' }} year{% if resume.yearsWorkedInProfession != 1 %}s{% endif %} </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Current or Recent Job Title</label>
+                {% if resume.currentJobTitle == null %}
+                    <p>Enter your current or recent job title</p>
+                {% else %}
+                    <p>{{ resume.currentJobTitle }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Education</label>
+                {% if resume.education.count == 0 %}
+                    {% if canEdit %}
+                        <p>Add your Education</p>
+                    {% else %}
+                        <p>No Education listed</p>
+                    {% endif %}
+                {% else %}
+                    {% for education in resume.education %}
+                        <p>{{ education.degreeType}}, {{ education.major }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <label>Total Years Worked in City Govt(s)</label>
+                <p>{{ resume.yearsWorkedInCityGovernment ? resume.yearsWorkedInCityGovernment : '0' }} year{% if resume.yearsWorkedInCityGovernment != 1 %}s{% endif %} </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Licenses/Certifications</label>
+                {% if resume.licenseCertifications.count == 0 %}
+                    {% if canEdit %}
+                        <p>Add any licenses or certifications you have earned</p>
+                    {% else %}
+                        <p>No Licenses or Certifications listed</p>
+                    {% endif %}
+                {% else %}
+                    {% for license in resume.licenseCertifications %}
+                        <p>{{ license.name}}</p>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% if form is defined %}
+    {% include 'job_seeker/resume/_key_qualifications_form.html.twig' with {'form': form} %}
+{% endif %}

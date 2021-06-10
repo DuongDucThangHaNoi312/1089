@@ -1,0 +1,19 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+<div class="row editable ">
+    {% include 'city/profile/_section_editable_title.html.twig' with {'name': 'Active from', 'class': 'h6 text-right', 'canEdit': canEdit} %} {{ jobAnnouncement.startsOn ? jobAnnouncement.startsOn|date("m/d/Y h:i A T", city.phpTimezone) : "XX/XX/XXXX" }} -
+    <span id="end-date-stored" class="ml-1">
+        {% if jobAnnouncement.hasNoEndDate %}
+                {{ jobAnnouncement.endDateDescription }}
+        {% elseif isFullView %}
+            {{ jobAnnouncement.endsOn ?  jobAnnouncement.endsOn |date("m/d/Y h:i A T", city.phpTimezone) : null }}
+        {% else %}
+            {{ jobAnnouncement.endsOn ?  jobAnnouncement.endsOn |date("m/d/Y h:i A T", city.phpTimezone) : "XX/XX/XXXX" }}
+        {% endif %}
+    </span>
+</div>
+{% if form is defined %}
+    {% include 'city/job/announcement/_active_dates_form.html.twig' with {'form': form} %}
+{% endif %}

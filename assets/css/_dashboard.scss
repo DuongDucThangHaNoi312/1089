@@ -1,0 +1,195 @@
+.getting-started-section {
+  position: relative;
+  background-color: $gray-seven;
+  border-bottom: 6px solid $primary;
+
+  box-shadow: inset 1px 4px 9px -6px $gray-six;
+
+  .getting-started {
+    &-body, &-footer {
+      position: relative;
+    }
+
+    &-body {
+      .card {
+        height: 100%;
+        box-shadow: 0 5px 3px -2px $gray;
+
+        &-header {
+          .card-title {
+            font-size: 1em;
+          }
+        }
+      }
+
+      //&:not(.show) {
+      //  + .getting-started-footer .btn-icon .fa-angle-up {
+      //    display: none !important;
+      //  }
+      //}
+      //
+      //&.show {
+      //  + .getting-started-footer .btn-icon .fa-angle-down {
+      //    display: none !important;
+      //  }
+      //}
+    }
+  }
+
+  .getting-started-footer {
+    top: 100%;
+    left: 73%;
+    position: absolute;
+
+    .btn-resume .btn-icon .fa-angle-down {
+      display: none;
+    }
+
+    .btn-resume .btn-icon .fa-angle-up {
+      display: none;
+    }
+
+    .btn {
+      &:focus {
+        box-shadow: none;
+      }
+
+      .btn-icon {
+        margin-left: 5px;
+        padding: 0 4px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        @include border-radius($border-radius);
+
+        svg {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  // Job Alert Setting
+  .form-job-alert-setting {
+    &:not(.show) {
+      + .getting-started-footer .btn-alert-setting .btn-icon .fa-angle-up {
+        display: none !important;
+      }
+    }
+
+    &.show {
+      + .getting-started-footer .btn-alert-setting .btn-icon .fa-angle-down {
+        display: none !important;
+      }
+    }
+
+    form {
+
+      label,
+      .label {
+        color: black;
+        font-size: 1rem;
+      }
+
+      fieldset {
+        legend {
+          display: none;
+        }
+
+        .form-group-check {
+          display: flex;
+          justify-content: space-evenly;
+          width: 50%;
+          margin: auto;
+
+          .form-check {
+            padding-top: 1rem;
+            &:first-child {
+              display: none;
+            }
+          }
+
+          label {
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      //.notification-select {
+      //  font-size: 18px;
+      //  background-color: #fff !important;
+      //  width: 260px;
+      //  margin: auto;
+      //  border-radius: 10px;
+      //  height: 48px;
+      //  border: 2px solid #7e7f81;
+      //}
+
+      //.btn-submit {
+      //  display: flex;
+      //  align-items: center;
+      //  margin-bottom: 0 !important;
+      //
+      //  button {
+      //    width: 180px;
+      //    height: 40px;
+      //    border-radius: 5px;
+      //    font-size: 18px;
+      //  }
+      }
+  }
+
+  @media (max-width: 1240px) {
+    .getting-started-footer {
+      left: 65%;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .getting-started-footer {
+      left: 50%;
+    }
+
+    .form-job-alert-setting {
+      .row {
+
+        form {
+          width: 100%;
+
+          .btn-submit {
+            display: block;
+            width: 25%;
+            margin: auto;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .getting-started-footer {
+      left: 5%;
+    }
+  }
+
+}
+//create resume
+.progress-bar-percentage {
+  position: absolute;
+  left: 48%;
+  right: 50%;
+  color: white;
+  margin-top: 16px;
+}
+
+.city-manage-job-titles-pagination-bar > nav > ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left:0;
+}
+
+#getting-started {
+  .btn-contact-link {
+    text-decoration: underline !important;
+  }
+}

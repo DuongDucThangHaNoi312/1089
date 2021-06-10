@@ -1,0 +1,59 @@
+{% block _stripe_payment_subscriptionPlans_entry_label -%}
+    {#- Do not display the label if widget is not defined in order to prevent double label rendering -#}
+    {%- if widget is defined -%}
+        {% set is_parent_custom = parent_label_class is defined and ('checkbox-custom' in parent_label_class or 'radio-custom' in parent_label_class) %}
+        {% set is_custom = label_attr.class is defined and ('checkbox-custom' in label_attr.class or 'radio-custom' in label_attr.class) %}
+        {%- if is_parent_custom or is_custom -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' custom-control-label')|trim}) -%}
+        {%- else %}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-check-label')|trim}) -%}
+        {%- endif %}
+        {%- if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {%- if required -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) -%}
+        {%- endif -%}
+        {%- if parent_label_class is defined -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|replace({'checkbox-inline': '', 'radio-inline': '', 'checkbox-custom': '', 'radio-custom': ''})|trim}) -%}
+        {%- endif -%}
+        {%- if label is not same as(false) and label is empty -%}
+            {%- if label_format is not empty -%}
+                {%- set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) -%}
+            {%- else -%}
+                {%- set label = name|humanize -%}
+            {%- endif -%}
+        {%- endif -%}
+
+        {{ widget|raw }}
+        <div{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}>
+            {#- Included the raw filter so I can display a html template for Subscription Plans -#}
+            {{- label is not same as(false) ? (translation_domain is same as(false) ? label|raw : label|trans({}, translation_domain)|raw) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {%- endif -%}
+{%- endblock %}
+
+{% block form_row -%}
+    {%- if compound is defined and compound -%}
+        {%- set element = 'fieldset' -%}
+    {%- endif -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <{{ element|default('div') }} {{ block('form_row_attributes') }}>
+    {{- form_label(form) -}}
+    {{- form_widget(form, widget_attr) -}}
+    {{- form_help(form) -}}
+    </{{ element|default('div') }}>
+{%- endblock form_row %}
+
+{% block form_row_attributes %}
+    {% spaceless %}
+        {% for attrname, attrvalue in form_row_attr %}{{ attrname }}="{{  attrname == 'class' ? 'form-group ' }}{{ attrvalue }}" {% endfor %}
+    {% endspaceless %}
+{% endblock form_row_attributes %}

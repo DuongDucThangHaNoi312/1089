@@ -1,0 +1,97 @@
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+        <div class="d-md-flex flex-md-row">
+            <div class="mr-md-auto">
+                <div class="d-md-flex justify-content-md-start align-items-md-center badges mb-2">
+                    <span class="h3"><span class="badge badge-light text-muted"> {{ job.isAlert ? 'Alert' : 'Announcement' }}</span></span>
+                    {{ job.isClosedPromotional ? '<span class="h3 ml-2"><span class="badge badge-light text-primary">Closed Promotional</span></span>' : '' }}
+                    {% if job.isPostedByCGJ %}
+                    <span class="h3 ml-md-2"><span class="badge badge-light text-primary">Posted by CityGovJobs</span></span>
+                    {% endif %}
+                </div>
+                <h2 class="h3 font-weight-bold text-dark card-title mb-2">
+                    {% if job.isAlert %}
+                        {{ job.jobTitleName }}
+                    {% else %}
+                        <a href="{{ path('city_full_view_job_announcement', {'slug': job.citySlug , 'id': job.jobAnnouncementId}) }}">
+                            {{ job.jobTitleName }}
+                        </a>
+                    {% endif %}
+                </h2>
+                {% if is_granted('ROLE_USER') %}
+                    <div class="h5 mb-2 card-subtitle">
+                        <a href="{{ path('view_city_profile', {'slug': job.citySlug}) }}">{{ job.cityName }}</a>
+                    </div>
+                {% else %}
+                    <div class="h5 mb-2 card-subtitle">
+                        {% if job.expiresAt and (job.cancelledAt is null or job.cancelledAt|date("m/d/Y h:i A T", job.cityTimezone | phpTimezone) > 'now'|date("m/d/Y h:i A T", job.cityTimezone | phpTimezone)) %}
+                            <a href="{{ path('view_city_profile', {'slug': job.citySlug}) }}" class="btn btn-link">{{ job.cityName }}</a>
+                        {% else %}
+                            {% set dest_url = path('view_city_profile', {'slug': job.citySlug}) %}
+
+                            <a href="{{ path('job_seeker_registration_step_one', {'source': 'view_city_profile', 'dest_url': dest_url}) }}">{{ job.cityName }}</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            {% if type == 'announcement'%}
+                <div class="ml-md-auto text-md-right">
+                    {% if job.wageRangeDependsOnQualifications == true %}
+                        <div>Depends on Qualifications</div>
+                    {% elseif job.wageSalaryHigh == null and job.wageSalaryLow == null %}
+                        <div>Compensation Unknown</div>
+                    {% else %}
+                        <div>{{ job.wageSalaryLow|localizedcurrency('USD') }} - {{ job.wageSalaryHigh|localizedcurrency('USD') }} {{ job.wageSalaryUnitName }}</div>
+                    {% endif %}
+                    <div>
+                        {% if job.hasNoEndDate %}
+                            <span class="h3 ml-2"><span class="badge badge-light text-primary">{{ job.endDateDescription }}</span></span>
+                        {% else %}
+                            Deadline: {{ job.applicationDeadline|date('m/d/y h:i A T', job.cityTimezone|phpTimezone) }}
+                        {% endif %}
+                    </div>
+                    {% set postedDate =  'Published on ' ~ job.startsOn|date('m/d/y h:i A T', job.cityTimezone|phpTimezone) %}
+                    {% if job.startsOn == null %}
+                        {% set postedDate = 'Not published yet'  %}
+                    {% endif %}
+                    <p class="text-muted mb-2"><em>{{ postedDate }}</em></p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-12 col-md-9 p-1 bg-secondary mb-3">
+            <div class="p-1">Department: <strong>{{ job.departmentName }}{% if job.divisionName %} - {{ job.divisionName }}{% endif %}</strong></div>
+            <div class="d-md-flex flex-md-row">
+                <div class="p-1 pr-3">Type: <strong>{{ job.typeName }}</strong></div>
+                <div class="p-1 pr-3">Level: <strong>{{ job.levelName }}</strong></div>
+                <div class="p-1">Category: <strong>{{ job.categoryName }}</strong></div>
+            </div>
+        </div>
+        <div class="ml-md-auto text-md-right">
+            {% if jobSeeker is defined %}
+                {% if jobSeeker.hasSavedJobAnnouncementById(job.jobAnnouncementId) %}
+                    <span class="btn mb-2 mr-2">Saved</span>
+                {% else %}
+                    <a class="btn btn-outline-primary" href="{{ path('save_job_announcement', {'id': job.jobAnnouncementId}) }}">Save Job</a>
+                {% endif %}
+
+                {% if job.isAlert %}
+                    <a class="btn btn-outline-primary mt-md-0 job-announcement-view-counter" data-job-announcement-id="{{ job.jobAnnouncementId }}" href="{{ job.applicationUrl }}">Link to Job</a>
+                {% else  %}
+                    <a class="btn btn-outline-primary mt-md-0" data-job-announcement-id="{{ job.jobAnnouncementId }}" href="{{ path('city_full_view_job_announcement', {'slug': job.citySlug , 'id': job.jobAnnouncementId}) }}">View Job</a>
+                {% endif %}
+
+            {% else %}
+
+                {% set save_dest_url = path('save_job_announcement', {'id': job.jobAnnouncementId}) %}
+                <a class="btn btn-outline-primary" href="{{ path('job_seeker_registration_step_one', {'source': 'save_job_alert', 'dest_url': save_dest_url}) }}">Save Job</a>
+
+                {% if job.isAlert %}
+                    <a class="btn btn-outline-primary mt-md-0 job-announcement-view-counter" data-job-announcement-id="{{ job.jobAnnouncementId }}"
+                       href="{{ path('job_seeker_registration_step_one', {'source': 'link_to_job', 'dest_url': job.applicationUrl}) }}">Link to Job</a>
+                {% else  %}
+                    <a class="btn btn-outline-primary mt-md-0" data-job-announcement-id="{{ job.jobAnnouncementId }}" href="{{ path('city_full_view_job_announcement', {'slug': job.citySlug , 'id': job.jobAnnouncementId}) }}">View Job</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Privacy Policy{% endblock %}
+{% block meta_description %}Review Privacy Policy{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+
+    <div class="row bg-white p-5">
+        <div class="col-12">
+            {{ include('cms_block/_cms_block.html.twig', { 'slug': 'privacy-policy' }) }}
+        </div>
+    </div>
+
+{% endblock %}

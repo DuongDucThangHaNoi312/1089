@@ -1,0 +1,82 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+<div class="col-12 p-1">{% include 'city/profile/_section_editable_title.html.twig' with {'name': 'Other Agency Info', 'canEdit': canEdit} %}</div>
+{#{% set addressId = (form is defined) ? form_name~'_address' : 'address' %}#}
+{% set countiesId = (form is defined) ? form_name~'_counties' : 'counties' %}
+{% set censusPopulationsId = (form is defined) ? form_name~'_censusPopulations' : 'censusPopulations' %}
+{% set squareMilesId = (form is defined) ? form_name~'_squareMiles' : 'squareMiles' %}
+{% set countFTEId = (form is defined) ? form_name~'_countFTE' : 'countFTE' %}
+{% set yearFoundedId = (form is defined) ? form_name~'_yearFounded' : 'yearFounded' %}
+{% set yearCharteredId = (form is defined) ? form_name~'_yearChartered' : 'yearChartered' %}
+{% set yearIncorporated = (form is defined) ? form_name~'__yearIncorporated' : 'yearIncorporated' %}
+<div class="editable col-12">
+    {#<div class="row">
+        <div class="col-md-12">
+            <h3 class="label">Address</h3>
+            <div id="{{ addressId }}" class="d-flex flex-column justify-content-start mb-2">
+                <span>{{ city.address }}</span>
+                <span>{{ "%s, %s %s"|format(city.name, city.counties.first.state|abbreviate, city.zipCode) }}</span>
+            </div>
+        </div>
+    </div>#}
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="label">County</h3>
+            <p id="{{ countiesId }}">
+                {% for county in city.counties %}
+                    <span>{{ county.name }}</span>
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% for census in city.censusPopulations %}
+                <h3 class="label">{{ census.year }} Population</h3>
+                <p>{{ census.population|number_format }}</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="label">Square Miles</h3>
+            <p id="{{ squareMilesId }}">{{ city.squareMiles|number_format }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="label">Full Time Equivalent (FTE) Employees</h3>
+            <p id="{{ countFTEId }}">{{ city.countFTE|number_format }}</p>
+        </div>
+    </div>
+    {% if city.yearFounded %}
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="label">Year Founded</h3>
+                <p id="{{ yearFoundedId }}">{{ city.yearFounded }}</p>
+            </div>
+        </div>
+    {% endif %}
+    {% if city.yearChartered %}
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="label">Year Chartered</h3>
+                <p>{{ city.yearChartered }}</p>
+            </div>
+        </div>
+    {% endif %}
+    {% if city.yearIncorporated %}
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="label">Year Incorporated</h3>
+                <p>{{ city.yearIncorporated }}</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% if form is defined %}
+    {% include 'city/profile/_agency_info_form.html.twig' with {'form': form} %}
+{% endif %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_main %}
+    <div class="about-us">
+        <div class="row">
+            <div class="city-navbar bg-white w-100 py-3">
+                <div class="container">
+                    <h1>About CityGovJobs.com</h1>
+                    {% set m = knp_menu_get( 'aboutUsMenu' ).setChildrenAttribute('class', 'nav nav-tabs city-navbar-list') %}
+                    {{ knp_menu_render(m) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

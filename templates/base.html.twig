@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, shrink-to-fit=no">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <meta name="title" property="og:title" content="{{  block('shareThisTitle') }}">
+        <meta name="image" property="og:image" content="https://citygovjobs.com{{ asset('build/images/CGJ-logo-300x300.png') }}"/>
+        <meta name="description" property="og:description" content="{% block meta_description %}{% endblock %}">
+
+        <meta name="twitter:card" value="summary">
+        <meta name="twitter:image" content="https://citygovjobs.com{{ asset('build/images/CGJ-logo-300x300.png') }}"/>
+        <meta name="twitter:title" content="{{ block('shareThisTitle') }}">
+        <meta name="twitter:description" content="{{ block('meta_description') }}">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('build/images/favicons/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('build/images/favicons/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('build/images/favicons/favicon-16x16.png') }}">
+        <link rel="manifest" href="{{ asset('build/images/favicons/site.webmanifest') }}">
+        <link rel="mask-icon" href="{{ asset('build/images/favicons/safari-pinned-tab.svg') }}" color="#2b5797">
+        <meta name="msapplication-TileColor" content="#2b5797">
+        <meta name="theme-color" content="#ffffff">
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        {% endblock %}
+
+        {% if analytics_active == "true" %}
+            {# Lucky Orange Code #}
+            <!-- Lucky Orange Code -->
+            <script type='text/javascript'>window.__lo_site_id = 186192;
+                (function() {var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);})();
+            </script>
+
+            {# Google Analytics Code #}
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154524641-1"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+                gtag('config', 'UA-154524641-1');
+            </script>
+
+        {% endif %}
+
+        <div class="d-none">{% block shareThisTitle %}{{ block('title') }}{% endblock %}</div>
+    </head>
+    <body id="{{ app.request.attributes.get('_route') }}" class="bg-secondary">
+        {% block header %}
+            <header>
+                {% block main_menu %}{% endblock %}
+                {% block user_menu %}{% endblock %}
+                {% include '_primary_nav.html.twig' with {main_menu: block('main_menu'), user_menu: block('user_menu')} %}
+                {# the method above used ot enable child templates to override primary nav block #}
+            </header>
+        {% endblock %}
+
+        {% block body %}
+            <div class="{% block body_master_container_class %}container-fluid{% endblock %}">
+
+                <div class="{% block body_master_row_class %}row justify-content-center{% endblock %}">
+
+                    <div class="{% block body_master_column_class %}col-10 col-md-8 col-lg-6 col-xl-5 m-4 bg-white{% endblock %}">
+
+                        {% block flash_message %}
+                            {% include '_flash_message.html.twig' %}
+                        {% endblock %}
+
+                        {% block body_top %}{% endblock %}
+
+                        {% block body_main %}{% endblock %}
+
+                        {% block body_bottom %}{% endblock %}
+
+                    </div>
+                </div>
+            </div>
+            {% block footer %}
+                <footer>
+                    <div class="row py-2">
+                        <div class="col-12">
+                            {% set m = knp_menu_get( 'footerMenu' ).setChildrenAttribute('class', 'nav justify-content-center') %}
+                            {{ knp_menu_render(m) }}
+                        </div>
+                    </div>
+                    <div class="row py-3">
+                        <div class="col-12 text-center">
+                            &copy; Copyright {{ "now"|date('Y') }} - CityGovtJobs.com LLC * All rights reserved.<br>
+                            US Patent No. 9,449,300
+                        </div>
+                    </div>
+
+                </footer>
+            {% endblock %}
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="{{ asset('build/runtime.js') }}"></script>
+            <script src="{{ asset('build/collection.js') }}"></script>
+            <script src="{{ asset('build/app.js') }}"></script>
+            <script src="{{ asset('js/cgj.js') }}"></script>
+            <script src="https://js.stripe.com/v3/"></script>
+        {% endblock %}
+    </body>
+
+    {% if app.request.cookies.get('gdpr_accepted') == NULL %}
+        <div class="bg-light check-gdpr-acceptance">
+            <div class="container">
+                <label>By continuing to use our service or by clicking the OK button you agree to our use of cookies, <a href="{{ path('privacy_policy') }}">Privacy Policy</a>, <a href="{{ path('terms_of_use') }}"/>Terms of Use</a>, and understand that we link users to third party websites in order to save you time and connect you to information requested.</label>
+            <button  type="button" class="btn btn-primary btn-set-gdpr-cookie">OK</button>
+            </div>
+        </div>
+    {% endif %}
+</html>

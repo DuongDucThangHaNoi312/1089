@@ -1,0 +1,33 @@
+{
+    "devDependencies": {
+        "@symfony/webpack-encore": "^0.23",
+        "less": "^3.9.0",
+        "less-loader": "^4.1.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.7.2",
+        "bootstrap": "^4.3.1",
+        "bootstrap-datepicker": "^1.8.0",
+        "cleave.js": "^1.4.10",
+        "copy-webpack-plugin": "^4.6.0",
+        "core-js": "^2.6.12",
+        "ion-rangeslider": "^2.3.0",
+        "jquery": "^3.4.1",
+        "node-sass": "^4.11.0",
+        "noty": "^3.2.0-beta",
+        "popper.js": "^1.14.7",
+        "sass-loader": "^7.1.0",
+        "select2": "4.0.2",
+        "select2-bootstrap4-theme": "^1.0.0",
+        "slick-carousel": "^1.8.1",
+        "webpack-notifier": "^1.7.0"
+    }
+}

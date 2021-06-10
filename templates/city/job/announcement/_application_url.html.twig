@@ -1,0 +1,18 @@
+{% set canEdit = false %}
+{% if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Application Link', 'canEdit': canEdit, 'urgency': 'Required'} %}
+<hr/>
+<div class="editable row">
+    <div class="col-md-12">
+        {% if jobAnnouncement.applicationUrl == null or jobAnnouncement.applicationUrl == '' %}
+            <p>No Application Link</p>
+            {% else %}
+            <a class="btn btn-outline-primary" href="{{ jobAnnouncement.applicationUrl }}" target="_blank">Apply Link</a>
+        {% endif %}
+    </div>
+</div>
+{% if form is defined %}
+    {% include 'city/job/announcement/_application_url_form.html.twig' with {'form': form} %}
+{% endif %}

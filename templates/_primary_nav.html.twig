@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+
+    <a class="navbar-brand ml-lg-5" href="{{ path('home') }}"><img src="{{ asset('build/images/CGJ-logo-2019-v2.svg') }}" width="216" alt="CityGovJobs.com" title="CityGovJobs.com Logo"></a>
+
+    <button class="navbar-toggler mr-lg-5" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {% if main_menu is empty %}
+            {% if is_granted('ROLE_CITYUSER') %}
+                {% include 'menu/_main_menu.html.twig' with {'menu': 'cityUserMenu'}  %}
+            {% endif %}
+            {% if is_granted('ROLE_JOBSEEKER') or is_granted('ROLE_PENDING_JOBSEEKER') %}
+                {% include 'menu/_main_menu.html.twig' with {'menu': 'jobSeekerMenu'}  %}
+            {% endif %}
+        {% else %}
+            {{ main_menu }}
+        {% endif %}
+
+        {% if user_menu is empty %}
+            {% include 'menu/_user_menu.html.twig' with {'menu': 'userMenu'} %}
+        {% else %}
+            {{ user_menu }}
+        {% endif %}
+    </div>
+
+</nav>

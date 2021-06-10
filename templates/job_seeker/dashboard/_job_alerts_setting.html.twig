@@ -1,0 +1,42 @@
+<div class="mx-md-6 px-md-5 p-4 w-100 collapse col-12 col-md-10 form-job-alert-setting" id="job-alert-setting">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-primary text-center">Job Alert Settings</h2>
+        </div>
+    </div>
+    {{ form_start(form) }}
+    <div class="row mt-1">
+        <div class="col-12 col-md-6">
+            <div class="text-center">
+                <h3>From Submitted Interest</h3>
+                <h4 class="label mx-auto">Receive Emails of Job Alerts for Submitted Interest?</h4>
+                <div>
+                    <div class="form-group mb-3 mb-md-5">
+                        {{ form_row(form.receiveAlertsForSubmittedInterest) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.notificationPreferenceForSubmittedInterest) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="text-center">
+                <h3>From Saved Search Criteria</h3>
+                <h4 class="label mx-auto">Receive Emails of Job Alerts for Jobs Matching Saved Search Criteria?</h4>
+                <div class="form-group mb-3 mb-md-5">
+                    {{ form_row(form.receiveAlertsForJobsMatchingSavedSearchCriteria) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.notificationPreferenceForJobsMatchingSavedSearchCriteria) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="actions">{{ form_row(form.save) }}</div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

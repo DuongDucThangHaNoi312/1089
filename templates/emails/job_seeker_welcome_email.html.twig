@@ -1,0 +1,96 @@
+{% extends 'email_base.html.twig' %}
+
+{% block subject %}
+    {{ subject }}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+        Congratulations! You have completed your Registration with CityGovJobs!
+
+        To get the most out of CityGovJobs and to advance faster in your career:
+
+            1. Login from a laptop computer and Go to Jobs Search and add Extra Saved Job Searches. For example, enter
+            multiple Job Titles and Save that Search, or add more county areas or try a different job category. Your extra
+            searches will list on your Dashboard and you will get job alerts matching your Saved Searches.
+
+            2. Complete Short-form Resume from your Dashboard, then use the “Jobs of Interest” tab on your Job Search Results
+            page to find and Submit Interest in jobs you are best qualified to compete for at cities where you want to work.
+            You’ll get a separate email of these job postings.
+
+            3. From your Dashboard you can also access all City Job Boards using Saved City Profiles and Links, along with
+            other information such as job descriptions and salary tables. This feature provides you with complete access to
+            all City Jobs in Cities whose Links you Save to your Dashboard.
+
+            4. Make sure your Alerts Setting is set to send you Daily job alerts.
+
+            5. Visit the Frequently Asked Question (FAQ) for more information.
+
+        If you have any questions or need help, contact us at customerservice@citygovjobs.com.
+
+        Sincerely,
+
+        CityGovJobs Team
+    {% endautoescape %}
+{% endblock %}
+
+
+{% block email_simple_title %}
+    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#174275;">
+        <p style="text-align: center;font-size:33px;font-weight:700;letter-spacing:-3px;">JobSeeker Registration Complete</p>
+    </div>
+{% endblock %}
+
+{% block email_content %}
+    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tr>
+            <td vertical-align="top" style="font-size:15px;padding:20px 0;padding-right:20px;padding-left:20px;word-break:break-word;">
+                <!--[if mso | IE]>
+                <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:800px;" width="800"
+                >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+
+                <div style="Margin:0px auto;max-width:800px;padding-bottom:20px">
+
+                    <p>Congratulations!  You have completed your Registration with CityGovJobs!</p>
+                    <p>To get the most out of CityGovJobs and to advance faster in your career:</p>
+                    <ol>
+                        <li>
+                            <p>Login from a laptop computer and Go to Jobs Search and add Extra Saved Job Searches.
+                                For example, enter multiple Job Titles and Save that Search, or add more county areas or
+                                try a different job category. Your extra searches will list on your Dashboard and you
+                                will get job alerts matching your Saved Searches.</p>
+                        </li>
+                        <li>
+                            <p>Complete Short-form Resume from your Dashboard, then use the “Jobs of Interest” tab on
+                                your Job Search Results page to find and Submit Interest in jobs you are best qualified
+                                to compete for at cities where you want to work. You’ll get a separate email of these job
+                                postings.</p>
+                        </li>
+                        <li>
+                            <p>From your Dashboard you can also access all City Job Boards using Saved City Profiles and
+                                Links, along with other information such as job descriptions and salary tables. This
+                                feature provides you with complete access to all City Jobs in Cities whose Links you
+                                Save to your Dashboard.</p>
+                        </li>
+                        <li><p>Make sure your Alerts Setting is set to send you Daily job alerts.</p></li>
+                        <li><p>Visit the Frequently Asked Question (FAQ) for more information.</p></li>
+                    </ol>
+                    <p>If you have any questions or need help, contact us at <a href="mailto:customerservice@citygovjobs.com">customerservice@citygovjobs.com</a>.</p>
+                    <p>Sincerely,<br/></p>
+                    <p>CityGovJobs Team</p>
+                </div>
+
+                <!--[if mso | IE]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+
+    </table>
+{% endblock %}

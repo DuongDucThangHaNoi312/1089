@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Seeker Registration Step One{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body_master_container_class %}container{% endblock %}
+{% block body_master_row_class %}bg-white px-md-5 my-md-5 justify-content-center{% endblock %}
+{% block body_master_column_class %}container px-md-5 py-md-5 px-xs-2 {% endblock %}
+
+{% block body_main %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2 pt-5 text-center {{ isApplyLink ? 'view-job-apply-link' : '' }}">
+            <h1>{{ heading |raw}}</h1>
+            <p class="h4 text-danger">{{ description|raw }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            {{ form_start(form) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.plainPassword) }}
+            {{ form_row(form.continue, {'label': button}) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <div class="job-seeker-registration-ul-container d-flex justify-content-center">
+                <ul class="bullet-space mt-2 ml-auto mr-auto p-0">
+                    <li class="text-center"><h3>Reasons You'll Love CityGovJobs</h3></li>
+                    {% if isApplyLink %}
+                        <li><i class="fa fa-star" aria-hidden="true"></i>Link to multiple Application Portals Where you
+                            want to work
+                        </li>
+                    {% endif %}
+                    <li><i class="fa fa-star" aria-hidden="true"></i>Quickly Access All City Job boards in Counties Served
+                    </li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i>Use over 140 Categories to Find Jobs Fit for You
+                    </li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i>Be notified of Jobs you can land to advance your Career
+                    </li>
+                    </li>
+                </ul>
+            </div>
+
+            {% set source = app.request.query.get('source') %}
+            {% if source == 'view_city_link' %}
+                <div class="text-center">
+                    <img class="w-75" src="{{ asset('build/images/SampleCityLinksDashboard.png') }}" alt="Sample City Links Dashboard" title="Sample City Links Dashboard"/>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

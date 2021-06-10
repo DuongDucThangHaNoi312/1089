@@ -1,0 +1,5 @@
+{% if isEditable %}
+    <div id="city-job-announcement-message">
+        {{ include('cms_block/_cms_block.html.twig', { 'slug': 'job-announcement-edit-hint' }) }}
+    </div>
+{% endif %}

@@ -1,0 +1,40 @@
+{% if city.sealImage is not null %}
+    <div class="py-4  col-12">
+{% else %}
+    <div class="col-12">
+{% endif %}
+    <div class="row">
+        <div class="col-12 mb-2">
+            {% include 'city/profile/_section_title.html.twig' with {'name': 'Job Information', 'class': 'h5'} %}
+        </div>
+        <div class="col-12">
+            <div>
+                <label>Type</label>
+            </div>
+            <p>{{ jobAnnouncement.jobTitle.type }}</p>
+        </div>
+        <div class="col-12">
+            <div>
+                <label>Department</label>
+            </div>
+            <p>{{ jobAnnouncement.jobTitle.department }}</p>
+        </div>
+        <div class="col-12">
+            <div>
+                <label>Level</label>
+            </div>
+            <p>{{ jobAnnouncement.jobTitle.level.name }} Level </p>
+        </div>
+        {% if canEdit == false and jobAnnouncement.street and jobAnnouncement.city and jobAnnouncement.state and jobAnnouncement.zipcode %}
+        <idv class="col-12">
+            <div>
+                <label>Location</label>
+            </div>
+            <div class="d-flex flex-column justify-content-start mb-2">
+                <p>{{ jobAnnouncement.street }}</p>
+                <p>{{ "%s, %s %s"|format(jobAnnouncement.city.name, jobAnnouncement.state|abbreviate, jobAnnouncement.zipCode) }}</p>
+            </div>
+        </idv>
+        {% endif %}
+    </div>
+</div>

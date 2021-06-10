@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs Job Announcement - {{ jobAnnouncement.jobTitle }}{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.11.1/standard/ckeditor.js"></script>
+    <script>
+        function CKupdate(){
+            for ( instance in CKEDITOR.instances )
+                CKEDITOR.instances[instance].updateElement();
+        }
+
+        $(document).ready(function() {
+            $('.ajax-form.ckeditor').click(function() {
+                CKupdate();
+            });
+        });
+    </script>
+    {% include '_sharethis.html.twig'%}
+    {% if city.allowsJobAnnouncements %}
+        <script type="application/ld+json">
+            {
+                "@context" : "https://schema.org/",
+                "@type" : "JobPosting",
+                "title" : "{{ jobAnnouncement.jobTitle.name }}",
+                "description" : "The {{ city.prefix }} {{ city.mediumName }}, is accepting applications for {{ jobAnnouncement.jobTitle.name }} position. Visit CityGovJobs.com to view the Job Announcement and other application information.",
+                "datePosted" : "{{ jobAnnouncement.startsOn ? jobAnnouncement.startsOn|date("m/d/Y h:i A T", city.phpTimezone) }}",
+                "validThrough" : "{{ jobAnnouncement.endsOn ? jobAnnouncement.endsOn|date("m/d/Y h:i A T", city.phpTimezone) : "+ 1 year"|date("m/d/Y h:i A T", city.phpTimezone) }}",
+                "employmentType" : "{{ jobAnnouncement.jobTitle.type }}",
+                "hiringOrganization" : {
+                    "@type" : "Organization",
+                    "name" : "{{ city.prefix }} {{ city.mediumName }}",
+                    "logo" : "https://citygovjobs.com/build/images/CGJ-logo-2019-v2.svg"
+                },
+                "jobLocation": {
+                    "@type": "Place",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": "{{ city.address }}",
+                        "addressLocality": "{{ city.prefix }} {{ city.mediumName }}",
+                        "addressRegion": "{{ city.getState() }}",
+                        "postalCode": "{{ city.zipCode }}",
+                        "addressCountry": "US"
+                    }
+                }
+                {% if jobAnnouncement.wageSalaryHigh or jobAnnouncement.wageSalaryLow %},
+                "baseSalary": {
+                    "@type": "MonetaryAmount",
+                    "currency": "USD",
+                    "value": {
+                        "@type": "QuantitativeValue",
+                        {% if jobAnnouncement.wageSalaryHigh %}
+                        "maxValue": {{ jobAnnouncement.wageSalaryHigh }},
+                        {% endif %}
+            {% if jobAnnouncement.wageSalaryLow %}
+                        "minValue": {{ jobAnnouncement.wageSalaryLow }},
+                        {% endif %}
+                        "unitText": "{{ jobAnnouncement.wageSalaryUnit }}"
+                    }
+                }
+                {% endif %}
+            }
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block body_top %}
+    {% if isCityUser %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h1>View Job Alert{{ city.allowsJobAnnouncements == true ? '/Announcement' : ''}}</h1>
+            {% set m = knp_menu_get( 'cityUserJobMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+            {{ knp_menu_render(m) }}
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block body_main %}
+    {% set canEdit = false %}
+    <div class="container bg-white rounded my-4 pb-5 py-4">
+        <div class="row pt-3">
+            <div class="col-sm-10 offset-sm-1">
+                <div class="row align-items-stretch">
+                    <div class="col-md-12 text-right">
+                        {% if  isCityUser %}
+                            <a href="{{ path("city_edit_job_announcement", { "slug": city.slug ,"id": jobAnnouncement.id}) }}"><i class="fa fa-edit"></i> Edit</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 pt-3">
+            {% include 'job/announcement/_job_announcement_card.html.twig' with {'job': jobAnnouncement, 'type': 'announcement'} %}
+        </div>
+    </div>
+{% endblock %}

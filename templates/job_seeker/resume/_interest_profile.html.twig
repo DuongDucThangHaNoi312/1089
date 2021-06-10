@@ -1,0 +1,69 @@
+{% set canEdit = false %}
+{%  if form is defined %}
+    {% set canEdit = true %}
+{% endif %}
+
+
+{% set checkmark = false %}
+{% if section is defined and section['complete'] and section['complete'] == true %}
+    {% set checkmark = true %}
+{% endif %}
+
+{% include 'job_seeker/resume/_section_editable_title.html.twig' with {'name': 'Interest Profile', 'canEdit': canEdit, 'urgency': 'Required'} %}
+<hr/>
+<div class="editable row">
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12">
+                <label>General Position of Interest</label>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Job Type</label>
+                        <span>{{ resume.interestedJobType }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Job Levels of Interest</label>
+                        {% for jobLevel in resume.interestedJobLevels %}
+                            <p>{{ jobLevel }} </p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Job Categories of Interest</label>
+                        {% for category in resume.interestedJobCategories %}
+                            <p>{{ category }} </p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12">
+                <label>Job Titles of Interest</label>
+                {% for jobTitle in resume.interestedJobTitleNames %}
+                    <p>{{ jobTitle }} </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12">
+                <label>Locations of Interest</label>
+                {% for county in resume.interestedCounties %}
+                    <p>{{ county.displayName }} </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% if form is defined %}
+    {% include 'job_seeker/resume/_interest_profile_form.html.twig' with {'form': form} %}
+{% endif %}

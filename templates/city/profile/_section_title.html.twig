@@ -1,0 +1,4 @@
+<div>
+    <span class="{{ class|default("h5") }} uppercase">{{ name }}{% if urgency is not defined or urgency == false %}&nbsp;{% endif %}</span>
+    {% if urgency is defined and urgency != false %}<span class="align-middle label text-danger font-weight-bold uppercase"> ({{ urgency }})&nbsp;</span>{% endif %}
+</div>

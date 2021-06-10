@@ -1,0 +1,31 @@
+<div class="ajax-form row">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="d-flex flex-row">
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.startsOn) }}
+                </div>
+                <div class="col-1">
+                    <p class="mx-3 text-muted align-self-center ends-on-group"><i class="fa fa-arrow-right"></i></p>
+                </div>
+                <div class="col-md-5">
+                    {{ form_row((form.endsOn)) }}
+                    <div class="ajax-has-no-end-date">
+                        {{ form_row((form.hasNoEndDate)) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row((form.endDateDescription)) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        <div class="mx-3 align-self-center ja-active-from-actions">
+            <button type="button" class="btn btn-light cancel-btn">Cancel</button>
+            <button type="submit" class="btn btn-primary save-btn">Save</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

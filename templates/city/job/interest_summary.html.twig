@@ -1,0 +1,110 @@
+<div class="table-responsive submitted-interest-summary-container">
+    <div class="pb-4">
+        <h2>{{ jobTitleName }}</h2>
+        <span class="font-weight-bold summary-title">Submitted Interest ({{ submittedInterests | length|number_format }})</span>
+        {% if jobLevel == 'mid' or jobLevel == 'entry' %}
+            <div class="float-right">
+                <a class="btn btn-sm btn-primary collapsed text-white" data-toggle="collapse" href="#submitter-list" role="button" aria-expanded="false" aria-controls="submitter-list">
+                    <span class="if-collapsed">View All</span>
+                    <span class="if-not-collapsed">Hide All</span>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if jobLevel == 'mid' or jobLevel == 'entry' %}
+        <div class="collapse mb-4" id="submitter-list">
+            <div class="card card-body">
+                <table class="table topless table-hover">
+                    <tr>
+                        <th>
+                            Job Seeker Name
+                        </th>
+                        <th>
+                            Job Seeker Email
+                        </th>
+                        <th class="text-right">
+                            Submittal Date
+                        </th>
+                        <th class="text-right">
+                            Actions
+                        </th>
+                    </tr>
+                    {% for interest in submittedInterests %}
+                        <tr>
+                            <td>
+                                {{ interest.jobSeekerUser }}
+                            </td>
+                            <td>{{ interest.jobSeekerUser.email }}</td>
+                            <td class="text-right">
+                                {{ interest.createdAt | date('M d, Y', app.user.city.phpTimezone) }}
+                            </td>
+                            <td class="text-right">
+                                <a href="{{ path('job_seeker_view_resume', {'id': interest.jobSeekerUser.resume.id}) }}">
+                                    <i class="fa fa-eye"></i> View Resume
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="card-group">
+        <div class="card mx-2">
+            <div class="card-header">Where They're From</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for text, count in counties %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 border-0">
+                            {{ text }}
+                            <span>{{ count }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="card mx-2">
+            <div class="card-header">Education</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for text, count in education %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 border-0">
+                            {{ text }}
+                            <span>{{ count }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="card mx-2">
+            <div class="card-header">Job Titles Held</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for text, count in jobTitleHelds %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 border-0">
+                            {{ text }}
+                            <span>{{ count }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="card mx-2">
+            <div class="card-header">Average Years Experience</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for text, count in yearsOfExp %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2 border-0">
+                            {{ text }}
+                            <span>{{ count }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>

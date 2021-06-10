@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CityGovJobs City Job Announcements{% endblock %}
+
+{% block body_master_row_class %}{% endblock %}
+{% block body_master_column_class %}{% endblock %}
+
+{% block body_top %}
+    <div class="row bg-white justify-content-center">
+        <div class="col-10 mx-5 py-3 bg-white">
+            <h1>Job Alerts{{ city.allowsJobAnnouncements ? "/Announcements" : ''}}</h1>
+            {% set m = knp_menu_get( 'cityUserJobMenu' ).setChildrenAttribute('class', 'nav nav-pills') %}
+            {{ knp_menu_render(m) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block body_main %}
+    <div class="row bg-secondary justify-content-center">
+        <div class="col-10 m-4 p-4 bg-white">
+            <div class="row bg-light">
+                <div class="col-9 city-job-submenu">
+                    {% set m = knp_menu_get( 'cityUserJobAnnouncementMenu' ).setChildrenAttribute('class', 'nav') %}
+                    {{ knp_menu_render(m) }}
+                </div>
+                <div class="col-3 d-flex align-items-center justify-content-end">
+                    <a class="" href="{{ path('city_job_titles', {'slug': city.slug}) }}">Select a New Job to Post</a>
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    {{ include('cms_block/_cms_block.html.twig', { 'slug': 'city-job-announcements-'~jobAnnouncementStatus.slug }) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_start(filterForm) }}
+                    <div class="col-12 ml-auto text-right justify-content-end">
+                        {#<div class="col-12 ml-auto text-right">#}
+                            <div class="row justify-content-end top-filter align-items-baseline city-manage-job-titles-filter">
+                                <div class="text-left pr-4"> <div class="mt-2">{{ form_label(filterForm.jobTitle) }}</div> {{ form_widget(filterForm.jobTitle) }}</div>
+                                <div class="text-left pr-4 mb-2"> <div class="mt-2">{{ form_label(filterForm.showPerPage) }}</div> {{ form_widget(filterForm.showPerPage) }}</div>
+                                <div class="mt-auto d-flex">
+                                    <div class="pr-2 mb-2">{{ form_widget(filterForm.Go) }}</div>
+                                    <div class="pr-4 mb-2"><a class="btn btn-light" href="{{ path('city_job_announcements', {'slug': city.slug, 'status': jobAnnouncementStatus.slug}) }}">Reset</a></div>
+
+                                </div>
+                            </div>
+                        {#</div>#}
+                    </div>
+                    {{ form_end(filterForm) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+
+
+                    {% if pagination.paginationData.totalCount %}
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <tr>
+                                    {# sorting of properties based on query components #}
+                                    <th{% if pagination.isSorted('jt.name') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(pagination, 'Job Title', 'jt.name') }}
+                                    </th>
+                                    <th{% if pagination.isSorted('d.name') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(pagination, 'Department / Division', 'd.name') }}
+                                    </th>
+                                    <th{% if pagination.isSorted('t.name') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(pagination, 'Type', 't.name') }}
+                                    </th>
+                                    <th{% if pagination.isSorted('s.name') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(pagination, 'Status', 's.name') }}
+                                    </th>
+                                    <th{% if pagination.isSorted('ja.startsOn') %} class="sorted"{% endif %}>
+                                        {{ knp_pagination_sortable(pagination, 'Start Date', 'ja.startsOn') }}
+                                    </th>
+                                    {% if isTodoStatus %}
+                                        <th{% if pagination.isSorted('assignedTo') %} class="sorted"{% endif %}>
+                                            {{ knp_pagination_sortable(pagination, 'Assigned To', 'assignedTo') }}
+                                        </th>
+                                    {% else %}
+                                        <th{% if pagination.isSorted('ja.endsOn') %} class="sorted"{% endif %}>
+                                            {{ knp_pagination_sortable(pagination, 'Ends On', 'ja.endsOn') }}
+                                        </th>
+                                    {% endif %}
+
+                                    {% if jobAnnouncementStatus.slug != "to-do" %}
+                                        <th class="text-right {% if pagination.isSorted('viewCount') %} sorted{% endif %}">
+                                            {{ knp_pagination_sortable(pagination, 'Views', 'viewCount') }}
+                                        </th>
+                                    {% endif %}
+                                    <th>Actions</th>
+                                </tr>
+                                {% for job_announcement in pagination %}
+                                    <tr>
+                                        <td>{{ job_announcement.job_title }}</td>
+                                        <td>{{ job_announcement.department }} {% if job_announcement.divisionName %} / {{ job_announcement.divisionName }}{% endif %}</td>
+                                        <td>{{ job_announcement.type }}</td>
+                                        <td>{{ job_announcement.status }}</td>
+                                        <td>{{ job_announcement.startsOn ? job_announcement.startsOn|date('m/d/Y h:i a T', city.phpTimezone) : ""}}</td>
+                                        {% if isTodoStatus %}
+                                            <td>
+                                                <select class="select2box w-100 job-announcement-assignedto"
+                                                        data-placeholder="Please select an user"
+                                                        data-url="{{ path('city_job_announcement_update_assigned_to', {'slug': city.slug, 'id': job_announcement.id}) }}">
+                                                    <option value="0">Please select an user</option>
+                                                    {% for item in assignedToList %}
+                                                        <option value="{{ item.id }}" {% if job_announcement.assignedToId and job_announcement.assignedToId == item.id %}selected="true"{% endif %}>{{ item }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </td>
+                                        {% else %}
+                                            <td>
+                                                {% if job_announcement.hasNoEndDate == false %}
+                                                    {{ job_announcement.endsOn ? job_announcement.endsOn|date('m/d/Y h:i a T', city.phpTimezone) : "" }}</td>
+                                                {% else %}
+                                                    {{ job_announcement.endDateDescription }}
+                                                {% endif %}
+                                        {% endif %}
+                                        {% if jobAnnouncementStatus.slug != "to-do" %}
+                                            <td class="text-right">{{ job_announcement.viewCount }}</td>
+                                        {% endif %}
+                                        <td>
+                                            {#{% if canCreateNewJobAnnouncement or jobAnnouncementStatus.slug == 'active' %}#}
+                                            {% if jobAnnouncementStatus.slug == 'archived' %}
+                                                {% if job_announcement.job_title_id not in cannotRepost %}
+                                                    <a class="btn btn-sm btn-primary" href="{{ path('toggle-job-title-vacancy', {'slug': city.slug, 'jobTitleId': job_announcement.job_title_id}) }}">Repost</a>
+                                                {% else %}
+                                                    <button class="btn btn-sm btn-primary" type="button" data-toggle="popover" title="Job Already Posted"
+                                                            data-content="This Job Title already has an Alert or Announcement posted.">Repost</button>
+                                                {% endif %}
+                                            {% else %}
+                                            <a class="btn btn-link btn-sm" href="{{ path('city_edit_job_announcement', {'slug': city.slug, 'id': job_announcement.id}) }}"><i class="fa fa-edit"></i> Edit</a>
+                                            {% endif %}
+                                            {#{% else %}#}
+                                            {#{% set editMessage = 'Your subscription does not allow you to activate any more Job Announcements. Alert your City Admin to update your city\'s subscription.' %}#}
+                                            {#{% if is_granted('ROLE_CITYADMIN') %}#}
+                                            {#{% set editMessage = 'Your subscription does not allow you to activate any more Job Announcements. <a href="'~ path('city_subscription', {'slug': city.slug, 'update': 'subscription'}) ~'">You can change your subscription plan here.</a>' %}#}
+                                            {#{% endif %}#}
+                                            {#<button class="btn btn-link btn-sm" type="button" data-toggle="popover" title="Your Subscription Is Limited"#}
+                                            {#data-content='{{ editMessage }}'#}
+                                            {#data-html="true"><i class="fa fa-edit"></i> Edit</button>#}
+                                            {#{% endif %}#}
+
+                                            {% if job_announcement.isAlert %}
+                                                <a class="btn btn-link btn-sm"  href="{{ path('city_view_job_announcement', {'slug': city.slug, 'id': job_announcement.id}) }}"><i class="fa fa-eye"></i> View</a>
+                                            {% else %}
+                                                <a class="btn btn-link btn-sm"  href="{{ path('city_full_view_job_announcement', {'slug': city.slug, 'id': job_announcement.id}) }}"><i class="fa fa-eye"></i> View</a>
+                                            {% endif %}
+
+                                            {% if jobAnnouncementStatus.slug in ['to-do', 'draft', 'scheduled'] %}
+                                                <a class="btn btn-link btn-sm"  href="{{ path('city_delete_job_announcement', {'slug': city.slug, 'id': job_announcement.id}) }}"><i class="fa fa-trash-alt"></i> Delete</a>
+                                            {% endif %}
+                                            {% if jobAnnouncementStatus.slug in ['active'] %}
+                                                <a class="btn btn-link btn-sm"  href="{{ path('city_end_job_announcement', {'slug': city.slug, 'id': job_announcement.id}) }}"><i class="fa fa-ban"></i> End</a>
+                                            {% endif %}
+                                            {% if jobAnnouncementStatus.slug in ['active', 'ended'] %}
+                                                <a class="btn btn-link btn-sm"  href="{{ path('city_archive_job_announcement', {'slug': city.slug, 'id': job_announcement.id}) }}"><i class="fa fa-archive"></i> Archive</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <div>
+                            {{ knp_pagination_render(pagination) }}
+                        </div>
+                    {% else %}
+                        <p class="text-danger">You currently have No Jobs to Post.  Mark Vacancies under Manage Job Titles and they will appear here for you To Post.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

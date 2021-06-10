@@ -1,0 +1,24 @@
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: App\Entity\User
+    resetting:
+        email:
+            template:   'emails/fosuser/jobseeker/reset_password.html.twig'
+    registration:
+        confirmation:
+            enabled: true
+            template:   'emails/fosuser/jobseeker/registration_confirmation.html.twig'
+            from_email:
+                address:        registration@citygovjobs.com
+                sender_name:    City Gov Jobs Registration
+    group:
+        group_class: App\Entity\Group
+        group_manager: sonata.user.orm.group_manager
+    service:
+        mailer: fos_user.mailer.twig_swift
+        user_manager: sonata.user.orm.user_manager
+    from_email:
+        address: no-reply@citygovjobs.com
+        sender_name: no-reply@citygovjobs.com
+    use_flash_notifications: false

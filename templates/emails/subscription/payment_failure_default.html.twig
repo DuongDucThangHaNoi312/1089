@@ -1,0 +1,64 @@
+{% extends 'email_base.html.twig' %}
+
+{% block subject %}
+    {{ subject }}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+        {{ amount|localizedcurrency('USD') }} to CityGovJobs was unsuccessful.
+
+        We were unable to charge your {{ brand  }} ending in {{ last4 }} for your CityGovJobs subscription. Please update your billing information.
+
+        {{ link }}
+
+
+    {% endautoescape %}
+{% endblock %}
+
+{% block email_simple_title %}
+    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#174275;">
+        <p style="text-align: center;font-size:33px;font-weight:700;letter-spacing:-3px;">CityGovJobs Failure Payment</p>
+    </div>
+{% endblock %}
+
+{% block email_content %}
+    <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tr>
+            <td vertical-align="top" style="font-size:15px;padding:20px 0;padding-right:20px;padding-left:20px;word-break:break-word;">
+                <!--[if mso | IE]>
+                <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:800px;" width="800"
+                >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+
+                <div style="Margin:0px auto;max-width:800px;padding-bottom:20px">
+
+                    <p>
+                        {{ amount|localizedcurrency('USD') }} to CityGovJobs was unsuccessful.
+                    </p>
+
+                    <p>
+                        We were unable to charge your {{ brand  }} ending in {{ last4 }} for your CityGovJobs subscription. Please <a href="{{ link }}">update</a> your billing information.
+                    </p>
+
+                    <p>
+                        <br/><br/>
+                        Sincerely,
+                        <br/>
+                        CityGovJobs Team
+                    </p>
+                </div>
+
+                <!--[if mso | IE]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+
+    </table>
+{% endblock %}

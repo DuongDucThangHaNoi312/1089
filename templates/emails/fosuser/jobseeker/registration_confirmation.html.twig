@@ -1,0 +1,151 @@
+{% extends 'email_base.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% block subject %}
+{%- autoescape false -%}
+{{ 'registration.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+{%- endautoescape -%}
+{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+
+    Congratulations on taking the first step to register with CityGovJobs.
+
+    To get started, visit  Activate my Account page here: {{ confirmationUrl }}
+
+    You’ll answer a few questions so we can personalize your Dashboard.
+
+    HELPFUL TIPS (Recommended Reading):
+
+    - To maximize the job alerts you receive, select five counties in next step.
+
+    - Then, Select one city govt job category. NOTE some categories are more “department-specific” while others cut
+    across different departments:
+
+        + Dept Specific Categories include City Clerk’s Office, City Management, Community/Development Services, Finance,
+    Fire, Law Enforcement, Public Works, Recreation and Utilities, for example.
+
+        + Cross Dept Categories include Administrative and Analytical, Clerical and Administrative Support, Engineering,
+    Facilities Maintenance, Internships, Maintenance, Records Management, as well as others.
+
+    You can always change your default settings once you finish registration, but we’d like to see you get off to a
+    great start, so select 5 counties and a category of interest to you.
+
+    Two More Suggestions:
+
+    (1) Consider using a laptop or PC when you activate your account.  It’s not required but it will give you a fuller
+    understanding of the available features.  Once your default settings are in place, and perhaps after you’ve added
+    some Extra Saved Searches, you can use your phone to view job alerts.
+
+    (2) Be aware of the following Job Level Definitions when you Activate your Account, as you’ll be asked to select two:
+
+        - Entry--Intern, Trainee, Cadet, Office Clerk I, Police Recruit, and various other positions
+
+        - Mid--Most city government jobs above Entry level but not Manager, Assistant Director, or Executive level positions
+
+        - Senior--Manager, Assistant Director, Captain, City Planner, City Engineer positions
+
+        - Executive--Department Directors, Chiefs and City Managers
+
+    Once you complete onboarding you’ll be able to access every city’s jobs in the counties you select, and your
+    searches will filter the jobs of highest interest to you so you’ll have the best chances of landing your next job.
+
+    Sincerely,
+
+    CityGovJobs Team
+{% endautoescape %}
+{% endblock %}
+
+{% block email_simple_title %}
+    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#174275;">
+        <p style="text-align: center;font-size:33px;font-weight:700;letter-spacing:-3px;">Welcome to CityGovJobs</p>
+    </div>=
+{% endblock %}
+
+
+{% block email_content %}
+     <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+        <tr>
+            <td vertical-align="top" style="font-size:15px;padding:20px 0;padding-right:20px;padding-left:20px;word-break:break-word;">
+                <!--[if mso | IE]>
+                <table
+                        align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:800px;" width="800"
+                >
+                    <tr>
+                        <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
+                <![endif]-->
+
+                <div style="Margin:0px auto;max-width:800px;padding-bottom:20px">
+
+                    <p>Congratulations on taking the first step to register with CityGovJobs.</p>
+                    <p>To get started, click <a href="{{ confirmationUrl }}">Activate my Account</a></p>
+                    <p>You’ll answer a few questions so we can personalize your Dashboard.</p>
+                    <p>HELPFUL TIPS (Recommended Reading):</p>
+                    <ul>
+                        <li><p>To maximize the job alerts you receive, select five counties in next step.</p></li>
+                        <li><p>Then, Select one city govt job category. NOTE some categories are more
+                                “department-specific” while others cut across different departments:</p>
+                            <ul>
+                                <li>
+                                    <p><u>Dept Specific Categories</u> include City Clerk’s Office, City Management,
+                                    Community/Development Services, Finance, Fire, Law Enforcement, Public Works,
+                                    Recreation and Utilities, for example.</p>
+                                </li>
+                                <li>
+                                    <p><u>Cross Dept Categories</u> include Administrative and Analytical, Clerical and
+                                    Administrative Support, Engineering, Facilities Maintenance, Internships,
+                                    Maintenance, Records Management, as well as others.</p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>
+                        You can always change your default settings once you finish registration, but we’d like to see
+                        you get off to a great start, so select 5 counties and a category of interest to you.
+                    </p>
+                    <p>Two More Suggestions:</p>
+                    <p>
+                        (1) Consider using a laptop or PC when you activate your account.  It’s not required but it will
+                        give you a fuller understanding of the available features.  Once your default settings are in
+                        place, and perhaps after you’ve added some Extra Saved Searches, you can use your phone to view
+                        job alerts.
+                    </p>
+                    <p>
+                        (2) Be aware of the following Job Level Definitions when you Activate your Account, as you’ll
+                        be asked to select two:
+                    </p>
+                    <ul>
+                        <li>
+                            <p><u>Entry</u>--Intern, Trainee, Cadet, Office Clerk I, Police Recruit, and various other
+                            positions</p>
+                        </li>
+                        <li>
+                            <p><u>Mid</u>--Most city government jobs above Entry level but not Manager, Assistant Director,
+                            or Executive level positions</p>
+                        </li>
+                        <li>
+                            <p><u>Senior</u>--Manager, Assistant Director, Captain, City Planner, City Engineer
+                            positions</p>
+                        </li>
+                        <li><u>Executive</u>--Department Directors, Chiefs and City Managers</li>
+                    </ul>
+                    <p>
+                        Once you complete onboarding you’ll be able to access every city’s jobs in the counties you
+                        select, and your searches will filter the jobs of highest interest to you so you’ll have
+                        the best chances of landing your next job.
+                    </p>
+                    <p>Sincerely,<br/></p>
+                    <p>CityGovJobs Team</p>
+                </div>
+
+                <!--[if mso | IE]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+
+    </table>
+{% endblock email_content %}

@@ -1,0 +1,71 @@
+<div class="row justify-content-center getting-started-section">
+    <div class="col-10 mx-5 getting-started-body collapse" id="getting-started">
+        <div class="py-3">
+            <h2 class="mb-2">
+                <span>Getting Started</span>
+            </h2>
+            <div class="row mb-4">
+                <div class="col-lg-6">Follow a few easy steps to set up your city profile, post jobs, and start getting highly qualified applicants in no time.</div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-lg-2 pb-3">
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <h3 class="card-title my-0">Subscription</h3>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">1.<br/>Understand Your <br/>Subscription</h4>
+                            <p class="card-text">Review subscription levels and understand how to maintain your FREE subscription.</p>
+                            <a href="{{ path('city_subscription', {'slug': city.slug}) }}" class="btn btn-danger">Subscriptions <span class="btn-icon"><i class="fa fa-angle-right"></i></span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 pb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title my-0">City Profile</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-between">
+                                <div class="col-md-6 pb-3 pb-md-0">
+                                    <h4 class="card-title">2.<br/>Review & Edit <br/>Your City Profile</h4>
+                                    <p class="card-text">Show off your City to prospective applicants by adding a City Seal and other key information.</p>
+                                    <a href="{{ path('edit_city_profile', {'slug': city.slug}) }}" class="btn btn-danger">City Profile <span class="btn-icon"><i class="fa fa-angle-right"></i></span></a>
+                                </div>
+                                <div class="col-md-6 pb-3 pb-md-0">
+                                    <h4 class="card-title">3.<br/>Review & Edit <br/>Job Titles</h4>
+                                    <p class="card-text">We've conveniently added your city's budgeted job titles, but review them to ensure they're correct.</p>
+                                    <a href="{{ path('city_job_titles', {'slug': city.slug}) }}" class="btn btn-danger">Job Titles <span class="btn-icon"><i class="fa fa-angle-right"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 pb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title my-0">Job Alerts</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-between">
+                                <div class="col-md-6 pb-3 pb-md-0">
+                                    <h4 class="card-title">4.<br/>Mark <br/>Vacancies</h4>
+                                    <p class="card-text">In order to post a job alert{{ city.allowsJobAnnouncements ? "/announcement" : ''}}, you must first mark a job title as vacant.</p>
+                                    <a href="{{ path('city_job_titles', {'slug': city.slug}) }}" class="btn btn-danger">Job Titles <span class="btn-icon"><i class="fa fa-angle-right"></i></span></a>
+                                </div>
+                                <div class="col-md-6 pb-3 pb-md-0">
+                                    <h4 class="card-title">5.<br/>Post Job Alert {{ city.allowsJobAnnouncements ? "or <br>Announcements<br/>" : ''}} </h4>
+                                    <p class="card-text">Once you mark a job title as vacant, the system drafts a job post for you. Simply add details and schedule to go live.</p>
+                                    <a href="{{ path('city_job_announcements', {'slug': city.slug, 'status': 'to-do'}) }}" class="btn btn-danger">Job Alerts{{ city.allowsJobAnnouncements ? "/Announcements" : ''}} <span class="btn-icon"><i class="fa fa-angle-right"></i></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-10 mx-5 getting-started-footer">
+        <a class="btn btn-primary btn-resume" data-toggle="collapse" href="#getting-started" role="button" aria-expanded="false" aria-controls="getting-started">Getting Started <span class="btn-icon"><i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></span></a>
+    </div>
+</div>
